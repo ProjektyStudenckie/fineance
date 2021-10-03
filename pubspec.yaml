@@ -1,0 +1,35 @@
+name: fineance
+description: A new Flutter project.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  auto_route: 2.4.2
+  bloc: 7.2.1
+  cupertino_icons: 1.0.3
+  easy_localization: 3.0.0
+  fimber: 0.6.1
+  flutter:
+    sdk: flutter
+  flutter_bloc: 7.3.0
+  get_it: 7.2.0
+  provider: 6.0.1
+
+dev_dependencies:
+  auto_route_generator: 2.4.1
+  build_runner: 2.1.4
+  flutter_test:
+    sdk: flutter
+  json_serializable: 5.0.2
+
+flutter:
+  uses-material-design: true
+
+  assets:
+  - assets/images/
+  - assets/translations/
