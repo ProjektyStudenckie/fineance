@@ -31,7 +31,7 @@ class _SplashPageState extends State<SplashPage> {
     return BlocConsumer<SplashBloc, SplashState>(
       listener: (context, state) {
         if (state is SplashOpenHome) {
-          context.router.replace(const TabRoute());
+          context.router.replace(const OnboardingRoute()); //TabRoute());
         }
       },
       builder: (context, state) {
