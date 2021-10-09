@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:fineance/routing/router.gr.dart';
-import 'package:fineance/style/typography.dart';
-import 'package:flutter/material.dart';
 import 'package:fineance/extension/context_extension.dart';
+import 'package:fineance/localization/keys.g.dart';
+import 'package:fineance/localization/utils.dart';
+import 'package:fineance/routing/router.gr.dart';
+import 'package:flutter/material.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
@@ -16,6 +17,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
   var _currentPage = 0;
 
   @override
+  void dispose() {
+    _pageViewController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -25,9 +32,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
               alignment: Alignment.centerRight,
               child: Padding(
                 padding: const EdgeInsets.only(top: 8.0, right: 16.0),
-                child: TextButton(onPressed: () {
-                  context.router.replace(const TabRoute());
-                }, child: const Text("Pomiń")),
+                child: TextButton(
+                    onPressed: () {
+                      context.router.replace(const TabRoute());
+                    },
+                    child: Text(translate(LocaleKeys.onboarding_skip))),
               ),
             ),
             Expanded(
@@ -103,9 +112,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
       child: Column(
         children: [
           const Spacer(),
-          Text("Oszczędzaj!", style: context.typo.extraLarge()),
+          Text(translate(LocaleKeys.onboarding_save),
+              style: context.typo.extraLarge()),
           const SizedBox(height: 12),
-          const Text("Zacznij kontrolować wydatki i zbieraj na wymarzone cele", textAlign: TextAlign.center),
+          Text(translate(LocaleKeys.onboarding_save_description),
+              textAlign: TextAlign.center),
           const Spacer(),
         ],
       ),
@@ -118,9 +129,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
       child: Column(
         children: [
           const Spacer(),
-          Text("Inwestuj!", style: context.typo.extraLarge()),
+          Text(translate(LocaleKeys.onboarding_invest),
+              style: context.typo.extraLarge()),
           const SizedBox(height: 12),
-          const Text("Pomnóż swoje pieniadze dzięki dobrze zaplanowanym inwwestycjom", textAlign: TextAlign.center),
+          Text(translate(LocaleKeys.onboarding_invest_description),
+              textAlign: TextAlign.center),
           const Spacer(),
         ],
       ),
@@ -133,9 +146,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
       child: Column(
         children: [
           const Spacer(),
-          Text("Witaj!", style: context.typo.extraLarge()),
+          Text(translate(LocaleKeys.onboarding_welcome),
+              style: context.typo.extraLarge()),
           const SizedBox(height: 12),
-          const Text("Nasza aplikacja pomoże Ci lepiej zarządzać pieniędzmi", textAlign: TextAlign.center),
+          Text(translate(LocaleKeys.onboarding_welcome_description),
+              textAlign: TextAlign.center),
           const Spacer(),
         ],
       ),

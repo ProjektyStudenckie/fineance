@@ -5,5 +5,14 @@
     "tab": {
         "home": "Home",
         "settings": "Settings"
+    },
+    "onboarding": {
+        "skip": "Skip",
+        "save": "Save!",
+        "save_description": "Take control of your expenses and save money to make your dreams come true",
+        "invest": "Invest!",
+        "invest_description": "Multiply your money with well-planned investments",
+        "welcome": "Welcome!",
+        "welcome_description": "This app will help you manage your money better"
     }
 }
