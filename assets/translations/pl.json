@@ -1,0 +1,18 @@
+{
+    "general": {
+        
+    },
+    "tab": {
+        "home": "Start",
+        "settings": "Ustawienia"
+    },
+    "onboarding": {
+        "skip": "Pomiń",
+        "save": "Oszczędzaj!",
+        "save_description": "Zacznij kontrolować wydatki i zbieraj na wymarzone cele",
+        "invest": "Inwestuj!",
+        "invest_description": "Pomnóż swoje pieniadze dzięki dobrze zaplanowanym inwwestycjom",
+        "welcome": "Witaj!",
+        "welcome_description": "Ta aplikacja pomoże Ci lepiej zarządzać pieniędzmi"
+    }
+}
