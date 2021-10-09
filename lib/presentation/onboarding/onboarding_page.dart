@@ -110,14 +110,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Spacer(),
           Text(translate(LocaleKeys.onboarding_save),
               style: context.typo.extraLarge()),
           const SizedBox(height: 12),
           Text(translate(LocaleKeys.onboarding_save_description),
               textAlign: TextAlign.center),
-          const Spacer(),
         ],
       ),
     );
@@ -127,14 +126,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Spacer(),
           Text(translate(LocaleKeys.onboarding_invest),
               style: context.typo.extraLarge()),
           const SizedBox(height: 12),
           Text(translate(LocaleKeys.onboarding_invest_description),
               textAlign: TextAlign.center),
-          const Spacer(),
         ],
       ),
     );
@@ -144,14 +142,28 @@ class _OnboardingPageState extends State<OnboardingPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Spacer(),
           Text(translate(LocaleKeys.onboarding_welcome),
               style: context.typo.extraLarge()),
           const SizedBox(height: 12),
           Text(translate(LocaleKeys.onboarding_welcome_description),
               textAlign: TextAlign.center),
-          const Spacer(),
+          const SizedBox(height: 12),
+          InkWell(
+              onTap: () {
+                context.router.replace(const TabRoute());
+              },
+              borderRadius: BorderRadius.circular(50),
+              splashColor: Colors.blue[400],
+              child: Ink(
+                  padding: const EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.blue[200]),
+                  child: const Icon(
+                    Icons.arrow_forward_rounded,
+                    color: Colors.white,
+                  )))
         ],
       ),
     );
