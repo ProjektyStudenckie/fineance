@@ -5,11 +5,15 @@ import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 
 const String themeBox = 'themeBox';
+const String settingsBox = "settingsBox";
+
 const IS_LIGHT_THEME = "isLightTheme";
 
 void registerModules(GetIt injector) async {
   injector.registerLazySingleton<Box>(() => Hive.box(themeBox),
       instanceName: themeBox);
+  injector.registerLazySingleton<Box>(() => Hive.box(settingsBox),
+      instanceName: settingsBox);
 
   registerRepositoryModules(injector);
   registerBlocModules(injector, getSavedTheme());

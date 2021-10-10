@@ -1,6 +1,7 @@
 {
     "general": {
-        
+        "login": "Zaloguj się",
+        "register": "Zarejestruj się"
     },
     "tab": {
         "home": "Start",

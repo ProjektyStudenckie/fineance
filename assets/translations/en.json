@@ -1,6 +1,7 @@
 {
     "general": {
-        
+        "login": "Login",
+        "register": "Register"
     },
     "tab": {
         "home": "Home",
