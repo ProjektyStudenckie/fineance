@@ -1,6 +1,7 @@
-import 'package:fineance/components/fineance_loader.dart';
+import 'package:fineance/main/bloc/theme_bloc.dart';
+import 'package:fineance/style/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,22 +9,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late RiveAnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = SimpleAnimation('rotate');
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
+  ThemeScheme _theme = ThemeScheme.light;
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: FineanceLoader()));
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: const Text('theme'),
+        onPressed: () {
+          setState(() {
+            if (_theme == ThemeScheme.light) {
+              _theme = ThemeScheme.dark;
+            } else {
+              _theme = ThemeScheme.light;
+            }
+          });
+          BlocProvider.of<ThemeBloc>(context).add(ChangeTheme(theme: _theme));
+        },
+      ),
+      appBar: AppBar(
+          leading: IconButton(
+        icon: const Icon(
+          Icons.account_circle,
+          color: AppColors.darkBlue,
+        ),
+        onPressed: () {},
+      )),
+      body: const Center(
+        child: Text("Home"),
+      ),
+    );
   }
 }
