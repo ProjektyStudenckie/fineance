@@ -3,7 +3,7 @@ import 'package:fimber/fimber.dart';
 import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/injection/hive_initializer.dart';
 import 'package:fineance/injection/modules.dart';
-import 'package:fineance/main/bloc/theme_bloc.dart';
+import 'package:fineance/presentation/theme_bloc/theme_bloc.dart';
 import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/theme.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ Future<void> main() async {
   await EasyLocalization.ensureInitialized();
 
   final GetIt injector = GetIt.instance;
-  setupHive();
+  await setupHive();
   registerModules(injector);
 
   runApp(Provider<BlocFactory>(
