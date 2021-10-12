@@ -1,6 +1,16 @@
 part of 'settings_bloc.dart';
 
 @immutable
-abstract class SettingsState {}
+abstract class SettingsState {
+  final ThemeScheme theme;
 
-class SettingsInitial extends SettingsState {}
+  const SettingsState({required this.theme});
+}
+
+class SettingsInitial extends SettingsState {
+  const SettingsInitial({required ThemeScheme theme}): super(theme: theme);
+}
+
+class SettingsLoaded extends SettingsState {
+  const SettingsLoaded({required ThemeScheme theme}): super(theme: theme);
+}
