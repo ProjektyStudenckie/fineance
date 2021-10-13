@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:fineance/injection/modules.dart';
 import 'package:fineance/repositories/authorization_repository.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
@@ -17,6 +18,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         emit(RegisterLoading());
         await _authorizationRepository.register(
             event.email, event.username, event.password);
+        settingsBox.put(ONBOARDING_DONE, true);
 
         emit(RegisterSuccess());
       } catch (e) {
