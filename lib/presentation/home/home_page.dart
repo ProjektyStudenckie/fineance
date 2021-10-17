@@ -19,15 +19,15 @@ class _HomePageState extends State<HomePage> {
           children: [
             /// Example use of new components
             FineanceButton(
-              function: () {},
-              label: 'label',
+              onPressed: () {},
+              text: 'label',
             ),
             FineanceButton(
-              function: () {},
-              label: 'label',
+              onPressed: () {},
+              text: 'label',
               color: AppColors.green,
             ),
-            const FineanceTextField(hint: 'label'),
+            const FineanceTextField(label: 'label'),
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(

@@ -1,33 +1,34 @@
+import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/style/colors.dart';
 import 'package:fineance/style/constants.dart';
-import 'package:fineance/style/typography.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FineanceTextField extends StatelessWidget {
-  const FineanceTextField({
-    required this.hint,
-    Key? key,
-  }) : super(key: key);
+  final String label;
 
-  final String hint;
+  const FineanceTextField({
+    required this.label,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: Constants.kNormalWidgetWidth,
-      height: Constants.kNormalWidgetHeight,
-      child: TextField(
-        style: AppTypography().main(),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(Constants.kDefaultBorderRadius),
+        color: AppColors.lightGrey,
+      ),
+      margin: const EdgeInsets.all(Constants.kMarginLarge),
+      padding: const EdgeInsets.all(Constants.kMarginLarge),
+      child: TextFormField(
+        maxLines: 1,
         decoration: InputDecoration(
-          hintText: hint,
-          hintStyle: AppTypography().main(),
-          fillColor: AppColors.lightGrey,
+          labelText: label,
+          labelStyle: context.typo.large(),
           filled: true,
-          contentPadding: const EdgeInsets.all(10.0),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.lightGrey),
-          ),
+          fillColor: AppColors.lightGrey,
+          isDense: true,
+          border: const OutlineInputBorder(borderSide: BorderSide.none),
         ),
       ),
     );

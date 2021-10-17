@@ -5,8 +5,7 @@ import 'package:rive/rive.dart';
 class FineanceLoader extends StatefulWidget {
   final double size;
 
-  const FineanceLoader({Key? key, this.size = Constants.kLoaderSize})
-      : super(key: key);
+  const FineanceLoader({this.size = Constants.kLoaderSize});
 
   @override
   _FineanceLoaderState createState() => _FineanceLoaderState();

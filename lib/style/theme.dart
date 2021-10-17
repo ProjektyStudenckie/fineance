@@ -7,4 +7,6 @@ ThemeData themeDark = ThemeData.dark().copyWith(
   scaffoldBackgroundColor: AppColors.darkGrey,
 );
 
-ThemeData themeLight = ThemeData.light();
+ThemeData themeLight = ThemeData.light().copyWith(
+  indicatorColor: AppColors.darkGrey
+);
