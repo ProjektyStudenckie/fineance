@@ -1,10 +1,11 @@
+import 'package:fineance/style/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
 class FineanceLoader extends StatefulWidget {
   final double size;
 
-  const FineanceLoader({Key? key, this.size = 60.0}) : super(key: key);
+  const FineanceLoader({this.size = Constants.kLoaderSize});
 
   @override
   _FineanceLoaderState createState() => _FineanceLoaderState();
