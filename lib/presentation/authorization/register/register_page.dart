@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:fineance/components/fineance_back_button.dart';
 import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
@@ -58,12 +59,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Widget _buildBackButton() {
-    return IconButton(
-      icon: const Icon(Icons.arrow_back),
-      onPressed: () {
-        context.router.pop();
-      },
-    );
+    return FineanceBackButton(onPressed: () {});
   }
 
   Widget _buildEmailField() {

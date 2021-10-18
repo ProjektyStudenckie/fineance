@@ -1,9 +1,14 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:fineance/components/fineance_button.dart';
+import 'package:fineance/components/fineance_text_field.dart';
+import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
 import 'package:fineance/presentation/authorization/login/bloc/login_bloc.dart';
 import 'package:fineance/routing/router.gr.dart';
+import 'package:fineance/style/colors.dart';
+import 'package:fineance/style/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,6 +51,9 @@ class _LoginPageState extends State<LoginPage> {
           body: SafeArea(
             child: Column(
               children: [
+                const SizedBox(height: Constants.kMarginLarge),
+                _buildLoginLabel(),
+                const SizedBox(height: Constants.kMarginLarge),
                 _buildUsernameField(),
                 _buildPassword(),
                 _buildConfirmButton(),
@@ -58,21 +66,27 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  Widget _buildLoginLabel() {
+    return Text(
+      "login",
+      style: context.typo.extraLargeBold(),
+    );
+  }
+
   Widget _buildUsernameField() {
-    return TextField(
+    return FineanceTextField(
+      label: "username",
       controller: _usernameController,
     );
   }
 
   Widget _buildPassword() {
-    return TextField(
-      controller: _passwordController,
-      obscureText: true,
-    );
+    return FineanceTextField(
+        label: "password", controller: _passwordController, obscureText: true);
   }
 
   Widget _buildConfirmButton() {
-    return ElevatedButton(
+    return FineanceButton(
         onPressed: () {
           final username = _usernameController.text;
           final password = _passwordController.text;
@@ -82,16 +96,15 @@ class _LoginPageState extends State<LoginPage> {
           BlocProvider.of<LoginBloc>(context)
               .add(LoginUser(username: username, password: password));
         },
-        child: Text(translate(LocaleKeys.general_login)));
+        text: translate(LocaleKeys.general_login));
   }
 
   Widget _buildRegisterButton() {
-    return ElevatedButton(
-        style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.redAccent)),
+    return FineanceButton(
+        color: AppColors.green,
         onPressed: () {
           context.router.push(const RegisterRoute());
         },
-        child: Text(translate(LocaleKeys.general_register)));
+        text: translate(LocaleKeys.general_register));
   }
 }
