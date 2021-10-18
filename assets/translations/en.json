@@ -1,14 +1,18 @@
 {
     "general": {
-        "login": "Login",
-        "register": "Register"
+        "login": "login",
+        "register": "register",
+        "email": "email",
+        "username": "username",
+        "password": "password",
+        "confirm_password": "confirm password"
     },
     "tab": {
-        "home": "Home",
-        "settings": "Settings"
+        "home": "home",
+        "settings": "settings"
     },
     "onboarding": {
-        "skip": "Skip",
+        "skip": "skip",
         "save": "Save!",
         "save_description": "Take control of your expenses and save money to make your dreams come true",
         "invest": "Invest!",

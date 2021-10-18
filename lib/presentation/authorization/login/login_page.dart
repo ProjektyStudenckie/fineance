@@ -66,21 +66,21 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildLoginLabel() {
     return Text(
-      "login",
+      translate(LocaleKeys.general_login),
       style: context.typo.extraLargeBold(),
     );
   }
 
   Widget _buildUsernameField() {
     return FineanceTextField(
-      label: "username",
+      label: translate(LocaleKeys.general_username),
       controller: _usernameController,
     );
   }
 
   Widget _buildPassword() {
     return FineanceTextField(
-        label: "password", controller: _passwordController, obscureText: true);
+        label: translate(LocaleKeys.general_password), controller: _passwordController, obscureText: true);
   }
 
   Widget _buildConfirmButton() {

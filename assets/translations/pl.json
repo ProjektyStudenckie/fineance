@@ -1,14 +1,18 @@
 {
     "general": {
-        "login": "Zaloguj się",
-        "register": "Zarejestruj się"
+        "login": "zaloguj się",
+        "register": "zarejestruj się",
+        "email": "email",
+        "username": "nazwa użytkownika",
+        "password": "hasło",
+        "confirm_password": "potwierdź hasło"
     },
     "tab": {
-        "home": "Start",
-        "settings": "Ustawienia"
+        "home": "start",
+        "settings": "ustawienia"
     },
     "onboarding": {
-        "skip": "Pomiń",
+        "skip": "pomiń",
         "save": "Oszczędzaj!",
         "save_description": "Zacznij kontrolować wydatki i zbieraj na wymarzone cele",
         "invest": "Inwestuj!",

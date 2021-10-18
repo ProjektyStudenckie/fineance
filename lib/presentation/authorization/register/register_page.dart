@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:fineance/components/fineance_back_button.dart';
 import 'package:fineance/components/fineance_button.dart';
 import 'package:fineance/components/fineance_text_field.dart';
+import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
@@ -10,7 +11,6 @@ import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fineance/extension/context_extension.dart';
 
 class RegisterPage extends StatefulWidget implements AutoRouteWrapper {
   const RegisterPage({Key? key}) : super(key: key);
@@ -90,21 +90,21 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _buildEmailField() {
     return FineanceTextField(
-      label: "email",
+      label: translate(LocaleKeys.general_email),
       controller: _emailController,
     );
   }
 
   Widget _buildUsernameField() {
     return FineanceTextField(
-      label: "username",
+      label: translate(LocaleKeys.general_username),
       controller: _usernameController,
     );
   }
 
   Widget _buildPasswordField() {
     return FineanceTextField(
-      label: "password",
+      label: translate(LocaleKeys.general_password),
       controller: _passwordController,
       obscureText: true,
     );
@@ -112,7 +112,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _buildPasswordConfirmationField() {
     return FineanceTextField(
-      label: "confirm password",
+      label: translate(LocaleKeys.general_confirm_password),
       controller: _passwordController,
       obscureText: true,
     );
