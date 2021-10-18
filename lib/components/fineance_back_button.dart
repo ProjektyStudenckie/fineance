@@ -18,11 +18,12 @@ class FineanceBackButton extends StatelessWidget {
         splashColor: Colors.blue,
         highlightColor: AppColors.blue,
         customBorder: const CircleBorder(side: BorderSide()),
-        onTap: () {},
+        onTap: onPressed,
         child: Ink(
             decoration: const BoxDecoration(
                 color: AppColors.blue, shape: BoxShape.circle),
-            child: const Icon(Icons.chevron_left_rounded, size: 32, color: Colors.white)),
+            child: const Icon(Icons.chevron_left_rounded,
+                size: 32, color: Colors.white)),
       ),
     );
   }

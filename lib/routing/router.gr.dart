@@ -27,7 +27,7 @@ class AppRouter extends _i8.RootStackRouter {
     },
     LoginRoute.name: (routeData) {
       return _i8.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i2.LoginPage());
+          routeData: routeData, child: _i2.LoginPage());
     },
     RegisterRoute.name: (routeData) {
       return _i8.MaterialPageX<dynamic>(

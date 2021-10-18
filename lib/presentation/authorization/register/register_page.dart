@@ -1,12 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:fineance/components/fineance_back_button.dart';
+import 'package:fineance/components/fineance_button.dart';
+import 'package:fineance/components/fineance_text_field.dart';
 import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
 import 'package:fineance/presentation/authorization/register/bloc/register_bloc.dart';
 import 'package:fineance/routing/router.gr.dart';
+import 'package:fineance/style/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fineance/extension/context_extension.dart';
 
 class RegisterPage extends StatefulWidget implements AutoRouteWrapper {
   const RegisterPage({Key? key}) : super(key: key);
@@ -44,7 +48,7 @@ class _RegisterPageState extends State<RegisterPage> {
           body: SafeArea(
             child: Column(
               children: [
-                _buildBackButton(),
+                _buildTopPart(),
                 _buildEmailField(),
                 _buildUsernameField(),
                 _buildPasswordField(),
@@ -58,38 +62,64 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  Widget _buildTopPart() {
+    return SizedBox(
+      height: 70.0,
+      child: Stack(
+        children: [
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: Constants.kMarginLarge),
+                child: _buildBackButton(),
+              )),
+          Align(
+              alignment: Alignment.center,
+              child: Text(translate(LocaleKeys.general_register),
+                  style: context.typo.extraLargeBold())),
+        ],
+      ),
+    );
+  }
+
   Widget _buildBackButton() {
-    return FineanceBackButton(onPressed: () {});
+    return FineanceBackButton(onPressed: () {
+      context.router.pop();
+    });
   }
 
   Widget _buildEmailField() {
-    return TextField(
+    return FineanceTextField(
+      label: "email",
       controller: _emailController,
     );
   }
 
   Widget _buildUsernameField() {
-    return TextField(
+    return FineanceTextField(
+      label: "username",
       controller: _usernameController,
     );
   }
 
   Widget _buildPasswordField() {
-    return TextField(
+    return FineanceTextField(
+      label: "password",
       controller: _passwordController,
       obscureText: true,
     );
   }
 
   Widget _buildPasswordConfirmationField() {
-    return TextField(
+    return FineanceTextField(
+      label: "confirm password",
       controller: _passwordController,
       obscureText: true,
     );
   }
 
   Widget _buildConfirmButton() {
-    return ElevatedButton(
+    return FineanceButton(
         onPressed: () {
           final email = _emailController.text;
           final username = _usernameController.text;
@@ -100,6 +130,6 @@ class _RegisterPageState extends State<RegisterPage> {
           BlocProvider.of<RegisterBloc>(context).add(RegisterUser(
               email: email, username: username, password: password));
         },
-        child: Text(translate(LocaleKeys.general_register)));
+        text: translate(LocaleKeys.general_register));
   }
 }

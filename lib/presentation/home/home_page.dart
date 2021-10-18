@@ -28,20 +28,6 @@ class _HomePageState extends State<HomePage> {
               color: AppColors.green,
             ),
             const FineanceTextField(label: 'label'),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                shape: const CircleBorder(),
-                primary: AppColors.blue,
-              ),
-              child: const Padding(
-                padding: EdgeInsets.only(left: 7.0),
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  size: 20.0,
-                ),
-              ),
-            )
           ],
         ),
       ),
