@@ -14,9 +14,7 @@ class FineanceTitle extends StatelessWidget {
       child: Text(text,
           overflow: TextOverflow.ellipsis,
           style: context.typo.extraLargeBold(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white
-                  : Colors.black)),
+              color: context.isDarkTheme ? Colors.white : Colors.black)),
     );
   }
 }
