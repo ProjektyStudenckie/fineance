@@ -1,5 +1,6 @@
 import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/style/colors.dart';
+import 'package:fineance/style/dimens.dart';
 import 'package:flutter/material.dart';
 
 class FineanceSwitch extends StatelessWidget {
@@ -13,7 +14,7 @@ class FineanceSwitch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      padding: const EdgeInsets.symmetric(horizontal: Dimens.kMarginLargeDouble),
       child: Row(
         children: [
           Text(label,

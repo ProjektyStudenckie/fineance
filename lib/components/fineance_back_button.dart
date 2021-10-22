@@ -1,6 +1,6 @@
 import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/style/colors.dart';
-import 'package:fineance/style/constants.dart';
+import 'package:fineance/style/dimens.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ class FineanceBackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-          left: Constants.kMarginLargeDouble, top: Constants.kMarginLargeDouble),
+          left: Dimens.kMarginLargeDouble, top: Dimens.kMarginLargeDouble),
       child: SizedBox(
         width: 32,
         height: 32,

@@ -3,6 +3,7 @@ import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
 import 'package:fineance/routing/router.gr.dart';
+import 'package:fineance/style/dimens.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingPage extends StatefulWidget {
@@ -31,7 +32,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             Align(
               alignment: Alignment.centerRight,
               child: Padding(
-                padding: const EdgeInsets.only(top: 8.0, right: 16.0),
+                padding: const EdgeInsets.only(top: Dimens.kMarginMedium, right: Dimens.kMarginExtraLarge),
                 child: TextButton(
                     onPressed: () {
                       context.router.replace(const TabRoute());
@@ -56,7 +57,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               ),
             ),
             _buildPageIndicators(),
-            const SizedBox(height: 20),
+            const SizedBox(height: Dimens.kMarginExtraLarge),
           ],
         ),
       ),
@@ -92,7 +93,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     return GestureDetector(
       onTap: onPressed,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: Dimens.kMarginLarge, vertical: Dimens.kMarginExtraLarge),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 150),
           height: 11.0,
@@ -108,13 +109,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   Widget _buildFirstPage() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+      padding: const EdgeInsets.symmetric(horizontal: Dimens.kMarginExtraLargeDouble),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(translate(LocaleKeys.onboarding_save),
               style: context.typo.extraLarge()),
-          const SizedBox(height: 12),
+          const SizedBox(height: Dimens.kMarginLarge),
           Text(translate(LocaleKeys.onboarding_save_description),
               textAlign: TextAlign.center),
         ],
@@ -124,7 +125,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   Widget _buildSecondPage() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+      padding: const EdgeInsets.symmetric(horizontal: Dimens.kMarginExtraLargeDouble),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -140,7 +141,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   Widget _buildThirdPage() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+      padding: const EdgeInsets.symmetric(horizontal: Dimens.kMarginExtraLargeDouble),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

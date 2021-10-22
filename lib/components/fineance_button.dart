@@ -1,6 +1,6 @@
 import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/style/colors.dart';
-import 'package:fineance/style/constants.dart';
+import 'package:fineance/style/dimens.dart';
 import 'package:fineance/style/typography.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +32,8 @@ class FineanceButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-          horizontal: Constants.kMarginLargeDouble,
-          vertical: Constants.kMarginLarge),
+          horizontal: Dimens.kMarginLargeDouble,
+          vertical: Dimens.kMarginLarge),
       child: TextButton(
         onPressed: onPressed,
         style: ButtonStyle(
@@ -43,7 +43,7 @@ class FineanceButton extends StatelessWidget {
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                   borderRadius:
-                      BorderRadius.circular(Constants.kDefaultBorderRadius))),
+                      BorderRadius.circular(Dimens.kDefaultBorderRadius))),
         ),
         child: Text(
           text,

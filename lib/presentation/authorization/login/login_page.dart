@@ -7,7 +7,7 @@ import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
 import 'package:fineance/presentation/authorization/login/bloc/login_bloc.dart';
 import 'package:fineance/routing/router.gr.dart';
-import 'package:fineance/style/constants.dart';
+import 'package:fineance/style/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildLoginLabel(),
-                const SizedBox(height: Constants.kMarginLarge),
+                const SizedBox(height: Dimens.kMarginLarge),
                 _buildUsernameField(),
                 _buildPassword(),
                 _buildConfirmButton(),

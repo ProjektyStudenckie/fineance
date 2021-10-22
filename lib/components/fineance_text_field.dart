@@ -1,6 +1,6 @@
 import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/style/colors.dart';
-import 'package:fineance/style/constants.dart';
+import 'package:fineance/style/dimens.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,13 +19,13 @@ class FineanceTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Constants.kDefaultBorderRadius),
+        borderRadius: BorderRadius.circular(Dimens.kDefaultBorderRadius),
         color: AppColors.lightGrey,
       ),
       margin: const EdgeInsets.symmetric(
-          horizontal: Constants.kMarginLargeDouble,
-          vertical: Constants.kMarginLarge),
-      padding: const EdgeInsets.all(Constants.kMarginLarge),
+          horizontal: Dimens.kMarginLargeDouble,
+          vertical: Dimens.kMarginLarge),
+      padding: const EdgeInsets.all(Dimens.kMarginLarge),
       child: TextFormField(
         style: context.typo.main(),
         controller: controller,
