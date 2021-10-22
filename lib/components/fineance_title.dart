@@ -1,4 +1,5 @@
 import 'package:fineance/extension/context_extension.dart';
+import 'package:fineance/style/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class FineanceTitle extends StatelessWidget {
       child: Text(text,
           overflow: TextOverflow.ellipsis,
           style: context.typo.extraLargeBold(
-              color: context.isDarkTheme ? Colors.white : Colors.black)),
+              color: context.isDarkTheme ? AppColors.white : AppColors.black)),
     );
   }
 }

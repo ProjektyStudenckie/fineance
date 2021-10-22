@@ -1,4 +1,5 @@
 import 'package:fineance/extension/context_extension.dart';
+import 'package:fineance/style/colors.dart';
 import 'package:flutter/material.dart';
 
 class FineanceSwitch extends StatelessWidget {
@@ -17,7 +18,7 @@ class FineanceSwitch extends StatelessWidget {
         children: [
           Text(label,
               style: context.typo.main(
-                  color: context.isDarkTheme ? Colors.white : Colors.black)),
+                  color: context.isDarkTheme ? AppColors.white : AppColors.black)),
           const Spacer(),
           Switch(value: value, onChanged: onChanged),
         ],

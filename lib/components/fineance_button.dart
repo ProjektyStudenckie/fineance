@@ -1,3 +1,4 @@
+import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/style/colors.dart';
 import 'package:fineance/style/constants.dart';
 import 'package:fineance/style/typography.dart';
@@ -15,6 +16,18 @@ class FineanceButton extends StatelessWidget {
     this.color = AppColors.blue,
   });
 
+  const FineanceButton.positive({
+    required this.text,
+    required this.onPressed,
+    this.color = AppColors.green,
+  });
+
+  const FineanceButton.negative({
+    required this.text,
+    required this.onPressed,
+    this.color = AppColors.red,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,13 +41,13 @@ class FineanceButton extends StatelessWidget {
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                   borderRadius:
-                      BorderRadius.circular(Constants.kDefaultBorderRadius))),
+                  BorderRadius.circular(Constants.kDefaultBorderRadius))),
         ),
         child: Text(
           text,
           style: AppTypography().extraLargeBold().copyWith(
-                color: AppColors.white,
-              ),
+            color: context.isDarkTheme ? AppColors.black : AppColors.white,
+          ),
         ),
       ),
     );
