@@ -6,7 +6,8 @@ part 'splash_state.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
   SplashBloc() : super(SplashLoading()) {
-    on<LoadApp>((event, emit) {
+    on<LoadApp>((event, emit) async {
+      await Future.delayed(const Duration(seconds: 2));
       emit(SplashOpenHome());
     });
   }
