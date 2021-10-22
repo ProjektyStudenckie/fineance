@@ -22,7 +22,9 @@ class FineanceTextField extends StatelessWidget {
         borderRadius: BorderRadius.circular(Constants.kDefaultBorderRadius),
         color: AppColors.lightGrey,
       ),
-      margin: const EdgeInsets.all(Constants.kMarginLarge),
+      margin: const EdgeInsets.symmetric(
+          horizontal: Constants.kMarginLargeDouble,
+          vertical: Constants.kMarginLarge),
       padding: const EdgeInsets.all(Constants.kMarginLarge),
       child: TextFormField(
         style: context.typo.main(),
@@ -31,7 +33,7 @@ class FineanceTextField extends StatelessWidget {
         obscureText: obscureText,
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: context.typo.large(),
+          labelStyle: context.typo.main(),
           filled: true,
           fillColor: AppColors.lightGrey,
           isDense: true,

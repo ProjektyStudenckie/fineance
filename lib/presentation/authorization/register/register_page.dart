@@ -1,8 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:fineance/components/fineance_back_button.dart';
+import 'package:fineance/components/fineance_back_button_with_title.dart';
 import 'package:fineance/components/fineance_button.dart';
 import 'package:fineance/components/fineance_text_field.dart';
-import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
@@ -32,6 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _emailController = TextEditingController();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _passwordConfirmationController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,9 @@ class _RegisterPageState extends State<RegisterPage> {
           body: SafeArea(
             child: Column(
               children: [
-                _buildTopPart(),
+                FineanceBackButtonWithTitle(
+                    text: translate(LocaleKeys.general_register)),
+                const SizedBox(height: Constants.kMarginLarge),
                 _buildEmailField(),
                 _buildUsernameField(),
                 _buildPasswordField(),
@@ -60,32 +62,6 @@ class _RegisterPageState extends State<RegisterPage> {
         );
       },
     );
-  }
-
-  Widget _buildTopPart() {
-    return SizedBox(
-      height: 70.0,
-      child: Stack(
-        children: [
-          Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: Constants.kMarginLarge),
-                child: _buildBackButton(),
-              )),
-          Align(
-              alignment: Alignment.center,
-              child: Text(translate(LocaleKeys.general_register),
-                  style: context.typo.extraLargeBold())),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBackButton() {
-    return FineanceBackButton(onPressed: () {
-      context.router.pop();
-    });
   }
 
   Widget _buildEmailField() {
@@ -113,7 +89,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget _buildPasswordConfirmationField() {
     return FineanceTextField(
       label: translate(LocaleKeys.general_confirm_password),
-      controller: _passwordController,
+      controller: _passwordConfirmationController,
       obscureText: true,
     );
   }

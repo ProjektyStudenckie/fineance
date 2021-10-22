@@ -31,23 +31,26 @@ class FineanceButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(Constants.kMarginLarge),
+      padding: const EdgeInsets.symmetric(
+          horizontal: Constants.kMarginLargeDouble,
+          vertical: Constants.kMarginLarge),
       child: TextButton(
         onPressed: onPressed,
         style: ButtonStyle(
           minimumSize: MaterialStateProperty.all<Size?>(
-              const Size(double.infinity, 70.0)),
+              const Size(double.infinity, 75.0)),
           backgroundColor: MaterialStateProperty.all<Color>(color),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                   borderRadius:
-                  BorderRadius.circular(Constants.kDefaultBorderRadius))),
+                      BorderRadius.circular(Constants.kDefaultBorderRadius))),
         ),
         child: Text(
           text,
-          style: AppTypography().extraLargeBold().copyWith(
-            color: context.isDarkTheme ? AppColors.black : AppColors.white,
-          ),
+          overflow: TextOverflow.ellipsis,
+          style: AppTypography().largeBold().copyWith(
+                color: context.isDarkTheme ? AppColors.black : AppColors.white,
+              ),
         ),
       ),
     );
