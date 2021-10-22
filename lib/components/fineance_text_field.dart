@@ -6,9 +6,13 @@ import 'package:flutter/material.dart';
 
 class FineanceTextField extends StatelessWidget {
   final String label;
+  final TextEditingController? controller;
+  final bool obscureText;
 
   const FineanceTextField({
     required this.label,
+    this.controller,
+    this.obscureText = false,
   });
 
   @override
@@ -21,7 +25,10 @@ class FineanceTextField extends StatelessWidget {
       margin: const EdgeInsets.all(Constants.kMarginLarge),
       padding: const EdgeInsets.all(Constants.kMarginLarge),
       child: TextFormField(
+        style: context.typo.main(),
+        controller: controller,
         maxLines: 1,
+        obscureText: obscureText,
         decoration: InputDecoration(
           labelText: label,
           labelStyle: context.typo.large(),

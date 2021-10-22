@@ -6,4 +6,5 @@ Future<void> setupHive() async {
   await Hive.initFlutter();
 
   await Hive.openBox(themeBox);
+  await Hive.openBox(settingsBox);
 }
