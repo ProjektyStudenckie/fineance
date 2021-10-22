@@ -27,15 +27,15 @@ class AppTypography {
   }
 
   TextStyle extraLarge({Color color = AppColors.darkGrey}) {
-    return TextStyle(fontSize: 24.0, fontWeight: FontWeight.w400, color: color);
+    return TextStyle(fontSize: 32.0, fontWeight: FontWeight.w400, color: color);
   }
 
   TextStyle extraLargeLight({Color color = AppColors.darkGrey}) {
-    return TextStyle(fontSize: 24.0, fontWeight: FontWeight.w300, color: color);
+    return TextStyle(fontSize: 32.0, fontWeight: FontWeight.w300, color: color);
   }
 
   TextStyle extraLargeBold({Color color = AppColors.darkGrey}) {
-    return TextStyle(fontSize: 24.0, fontWeight: FontWeight.w700, color: color);
+    return TextStyle(fontSize: 32.0, fontWeight: FontWeight.w700, color: color);
   }
 
   TextStyle small({Color color = AppColors.darkGrey}) {
