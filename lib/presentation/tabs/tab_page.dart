@@ -29,8 +29,10 @@ class TabPage extends StatelessWidget implements AutoRouteWrapper {
       routes: const [HomeRoute(), SettingsRoute()],
       bottomNavigationBuilder: (_, tabsRouter) {
         return BottomNavigationBar(
-            selectedItemColor: Colors.black,
-            unselectedItemColor: Colors.grey,
+            selectedItemColor: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black,
+            unselectedItemColor: Colors.grey[600],
             showSelectedLabels: false,
             showUnselectedLabels: false,
             currentIndex: tabsRouter.activeIndex,

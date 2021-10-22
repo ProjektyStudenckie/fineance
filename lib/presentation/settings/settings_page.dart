@@ -1,5 +1,10 @@
+import 'package:fineance/components/fineance_button.dart';
+import 'package:fineance/components/fineance_switch.dart';
+import 'package:fineance/components/fineance_title.dart';
+import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/presentation/settings/bloc/settings_bloc.dart';
 import 'package:fineance/presentation/theme_bloc/theme_bloc.dart';
+import 'package:fineance/style/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -24,21 +29,33 @@ class _SettingsPageState extends State<SettingsPage> {
     return BlocBuilder<SettingsBloc, SettingsState>(
       builder: (context, state) {
         return Scaffold(
-          floatingActionButton: FloatingActionButton(
-            child: Text(state.theme == ThemeScheme.light ? "dark" : "light"),
-            onPressed: () {
-              BlocProvider.of<SettingsBloc>(context).add(ChangeTheme());
-              BlocProvider.of<ThemeBloc>(context).add(ChangeGlobalTheme(
-                  theme: state.theme == ThemeScheme.light
-                      ? ThemeScheme.dark
-                      : ThemeScheme.light));
-            },
-          ),
-          body: const Center(
-            child: Text("Settings Page"),
-          ),
-        );
+            body: SafeArea(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            const FineanceTitle(text: "settings"),
+            const SizedBox(height: Dimens.kMarginExtraLarge),
+            ..._buildOptions(),
+            const Spacer(),
+            FineanceButton.negative(text: "logout", onPressed: () {}),
+                const SizedBox(height: Dimens.kMarginMedium),
+          ]),
+        ));
       },
     );
+  }
+
+  List<Widget> _buildOptions() {
+    return [
+      FineanceSwitch(
+          label: "dark mode",
+          value: context.isDarkTheme,
+          onChanged: (newValue) {
+            BlocProvider.of<SettingsBloc>(context).add(ChangeTheme());
+            BlocProvider.of<ThemeBloc>(context).add(ChangeGlobalTheme(
+                theme: context.isDarkTheme
+                    ? ThemeScheme.light
+                    : ThemeScheme.dark));
+          }),
+    ];
   }
 }

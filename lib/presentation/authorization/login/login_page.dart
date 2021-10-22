@@ -1,14 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:fineance/components/fineance_button.dart';
 import 'package:fineance/components/fineance_text_field.dart';
-import 'package:fineance/extension/context_extension.dart';
+import 'package:fineance/components/fineance_title.dart';
 import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
 import 'package:fineance/presentation/authorization/login/bloc/login_bloc.dart';
 import 'package:fineance/routing/router.gr.dart';
-import 'package:fineance/style/colors.dart';
-import 'package:fineance/style/constants.dart';
+import 'package:fineance/style/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,10 +47,10 @@ class _LoginPageState extends State<LoginPage> {
         return Scaffold(
           body: SafeArea(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: Constants.kMarginLarge),
                 _buildLoginLabel(),
-                const SizedBox(height: Constants.kMarginLarge),
+                const SizedBox(height: Dimens.kMarginLarge),
                 _buildUsernameField(),
                 _buildPassword(),
                 _buildConfirmButton(),
@@ -65,10 +64,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildLoginLabel() {
-    return Text(
-      translate(LocaleKeys.general_login),
-      style: context.typo.extraLargeBold(),
-    );
+    return FineanceTitle(text: translate(LocaleKeys.general_login));
   }
 
   Widget _buildUsernameField() {
@@ -80,7 +76,9 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildPassword() {
     return FineanceTextField(
-        label: translate(LocaleKeys.general_password), controller: _passwordController, obscureText: true);
+        label: translate(LocaleKeys.general_password),
+        controller: _passwordController,
+        obscureText: true);
   }
 
   Widget _buildConfirmButton() {
@@ -98,8 +96,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildRegisterButton() {
-    return FineanceButton(
-        color: AppColors.green,
+    return FineanceButton.positive(
         onPressed: () {
           context.router.push(const RegisterRoute());
         },
