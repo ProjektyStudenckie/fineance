@@ -10,7 +10,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
 
   OnboardingBloc(this._settingsService)
       : super(const OnboardingInitial(isBiometricsOn: false)) {
-    on<OnboardingInitialize>((event, emit) {
+    on<InitializeOnboarding>((event, emit) {
       emit(OnboardingInitial(
           isBiometricsOn: _settingsService.isBiometricsActive()));
     });

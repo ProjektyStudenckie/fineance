@@ -31,6 +31,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
   var _currentPage = 0;
 
   @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<OnboardingBloc>(context).add(InitializeOnboarding());
+  }
+
+  @override
   void dispose() {
     _pageViewController.dispose();
     super.dispose();

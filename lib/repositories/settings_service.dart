@@ -42,13 +42,13 @@ class SettingsServiceImpl implements SettingsService {
   }
 
   @override
-  bool isBiometricsActive() {
-    return getFineanceSettings().isBiometricsActive;
-  }
-
-  @override
   void saveBiometricsOption(bool enableBiometrics) async {
     final settings = getFineanceSettings();
     saveFineanceSettings(settings.copyWith(isBiometricsActive: enableBiometrics));
+  }
+
+  @override
+  bool isBiometricsActive() {
+    return getFineanceSettings().isBiometricsActive;
   }
 }

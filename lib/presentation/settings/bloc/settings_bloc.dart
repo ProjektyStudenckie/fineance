@@ -26,10 +26,11 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     });
 
     on<ChangeBiometricsOption>((event, emit) {
-      _settingsService.saveFineanceSettings(
-          event.settings.copyWith(isBiometricsActive: event.enable));
+      final updatedSettings =
+          event.settings.copyWith(isBiometricsActive: event.enable);
+      _settingsService.saveFineanceSettings(updatedSettings);
 
-      emit(SettingsLoaded(settings: event.settings));
+      emit(SettingsLoaded(settings: updatedSettings));
     });
   }
 }
