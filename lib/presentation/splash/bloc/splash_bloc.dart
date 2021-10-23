@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:fineance/repositories/authorization_repository.dart';
 import 'package:fineance/repositories/settings_service.dart';
 import 'package:meta/meta.dart';
 
@@ -7,14 +8,17 @@ part 'splash_state.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final SettingsService _settingsService;
+  final AuthorizationRepository _authorizationRepository;
 
-  SplashBloc(this._settingsService) : super(SplashLoading()) {
+  SplashBloc(this._settingsService, this._authorizationRepository)
+      : super(SplashLoading()) {
     on<LoadApp>((event, emit) async {
       await Future.delayed(const Duration(seconds: 2));
 
       // TODO: Check if user is logged in
 
-      if (_settingsService.isBiometricsActive()) {
+      if (_settingsService.isBiometricsActive() &&
+          await _authorizationRepository.canDeviceUseBiometrics()) {
         emit(SplashOpenBiometrics());
       } else {
         emit(SplashOpenHome());

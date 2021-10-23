@@ -11,11 +11,11 @@ import 'package:get_it/get_it.dart';
 
 void registerBlocModules(GetIt injector, ThemeScheme theme) {
   injector.registerFactory(() => ThemeBloc(theme));
-  injector.registerFactory(() => SplashBloc(injector.get()));
+  injector.registerFactory(() => SplashBloc(injector.get(), injector.get()));
   injector.registerFactory(() => LoginBloc(injector.get(), injector.get(instanceName: settingsBox)));
   injector.registerFactory(() => RegisterBloc(injector.get(), injector.get(instanceName: settingsBox)));
   injector.registerFactory(() => OnboardingBloc(injector.get()));
-  injector.registerFactory(() => BiometricsBloc());
+  injector.registerFactory(() => BiometricsBloc(injector.get()));
   injector.registerFactory(() => HomeBloc());
   injector.registerFactory(() => SettingsBloc(injector.get(), injector.get(instanceName: themeBox)));
 }

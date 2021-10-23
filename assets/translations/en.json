@@ -19,5 +19,9 @@
         "invest_description": "Multiply your money with well-planned investments",
         "welcome": "Welcome!",
         "welcome_description": "This app will help you manage your money better"
+    },
+    "biometrics": {
+        "authentication": "authentication",
+        "reason": "Please authenticate to log in"
     }
 }
