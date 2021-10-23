@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:fineance/components/fineance_button.dart';
 import 'package:fineance/components/fineance_loader.dart';
 import 'package:fineance/components/fineance_switch.dart';
@@ -5,6 +6,7 @@ import 'package:fineance/components/fineance_title.dart';
 import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/presentation/settings/bloc/settings_bloc.dart';
 import 'package:fineance/presentation/theme_bloc/theme_bloc.dart';
+import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,7 +44,11 @@ class _SettingsPageState extends State<SettingsPage> {
         const SizedBox(height: Dimens.kMarginExtraLarge),
         ..._buildOptions(state),
         const Spacer(),
-        FineanceButton.negative(text: "logout", onPressed: () {}),
+        FineanceButton.negative(
+            text: "logout",
+            onPressed: () {
+              context.router.replace(const SplashRoute());
+            }),
         const SizedBox(height: Dimens.kMarginMedium),
       ]),
     ));

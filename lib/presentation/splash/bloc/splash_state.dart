@@ -6,3 +6,5 @@ abstract class SplashState {}
 class SplashLoading extends SplashState {}
 
 class SplashOpenHome extends SplashState {}
+
+class SplashOpenBiometrics extends SplashState {}

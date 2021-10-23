@@ -33,6 +33,8 @@ class _SplashPageState extends State<SplashPage> {
       listener: (context, state) {
         if (state is SplashOpenHome) {
           context.router.replace(const LoginRoute()); //TabRoute());
+        } else if (state is SplashOpenBiometrics) {
+          context.router.replace(const BiometricsRoute());
         }
       },
       builder: (context, state) {

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:fineance/presentation/authorization/biometrics/biometrics_page.dart';
 import 'package:fineance/presentation/authorization/login/login_page.dart';
 import 'package:fineance/presentation/authorization/register/register_page.dart';
 import 'package:fineance/presentation/home/home_page.dart';
@@ -14,6 +15,7 @@ import 'package:fineance/presentation/tabs/tab_page.dart';
     AutoRoute(page: LoginPage),
     AutoRoute(page: RegisterPage),
     AutoRoute(page: OnboardingPage),
+    AutoRoute(page: BiometricsPage),
     AutoRoute(page: TabPage, children: [
       AutoRoute(page: HomePage),
       AutoRoute(page: SettingsPage),
