@@ -1,13 +1,26 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:fineance/components/fineance_switch.dart';
 import 'package:fineance/extension/context_extension.dart';
+import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
+import 'package:fineance/presentation/onboarding/bloc/onboarding_bloc.dart';
 import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/dimens.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class OnboardingPage extends StatefulWidget {
+class OnboardingPage extends StatefulWidget implements AutoRouteWrapper {
   const OnboardingPage({Key? key}) : super(key: key);
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    final BlocFactory blocFactory = BlocFactory.of(context);
+    return BlocProvider<OnboardingBloc>(
+      create: (context) => blocFactory.get<OnboardingBloc>(),
+      child: this,
+    );
+  }
 
   @override
   State<OnboardingPage> createState() => _OnboardingPageState();
@@ -32,7 +45,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
             Align(
               alignment: Alignment.centerRight,
               child: Padding(
-                padding: const EdgeInsets.only(top: Dimens.kMarginMedium, right: Dimens.kMarginExtraLarge),
+                padding: const EdgeInsets.only(
+                    top: Dimens.kMarginMedium, right: Dimens.kMarginExtraLarge),
                 child: TextButton(
                     onPressed: () {
                       context.router.replace(const TabRoute());
@@ -93,7 +107,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
     return GestureDetector(
       onTap: onPressed,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: Dimens.kMarginLarge, vertical: Dimens.kMarginExtraLarge),
+        padding: const EdgeInsets.symmetric(
+            horizontal: Dimens.kMarginLarge,
+            vertical: Dimens.kMarginExtraLarge),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 150),
           height: 11.0,
@@ -109,7 +125,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   Widget _buildFirstPage() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: Dimens.kMarginExtraLargeDouble),
+      padding: const EdgeInsets.symmetric(
+          horizontal: Dimens.kMarginExtraLargeDouble),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -125,7 +142,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   Widget _buildSecondPage() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: Dimens.kMarginExtraLargeDouble),
+      padding: const EdgeInsets.symmetric(
+          horizontal: Dimens.kMarginExtraLargeDouble),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -141,7 +159,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   Widget _buildThirdPage() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: Dimens.kMarginExtraLargeDouble),
+      padding: const EdgeInsets.symmetric(
+          horizontal: Dimens.kMarginExtraLargeDouble),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -151,22 +170,42 @@ class _OnboardingPageState extends State<OnboardingPage> {
           Text(translate(LocaleKeys.onboarding_welcome_description),
               textAlign: TextAlign.center),
           const SizedBox(height: 12),
-          InkWell(
-              onTap: () {
-                context.router.replace(const TabRoute());
-              },
-              borderRadius: BorderRadius.circular(50),
-              splashColor: Colors.blue[400],
-              child: Ink(
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.blue[200]),
-                  child: const Icon(
-                    Icons.arrow_forward_rounded,
-                    color: Colors.white,
-                  )))
+          _buildBiometricsOption(),
+          const SizedBox(height: 12),
+          _buildQuitButton(),
         ],
       ),
     );
+  }
+
+  Widget _buildBiometricsOption() {
+    return BlocBuilder<OnboardingBloc, OnboardingState>(
+      builder: (context, state) {
+        return FineanceSwitch(
+            label: "biometric authorization",
+            value: state.isBiometricsOn,
+            onChanged: (newValue) {
+              BlocProvider.of<OnboardingBloc>(context)
+                  .add(ChangeBiometricsState(enable: newValue));
+            });
+      },
+    );
+  }
+
+  Widget _buildQuitButton() {
+    return InkWell(
+        onTap: () {
+          context.router.replace(const TabRoute());
+        },
+        borderRadius: BorderRadius.circular(50),
+        splashColor: Colors.blue[400],
+        child: Ink(
+            padding: const EdgeInsets.all(8.0),
+            decoration:
+                BoxDecoration(shape: BoxShape.circle, color: Colors.blue[200]),
+            child: const Icon(
+              Icons.arrow_forward_rounded,
+              color: Colors.white,
+            )));
   }
 }

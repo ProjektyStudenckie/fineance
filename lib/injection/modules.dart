@@ -8,7 +8,8 @@ const String themeBox = 'theme_box';
 const String settingsBox = "settings_box";
 
 const IS_LIGHT_THEME = "is_light_theme";
-const ONBOARDING_DONE = "onboarding_done";
+const IS_ONBOARDING_DONE = "is_onboarding_done";
+const FINEANCE_SETTINGS = "fineance_settings";
 
 void registerModules(GetIt injector) {
   injector.registerLazySingleton<Box>(() => Hive.box(themeBox),

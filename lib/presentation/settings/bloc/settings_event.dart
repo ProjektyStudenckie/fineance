@@ -3,10 +3,18 @@ part of 'settings_bloc.dart';
 @immutable
 abstract class SettingsEvent {}
 
-class InitializeSettings extends SettingsEvent {
-  final ThemeScheme theme;
+class InitializeSettings extends SettingsEvent {}
 
-  InitializeSettings({required this.theme});
+class ChangeTheme extends SettingsEvent {
+  final bool isDarkTheme;
+  final FineanceSettings settings;
+
+  ChangeTheme({required this.isDarkTheme, required this.settings});
 }
 
-class ChangeTheme extends SettingsEvent {}
+class ChangeBiometricsOption extends SettingsEvent {
+  final bool enable;
+  final FineanceSettings settings;
+
+  ChangeBiometricsOption({required this.enable, required this.settings});
+}
