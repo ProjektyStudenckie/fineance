@@ -5,11 +5,13 @@ import 'package:fineance/components/fineance_title.dart';
 import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
-import 'package:fineance/presentation/authorization/login/bloc/login_bloc.dart';
 import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:formz/formz.dart';
+
+import 'bloc/login_bloc.dart';
 
 class LoginPage extends StatefulWidget implements AutoRouteWrapper {
   @override
@@ -33,14 +35,12 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state is LoginSuccess) {
-          if (state.shouldShowOnboarding) {
-            context.router.replace(const OnboardingRoute());
-          } else {
-            context.router.replace(const TabRoute());
-          }
-        } else if (state is LoginError) {
-          // TODO: Display error to the user
+        if (state.status.isSubmissionFailure) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              const SnackBar(content: Text('Authentication Failure')),
+            );
         }
       },
       builder: (context, state) {
@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: Dimens.kMarginLarge),
                 _buildUsernameField(),
                 _buildPassword(),
-                _buildConfirmButton(),
+                _buildConfirmButton(state.status.isValidated),
                 _buildRegisterButton(),
               ],
             ),
@@ -71,28 +71,28 @@ class _LoginPageState extends State<LoginPage> {
     return FineanceTextField(
       label: translate(LocaleKeys.general_username),
       controller: _usernameController,
+      onChanged: (username) =>
+          context.read<LoginBloc>().add(LoginUsernameChanged(username)),
     );
   }
 
   Widget _buildPassword() {
     return FineanceTextField(
-        label: translate(LocaleKeys.general_password),
-        controller: _passwordController,
-        obscureText: true);
+      label: translate(LocaleKeys.general_password),
+      controller: _passwordController,
+      obscureText: true,
+      onChanged: (password) =>
+          context.read<LoginBloc>().add(LoginPasswordChanged(password)),
+    );
   }
 
-  Widget _buildConfirmButton() {
+  Widget _buildConfirmButton(bool isValidated) {
     return FineanceButton(
-        onPressed: () {
-          final username = _usernameController.text;
-          final password = _passwordController.text;
-
-          // Todo: Validate
-
-          BlocProvider.of<LoginBloc>(context)
-              .add(LoginUser(username: username, password: password));
-        },
-        text: translate(LocaleKeys.general_login));
+      text: LocaleKeys.general_login,
+      onPressed: () {
+        if (isValidated) context.read<LoginBloc>().add(const LoginSubmitted());
+      },
+    );
   }
 
   Widget _buildRegisterButton() {
