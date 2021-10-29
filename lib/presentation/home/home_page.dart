@@ -27,7 +27,10 @@ class _HomePageState extends State<HomePage> {
               text: 'label',
               color: AppColors.green,
             ),
-            const FineanceTextField(label: 'label'),
+            FineanceTextField(
+              label: 'label',
+              onChanged: (text) {},
+            ),
           ],
         ),
       ),

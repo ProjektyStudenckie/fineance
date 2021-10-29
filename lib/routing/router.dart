@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:fineance/presentation/authorization/login/login_page.dart';
-import 'package:fineance/presentation/authorization/register/register_page.dart';
+import 'package:fineance/presentation/authentication/login/login_page.dart';
+import 'package:fineance/presentation/authentication/register/register_page.dart';
 import 'package:fineance/presentation/home/home_page.dart';
 import 'package:fineance/presentation/onboarding/onboarding_page.dart';
 import 'package:fineance/presentation/settings/settings_page.dart';

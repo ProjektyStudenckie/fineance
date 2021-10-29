@@ -8,11 +8,13 @@ class FineanceTextField extends StatelessWidget {
   final String label;
   final TextEditingController? controller;
   final bool obscureText;
+  final Function(String) onChanged;
 
   const FineanceTextField({
     required this.label,
     this.controller,
     this.obscureText = false,
+    required this.onChanged,
   });
 
   @override
@@ -23,10 +25,10 @@ class FineanceTextField extends StatelessWidget {
         color: AppColors.lightGrey,
       ),
       margin: const EdgeInsets.symmetric(
-          horizontal: Dimens.kMarginLargeDouble,
-          vertical: Dimens.kMarginLarge),
+          horizontal: Dimens.kMarginLargeDouble, vertical: Dimens.kMarginLarge),
       padding: const EdgeInsets.all(Dimens.kMarginLarge),
       child: TextFormField(
+        onChanged: (text) => onChanged(text),
         style: context.typo.main(),
         controller: controller,
         maxLines: 1,

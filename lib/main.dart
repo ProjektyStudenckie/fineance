@@ -34,8 +34,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO add check for authentication status.
     final BlocFactory blocFactory = BlocFactory.of(context);
-
     return BlocProvider<ThemeBloc>(
       create: (context) => blocFactory.get<ThemeBloc>(),
       child: BlocBuilder<ThemeBloc, ThemeState>(

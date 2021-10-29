@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:fineance/injection/modules.dart';
-import 'package:fineance/repositories/authorization_repository.dart';
+import 'package:fineance/repositories/authentication_repository.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
@@ -8,7 +8,7 @@ part 'register_event.dart';
 part 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  final AuthorizationRepository _authorizationRepository;
+  final AuthenticationRepository _authorizationRepository;
   final Box settingsBox;
 
   RegisterBloc(this._authorizationRepository, this.settingsBox)
