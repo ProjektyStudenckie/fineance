@@ -5,7 +5,7 @@ import 'package:fineance/components/fineance_text_field.dart';
 import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
-import 'package:fineance/presentation/authorization/register/bloc/register_bloc.dart';
+import 'package:fineance/presentation/authentication/register/bloc/register_bloc.dart';
 import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/dimens.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +68,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return FineanceTextField(
       label: translate(LocaleKeys.general_email),
       controller: _emailController,
+      onChanged: (String) {},
     );
   }
 
@@ -75,6 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return FineanceTextField(
       label: translate(LocaleKeys.general_username),
       controller: _usernameController,
+      onChanged: (String) {},
     );
   }
 
@@ -83,6 +85,7 @@ class _RegisterPageState extends State<RegisterPage> {
       label: translate(LocaleKeys.general_password),
       controller: _passwordController,
       obscureText: true,
+      onChanged: (String) {},
     );
   }
 
@@ -91,6 +94,7 @@ class _RegisterPageState extends State<RegisterPage> {
       label: translate(LocaleKeys.general_confirm_password),
       controller: _passwordConfirmationController,
       obscureText: true,
+      onChanged: (String) {},
     );
   }
 
