@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:fineance/repositories/authorization_repository.dart';
+import 'package:fineance/repositories/authentication_repository.dart';
 import 'package:fineance/repositories/settings_service.dart';
 import 'package:meta/meta.dart';
 
@@ -8,7 +8,7 @@ part 'splash_state.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final SettingsService _settingsService;
-  final AuthorizationRepository _authorizationRepository;
+  final AuthenticationRepository _authorizationRepository;
 
   SplashBloc(this._settingsService, this._authorizationRepository)
       : super(SplashLoading()) {

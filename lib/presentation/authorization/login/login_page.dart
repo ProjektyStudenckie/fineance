@@ -10,6 +10,7 @@ import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 class LoginPage extends StatefulWidget implements AutoRouteWrapper {
   @override
@@ -26,8 +27,16 @@ class LoginPage extends StatefulWidget implements AutoRouteWrapper {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  final _usernameValidator =
+      RequiredValidator(errorText: "usename is required");
+
+  final _passwordValidator =
+      RequiredValidator(errorText: 'password is required');
 
   @override
   Widget build(BuildContext context) {
@@ -46,16 +55,19 @@ class _LoginPageState extends State<LoginPage> {
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildLoginLabel(),
-                const SizedBox(height: Dimens.kMarginLarge),
-                _buildUsernameField(),
-                _buildPassword(),
-                _buildConfirmButton(),
-                _buildRegisterButton(),
-              ],
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildLoginLabel(),
+                  const SizedBox(height: Dimens.kMarginLarge),
+                  _buildUsernameField(),
+                  _buildPassword(),
+                  _buildConfirmButton(),
+                  _buildRegisterButton(),
+                ],
+              ),
             ),
           ),
         );
@@ -71,6 +83,7 @@ class _LoginPageState extends State<LoginPage> {
     return FineanceTextField(
       label: translate(LocaleKeys.general_username),
       controller: _usernameController,
+      validator: _usernameValidator,
     );
   }
 
@@ -78,7 +91,8 @@ class _LoginPageState extends State<LoginPage> {
     return FineanceTextField(
         label: translate(LocaleKeys.general_password),
         controller: _passwordController,
-        obscureText: true);
+        obscureText: true,
+        validator: _passwordValidator);
   }
 
   Widget _buildConfirmButton() {
@@ -87,10 +101,10 @@ class _LoginPageState extends State<LoginPage> {
           final username = _usernameController.text;
           final password = _passwordController.text;
 
-          // Todo: Validate
-
-          BlocProvider.of<LoginBloc>(context)
-              .add(LoginUser(username: username, password: password));
+          if (_formKey.currentState?.validate() == true) {
+            BlocProvider.of<LoginBloc>(context)
+                .add(LoginUser(username: username, password: password));
+          }
         },
         text: translate(LocaleKeys.general_login));
   }
