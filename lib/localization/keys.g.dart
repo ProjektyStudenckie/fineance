@@ -19,5 +19,8 @@ abstract class  LocaleKeys {
   static const onboarding_welcome = 'onboarding.welcome';
   static const onboarding_welcome_description = 'onboarding.welcome_description';
   static const onboarding = 'onboarding';
+  static const biometrics_authentication = 'biometrics.authentication';
+  static const biometrics_reason = 'biometrics.reason';
+  static const biometrics = 'biometrics';
 
 }

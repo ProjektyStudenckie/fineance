@@ -1,16 +1,12 @@
 part of 'settings_bloc.dart';
 
 @immutable
-abstract class SettingsState {
-  final ThemeScheme theme;
+abstract class SettingsState {}
 
-  const SettingsState({required this.theme});
-}
-
-class SettingsInitial extends SettingsState {
-  const SettingsInitial({required ThemeScheme theme}): super(theme: theme);
-}
+class SettingsInitializing extends SettingsState {}
 
 class SettingsLoaded extends SettingsState {
-  const SettingsLoaded({required ThemeScheme theme}): super(theme: theme);
+  final FineanceSettings settings;
+
+  SettingsLoaded({required this.settings});
 }

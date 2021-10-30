@@ -3,12 +3,14 @@ import 'package:fineance/injection/repository_module.dart';
 import 'package:fineance/presentation/theme_bloc/theme_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
+import 'package:local_auth/local_auth.dart';
 
 const String themeBox = 'theme_box';
 const String settingsBox = "settings_box";
 
 const IS_LIGHT_THEME = "is_light_theme";
-const ONBOARDING_DONE = "onboarding_done";
+const IS_ONBOARDING_DONE = "is_onboarding_done";
+const FINEANCE_SETTINGS = "fineance_settings";
 
 void registerModules(GetIt injector) {
   injector.registerLazySingleton<Box>(() => Hive.box(themeBox),
@@ -16,7 +18,9 @@ void registerModules(GetIt injector) {
   injector.registerLazySingleton<Box>(() => Hive.box(settingsBox),
       instanceName: settingsBox);
 
-  registerRepositoryModules(injector);
+  final LocalAuthentication localAuthentication = LocalAuthentication();
+  
+  registerRepositoryModules(injector, localAuthentication);
   registerBlocModules(injector, getSavedTheme());
 }
 

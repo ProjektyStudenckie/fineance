@@ -1,6 +1,10 @@
+import 'package:fineance/injection/modules.dart';
 import 'package:fineance/repositories/authorization_repository.dart';
+import 'package:fineance/repositories/settings_service.dart';
 import 'package:get_it/get_it.dart';
+import 'package:local_auth/local_auth.dart';
 
-void registerRepositoryModules(GetIt injector) {
-  injector.registerFactory<AuthorizationRepository>(() =>AuthorizationRepositoryImpl());
+void registerRepositoryModules(GetIt injector, LocalAuthentication localAuthentication) {
+  injector.registerFactory<AuthorizationRepository>(() => AuthorizationRepositoryImpl(localAuthentication));
+  injector.registerFactory<SettingsService>(() => SettingsServiceImpl(injector.get(instanceName: settingsBox)));
 }

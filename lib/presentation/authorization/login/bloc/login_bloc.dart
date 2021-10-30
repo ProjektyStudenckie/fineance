@@ -19,9 +19,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
         await _authorizationRepository.login(event.username, event.password);
 
-        final shouldShowOnboarding = _settingsBox.get(ONBOARDING_DONE) != true;
+        final shouldShowOnboarding = _settingsBox.get(IS_ONBOARDING_DONE) != true;
         if (shouldShowOnboarding) {
-          _settingsBox.put(ONBOARDING_DONE, true);
+          _settingsBox.put(IS_ONBOARDING_DONE, true);
         }
 
         emit(LoginSuccess(shouldShowOnboarding: shouldShowOnboarding));

@@ -19,5 +19,9 @@
         "invest_description": "Pomnóż swoje pieniadze dzięki dobrze zaplanowanym inwwestycjom",
         "welcome": "Witaj!",
         "welcome_description": "Ta aplikacja pomoże Ci lepiej zarządzać pieniędzmi"
+    },
+    "biometrics": {
+        "authentication": "uwierzytelnianie",
+        "reason": "Proszę uwierzytelnić się, aby się zalogować"
     }
 }

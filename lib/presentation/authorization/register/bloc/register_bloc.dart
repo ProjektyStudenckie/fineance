@@ -18,7 +18,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         emit(RegisterLoading());
         await _authorizationRepository.register(
             event.email, event.username, event.password);
-        settingsBox.put(ONBOARDING_DONE, true);
+        settingsBox.put(IS_ONBOARDING_DONE, true);
 
         emit(RegisterSuccess());
       } catch (e) {
