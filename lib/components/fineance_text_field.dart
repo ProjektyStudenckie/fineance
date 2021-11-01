@@ -9,13 +9,14 @@ class FineanceTextField extends StatelessWidget {
   final TextEditingController? controller;
   final bool obscureText;
   final String? Function(String?)? validator;
+  final TextInputAction? textInputAction;
 
-  const FineanceTextField({
-    required this.label,
-    this.controller,
-    this.obscureText = false,
-    this.validator
-  });
+  const FineanceTextField(
+      {required this.label,
+      this.controller,
+      this.obscureText = false,
+      this.validator,
+      this.textInputAction});
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +26,7 @@ class FineanceTextField extends StatelessWidget {
         color: AppColors.lightGrey,
       ),
       margin: const EdgeInsets.symmetric(
-          horizontal: Dimens.kMarginLargeDouble,
-          vertical: Dimens.kMarginLarge),
+          horizontal: Dimens.kMarginLargeDouble, vertical: Dimens.kMarginLarge),
       padding: const EdgeInsets.all(Dimens.kMarginLarge),
       child: TextFormField(
         style: context.typo.main(),
@@ -34,6 +34,7 @@ class FineanceTextField extends StatelessWidget {
         maxLines: 1,
         obscureText: obscureText,
         validator: validator,
+        textInputAction: textInputAction,
         decoration: InputDecoration(
           labelText: label,
           labelStyle: context.typo.main(),

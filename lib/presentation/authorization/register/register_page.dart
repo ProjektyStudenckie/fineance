@@ -37,18 +37,24 @@ class _RegisterPageState extends State<RegisterPage> {
   final _passwordConfirmationController = TextEditingController();
 
   final _emailValidator = MultiValidator([
-    RequiredValidator(errorText: translate(LocaleKeys.validation_email_is_required)),
-    EmailValidator(errorText: translate(LocaleKeys.validation_email_is_invalid)),
+    RequiredValidator(
+        errorText: translate(LocaleKeys.validation_email_is_required)),
+    EmailValidator(
+        errorText: translate(LocaleKeys.validation_email_is_invalid)),
   ]);
 
   final _usernameValidator = MultiValidator([
-    RequiredValidator(errorText: translate(LocaleKeys.validation_password_is_required)),
-    MinLengthValidator(4, errorText: translate(LocaleKeys.validation_username_too_short)),
+    RequiredValidator(
+        errorText: translate(LocaleKeys.validation_password_is_required)),
+    MinLengthValidator(4,
+        errorText: translate(LocaleKeys.validation_username_too_short)),
   ]);
 
   final _passwordValidator = MultiValidator([
-    RequiredValidator(errorText: translate(LocaleKeys.validation_password_is_required)),
-    MinLengthValidator(4, errorText: translate(LocaleKeys.validation_password_too_short)),
+    RequiredValidator(
+        errorText: translate(LocaleKeys.validation_password_is_required)),
+    MinLengthValidator(4,
+        errorText: translate(LocaleKeys.validation_password_too_short)),
     PatternValidator(r'(?=.*?[#?!@$%^&*-])',
         errorText: translate(LocaleKeys.validation_password_special))
   ]);
@@ -66,19 +72,21 @@ class _RegisterPageState extends State<RegisterPage> {
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  FineanceBackButtonWithTitle(
-                      text: translate(LocaleKeys.general_register)),
-                  const SizedBox(height: Dimens.kMarginLarge),
-                  _buildEmailField(),
-                  _buildUsernameField(),
-                  _buildPasswordField(),
-                  _buildPasswordConfirmationField(),
-                  _buildConfirmButton(),
-                ],
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    FineanceBackButtonWithTitle(
+                        text: translate(LocaleKeys.general_register)),
+                    const SizedBox(height: Dimens.kMarginLarge),
+                    _buildEmailField(),
+                    _buildUsernameField(),
+                    _buildPasswordField(),
+                    _buildPasswordConfirmationField(),
+                    _buildConfirmButton(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -92,6 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
       label: translate(LocaleKeys.general_email),
       controller: _emailController,
       validator: _emailValidator,
+      textInputAction: TextInputAction.next,
     );
   }
 
@@ -100,6 +109,7 @@ class _RegisterPageState extends State<RegisterPage> {
       label: translate(LocaleKeys.general_username),
       controller: _usernameController,
       validator: _usernameValidator,
+      textInputAction: TextInputAction.next,
     );
   }
 
@@ -107,8 +117,9 @@ class _RegisterPageState extends State<RegisterPage> {
     return FineanceTextField(
       label: translate(LocaleKeys.general_password),
       controller: _passwordController,
-      obscureText: true,
       validator: _passwordValidator,
+      textInputAction: TextInputAction.next,
+      obscureText: true,
     );
   }
 
@@ -117,7 +128,9 @@ class _RegisterPageState extends State<RegisterPage> {
       label: translate(LocaleKeys.general_confirm_password),
       controller: _passwordConfirmationController,
       obscureText: true,
-      validator: (val) => MatchValidator(errorText: translate(LocaleKeys.validation_passwords_do_not_match))
+      validator: (val) => MatchValidator(
+              errorText:
+                  translate(LocaleKeys.validation_passwords_do_not_match))
           .validateMatch(val ?? "", _passwordController.text),
     );
   }

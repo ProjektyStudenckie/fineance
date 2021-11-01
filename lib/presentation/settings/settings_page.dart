@@ -39,18 +39,24 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget _buildPage(SettingsLoaded state) {
     return Scaffold(
         body: SafeArea(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const FineanceTitle(text: "settings"),
-        const SizedBox(height: Dimens.kMarginExtraLarge),
-        ..._buildOptions(state),
-        const Spacer(),
-        FineanceButton.negative(
-            text: "logout",
-            onPressed: () {
-              context.router.replace(const SplashRoute());
-            }),
-        const SizedBox(height: Dimens.kMarginMedium),
-      ]),
+      child: CustomScrollView(
+        physics: const ClampingScrollPhysics(),
+        slivers:[ SliverFillRemaining(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            const FineanceTitle(text: "settings"),
+            const SizedBox(height: Dimens.kMarginExtraLarge),
+            ..._buildOptions(state),
+            const Spacer(),
+            FineanceButton.negative(
+                text: "logout",
+                onPressed: () {
+                  context.router.replace(const SplashRoute());
+                }),
+            const SizedBox(height: Dimens.kMarginMedium),
+          ]),
+        ),
+        ]
+      ),
     ));
   }
 

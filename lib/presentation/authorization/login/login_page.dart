@@ -32,11 +32,11 @@ class _LoginPageState extends State<LoginPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  final _usernameValidator =
-      RequiredValidator(errorText: translate(LocaleKeys.validation_username_is_required));
+  final _usernameValidator = RequiredValidator(
+      errorText: translate(LocaleKeys.validation_username_is_required));
 
-  final _passwordValidator =
-      RequiredValidator(errorText: translate(LocaleKeys.validation_password_is_required));
+  final _passwordValidator = RequiredValidator(
+      errorText: translate(LocaleKeys.validation_password_is_required));
 
   @override
   Widget build(BuildContext context) {
@@ -55,18 +55,20 @@ class _LoginPageState extends State<LoginPage> {
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildLoginLabel(),
-                  const SizedBox(height: Dimens.kMarginLarge),
-                  _buildUsernameField(),
-                  _buildPassword(),
-                  _buildConfirmButton(),
-                  _buildRegisterButton(),
-                ],
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildLoginLabel(),
+                    const SizedBox(height: Dimens.kMarginLarge),
+                    _buildUsernameField(),
+                    _buildPassword(),
+                    _buildConfirmButton(),
+                    _buildRegisterButton(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -84,6 +86,7 @@ class _LoginPageState extends State<LoginPage> {
       label: translate(LocaleKeys.general_username),
       controller: _usernameController,
       validator: _usernameValidator,
+      textInputAction: TextInputAction.next,
     );
   }
 

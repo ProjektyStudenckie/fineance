@@ -6,6 +6,7 @@ import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
 import 'package:fineance/presentation/onboarding/bloc/onboarding_bloc.dart';
 import 'package:fineance/routing/router.gr.dart';
+import 'package:fineance/style/colors.dart';
 import 'package:fineance/style/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -137,7 +138,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(translate(LocaleKeys.onboarding_save),
-              style: context.typo.extraLarge()),
+              style: context.typo.extraLarge(
+                  color:
+                      context.isDarkTheme ? AppColors.white : AppColors.black)),
           const SizedBox(height: Dimens.kMarginLarge),
           Text(translate(LocaleKeys.onboarding_save_description),
               textAlign: TextAlign.center),
@@ -154,7 +157,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(translate(LocaleKeys.onboarding_invest),
-              style: context.typo.extraLarge()),
+              style: context.typo.extraLarge(
+                  color:
+                      context.isDarkTheme ? AppColors.white : AppColors.black)),
           const SizedBox(height: 12),
           Text(translate(LocaleKeys.onboarding_invest_description),
               textAlign: TextAlign.center),
@@ -171,7 +176,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(translate(LocaleKeys.onboarding_welcome),
-              style: context.typo.extraLarge()),
+              style: context.typo.extraLarge(
+                  color:
+                      context.isDarkTheme ? AppColors.white : AppColors.black)),
           const SizedBox(height: 12),
           Text(translate(LocaleKeys.onboarding_welcome_description),
               textAlign: TextAlign.center),
