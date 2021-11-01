@@ -1,5 +1,6 @@
 import 'package:fineance/style/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 ThemeData themeDark = ThemeData.dark().copyWith(
   bottomAppBarColor: AppColors.darkGrey,
@@ -8,5 +9,6 @@ ThemeData themeDark = ThemeData.dark().copyWith(
 );
 
 ThemeData themeLight = ThemeData.light().copyWith(
-  indicatorColor: AppColors.darkGrey
+  indicatorColor: AppColors.darkGrey,
+  appBarTheme: const AppBarTheme(systemOverlayStyle: SystemUiOverlayStyle.dark)
 );

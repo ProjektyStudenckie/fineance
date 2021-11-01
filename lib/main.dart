@@ -7,6 +7,7 @@ import 'package:fineance/presentation/theme_bloc/theme_bloc.dart';
 import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +39,12 @@ class App extends StatelessWidget {
 
     return BlocProvider<ThemeBloc>(
       create: (context) => blocFactory.get<ThemeBloc>(),
-      child: BlocBuilder<ThemeBloc, ThemeState>(
+      child: BlocConsumer<ThemeBloc, ThemeState>(
+        listener: (context, state) {
+          SystemChrome.setSystemUIOverlayStyle(state.theme == ThemeScheme.dark
+              ? SystemUiOverlayStyle.light
+              : SystemUiOverlayStyle.dark);
+        },
         builder: (context, state) => Provider<ThemeScheme>(
           create: (BuildContext context) {
             return state.theme;

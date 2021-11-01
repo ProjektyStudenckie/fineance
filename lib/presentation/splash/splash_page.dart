@@ -1,9 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:fineance/components/fineance_loader.dart';
+import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/presentation/splash/bloc/splash_bloc.dart';
+import 'package:fineance/presentation/theme_bloc/theme_bloc.dart';
 import 'package:fineance/routing/router.gr.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SplashPage extends StatefulWidget implements AutoRouteWrapper {
@@ -38,6 +41,10 @@ class _SplashPageState extends State<SplashPage> {
         }
       },
       builder: (context, state) {
+        SystemChrome.setSystemUIOverlayStyle(context.isDarkTheme
+            ? SystemUiOverlayStyle.light
+            : SystemUiOverlayStyle.dark);
+
         return const Scaffold(
           body: Center(child: FineanceLoader()),
         );

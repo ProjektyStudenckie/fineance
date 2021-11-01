@@ -4,11 +4,14 @@ import 'package:fineance/components/fineance_loader.dart';
 import 'package:fineance/components/fineance_switch.dart';
 import 'package:fineance/components/fineance_title.dart';
 import 'package:fineance/extension/context_extension.dart';
+import 'package:fineance/localization/keys.g.dart';
+import 'package:fineance/localization/utils.dart';
 import 'package:fineance/presentation/settings/bloc/settings_bloc.dart';
 import 'package:fineance/presentation/theme_bloc/theme_bloc.dart';
 import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/dimens.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -39,24 +42,23 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget _buildPage(SettingsLoaded state) {
     return Scaffold(
         body: SafeArea(
-      child: CustomScrollView(
-        physics: const ClampingScrollPhysics(),
-        slivers:[ SliverFillRemaining(
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const FineanceTitle(text: "settings"),
+      child: CustomScrollView(physics: const ClampingScrollPhysics(), slivers: [
+        SliverFillRemaining(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            FineanceTitle(text: translate(LocaleKeys.settings_settings)),
             const SizedBox(height: Dimens.kMarginExtraLarge),
             ..._buildOptions(state),
             const Spacer(),
             FineanceButton.negative(
-                text: "logout",
+                text: translate(LocaleKeys.settings_logout),
                 onPressed: () {
                   context.router.replace(const SplashRoute());
                 }),
             const SizedBox(height: Dimens.kMarginMedium),
           ]),
         ),
-        ]
-      ),
+      ]),
     ));
   }
 
@@ -74,7 +76,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Widget _buildThemeOption(SettingsLoaded state) {
     return FineanceSwitch(
-        label: "dark mode",
+        label: translate(LocaleKeys.settings_dark_mode),
         value: context.isDarkTheme,
         onChanged: (newValue) {
           BlocProvider.of<SettingsBloc>(context).add(ChangeTheme(
@@ -87,7 +89,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Widget _buildBiometricsOption(SettingsLoaded state) {
     return FineanceSwitch(
-        label: "biometric authorization",
+        label: translate(LocaleKeys.biometrics_authentication),
         value: state.settings.isBiometricsActive,
         onChanged: (newValue) {
           BlocProvider.of<SettingsBloc>(context).add(ChangeBiometricsOption(

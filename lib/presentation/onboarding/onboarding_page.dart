@@ -195,7 +195,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     return BlocBuilder<OnboardingBloc, OnboardingState>(
       builder: (context, state) {
         return FineanceSwitch(
-            label: "biometric authorization",
+            label: translate(LocaleKeys.biometrics_authentication),
             value: state.isBiometricsOn,
             onChanged: (newValue) {
               BlocProvider.of<OnboardingBloc>(context)
