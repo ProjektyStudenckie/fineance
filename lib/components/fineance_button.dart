@@ -11,24 +11,24 @@ class FineanceButton extends StatelessWidget {
   final Color color;
 
   const FineanceButton({
+    Key? key,
     required this.text,
     required this.onPressed,
     this.color = AppColors.blue,
-    Key? key,
   }) : super(key: key);
 
   const FineanceButton.positive({
+    Key? key,
     required this.text,
     required this.onPressed,
     this.color = AppColors.green,
-    Key? key,
   }) : super(key: key);
 
   const FineanceButton.negative({
+    Key? key,
     required this.text,
     required this.onPressed,
     this.color = AppColors.red,
-    Key? key,
   }) : super(key: key);
 
   @override

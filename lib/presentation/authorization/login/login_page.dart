@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildLoginLabel() {
     return FineanceTitle(
-        key: const ValueKey("title"), text: translate(LocaleKeys.general_login));
+        key: const ValueKey("loginTitle"), text: translate(LocaleKeys.general_login));
   }
 
   Widget _buildUsernameField() {

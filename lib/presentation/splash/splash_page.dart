@@ -3,7 +3,6 @@ import 'package:fineance/components/fineance_loader.dart';
 import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/presentation/splash/bloc/splash_bloc.dart';
-import 'package:fineance/presentation/theme_bloc/theme_bloc.dart';
 import 'package:fineance/routing/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

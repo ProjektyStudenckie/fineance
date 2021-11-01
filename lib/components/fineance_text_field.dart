@@ -11,14 +11,14 @@ class FineanceTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextInputAction? textInputAction;
 
-  const FineanceTextField(
-      {required this.label,
-      this.controller,
-      this.obscureText = false,
-      this.validator,
-      this.textInputAction,
-      Key? key})
-      : super(key: key);
+  const FineanceTextField({
+    Key? key,
+    required this.label,
+    this.controller,
+    this.obscureText = false,
+    this.validator,
+    this.textInputAction,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

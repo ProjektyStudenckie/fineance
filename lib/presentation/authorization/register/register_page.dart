@@ -78,6 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: Column(
                   children: [
                     FineanceBackButtonWithTitle(
+                        key: const ValueKey("registerTitle"),
                         text: translate(LocaleKeys.general_register)),
                     const SizedBox(height: Dimens.kMarginLarge),
                     _buildEmailField(),
@@ -97,6 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _buildEmailField() {
     return FineanceTextField(
+      key: const ValueKey("emailInput"),
       label: translate(LocaleKeys.general_email),
       controller: _emailController,
       validator: _emailValidator,
@@ -106,6 +108,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _buildUsernameField() {
     return FineanceTextField(
+      key: const ValueKey("usernameInput"),
       label: translate(LocaleKeys.general_username),
       controller: _usernameController,
       validator: _usernameValidator,
@@ -115,6 +118,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _buildPasswordField() {
     return FineanceTextField(
+      key: const ValueKey("passwordInput"),
       label: translate(LocaleKeys.general_password),
       controller: _passwordController,
       validator: _passwordValidator,
@@ -125,6 +129,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _buildPasswordConfirmationField() {
     return FineanceTextField(
+      key: const ValueKey("passwordConfirmationInput"),
       label: translate(LocaleKeys.general_confirm_password),
       controller: _passwordConfirmationController,
       obscureText: true,
@@ -137,6 +142,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _buildConfirmButton() {
     return FineanceButton(
+        key: const ValueKey("registerButton"),
         onPressed: () {
           final email = _emailController.text;
           final username = _usernameController.text;
