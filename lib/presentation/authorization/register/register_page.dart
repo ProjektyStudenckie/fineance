@@ -37,20 +37,20 @@ class _RegisterPageState extends State<RegisterPage> {
   final _passwordConfirmationController = TextEditingController();
 
   final _emailValidator = MultiValidator([
-    RequiredValidator(errorText: 'email is required'),
-    EmailValidator(errorText: 'email is invalid'),
+    RequiredValidator(errorText: translate(LocaleKeys.validation_email_is_required)),
+    EmailValidator(errorText: translate(LocaleKeys.validation_email_is_invalid)),
   ]);
 
   final _usernameValidator = MultiValidator([
-    RequiredValidator(errorText: 'password is required'),
-    MinLengthValidator(4, errorText: 'password must be at least 4 digits long'),
+    RequiredValidator(errorText: translate(LocaleKeys.validation_password_is_required)),
+    MinLengthValidator(4, errorText: translate(LocaleKeys.validation_username_too_short)),
   ]);
 
   final _passwordValidator = MultiValidator([
-    RequiredValidator(errorText: 'password is required'),
-    MinLengthValidator(4, errorText: 'password must be at least 4 digits long'),
+    RequiredValidator(errorText: translate(LocaleKeys.validation_password_is_required)),
+    MinLengthValidator(4, errorText: translate(LocaleKeys.validation_password_too_short)),
     PatternValidator(r'(?=.*?[#?!@$%^&*-])',
-        errorText: 'passwords must have at least one special character')
+        errorText: translate(LocaleKeys.validation_password_special))
   ]);
 
   @override
@@ -117,7 +117,7 @@ class _RegisterPageState extends State<RegisterPage> {
       label: translate(LocaleKeys.general_confirm_password),
       controller: _passwordConfirmationController,
       obscureText: true,
-      validator: (val) => MatchValidator(errorText: 'passwords do not match')
+      validator: (val) => MatchValidator(errorText: translate(LocaleKeys.validation_passwords_do_not_match))
           .validateMatch(val ?? "", _passwordController.text),
     );
   }

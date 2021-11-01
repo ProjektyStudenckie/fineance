@@ -33,10 +33,10 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
 
   final _usernameValidator =
-      RequiredValidator(errorText: "usename is required");
+      RequiredValidator(errorText: translate(LocaleKeys.validation_username_is_required));
 
   final _passwordValidator =
-      RequiredValidator(errorText: 'password is required');
+      RequiredValidator(errorText: translate(LocaleKeys.validation_password_is_required));
 
   @override
   Widget build(BuildContext context) {

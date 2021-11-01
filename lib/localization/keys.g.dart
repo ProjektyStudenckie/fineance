@@ -22,5 +22,14 @@ abstract class  LocaleKeys {
   static const biometrics_authentication = 'biometrics.authentication';
   static const biometrics_reason = 'biometrics.reason';
   static const biometrics = 'biometrics';
+  static const validation_username_is_required = 'validation.username_is_required';
+  static const validation_password_is_required = 'validation.password_is_required';
+  static const validation_email_is_required = 'validation.email_is_required';
+  static const validation_email_is_invalid = 'validation.email_is_invalid';
+  static const validation_password_too_short = 'validation.password_too_short';
+  static const validation_username_too_short = 'validation.username_too_short';
+  static const validation_password_special = 'validation.password_special';
+  static const validation_passwords_do_not_match = 'validation.passwords_do_not_match';
+  static const validation = 'validation';
 
 }
