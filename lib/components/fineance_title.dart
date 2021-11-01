@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class FineanceTitle extends StatelessWidget {
   final String text;
 
-  const FineanceTitle({required this.text});
+  const FineanceTitle({required this.text, Key? key}): super(key: key);
 
   @override
   Widget build(BuildContext context) {

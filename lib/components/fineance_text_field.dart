@@ -16,7 +16,9 @@ class FineanceTextField extends StatelessWidget {
       this.controller,
       this.obscureText = false,
       this.validator,
-      this.textInputAction});
+      this.textInputAction,
+      Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -14,26 +14,28 @@ class FineanceButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.color = AppColors.blue,
-  });
+    Key? key,
+  }) : super(key: key);
 
   const FineanceButton.positive({
     required this.text,
     required this.onPressed,
     this.color = AppColors.green,
-  });
+    Key? key,
+  }) : super(key: key);
 
   const FineanceButton.negative({
     required this.text,
     required this.onPressed,
     this.color = AppColors.red,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-          horizontal: Dimens.kMarginLargeDouble,
-          vertical: Dimens.kMarginLarge),
+          horizontal: Dimens.kMarginLargeDouble, vertical: Dimens.kMarginLarge),
       child: TextButton(
         onPressed: onPressed,
         style: ButtonStyle(
