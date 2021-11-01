@@ -8,11 +8,13 @@ class FineanceTextField extends StatelessWidget {
   final String label;
   final TextEditingController? controller;
   final bool obscureText;
+  final String? Function(String?)? validator;
 
   const FineanceTextField({
     required this.label,
     this.controller,
     this.obscureText = false,
+    this.validator
   });
 
   @override
@@ -31,6 +33,7 @@ class FineanceTextField extends StatelessWidget {
         controller: controller,
         maxLines: 1,
         obscureText: obscureText,
+        validator: validator,
         decoration: InputDecoration(
           labelText: label,
           labelStyle: context.typo.main(),

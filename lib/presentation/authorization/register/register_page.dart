@@ -10,6 +10,7 @@ import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 class RegisterPage extends StatefulWidget implements AutoRouteWrapper {
   const RegisterPage({Key? key}) : super(key: key);
@@ -28,10 +29,29 @@ class RegisterPage extends StatefulWidget implements AutoRouteWrapper {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final _formKey = GlobalKey<FormState>();
+
   final _emailController = TextEditingController();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _passwordConfirmationController = TextEditingController();
+
+  final _emailValidator = MultiValidator([
+    RequiredValidator(errorText: 'email is required'),
+    EmailValidator(errorText: 'email is invalid'),
+  ]);
+
+  final _usernameValidator = MultiValidator([
+    RequiredValidator(errorText: 'password is required'),
+    MinLengthValidator(4, errorText: 'password must be at least 4 digits long'),
+  ]);
+
+  final _passwordValidator = MultiValidator([
+    RequiredValidator(errorText: 'password is required'),
+    MinLengthValidator(4, errorText: 'password must be at least 4 digits long'),
+    PatternValidator(r'(?=.*?[#?!@$%^&*-])',
+        errorText: 'passwords must have at least one special character')
+  ]);
 
   @override
   Widget build(BuildContext context) {
@@ -46,17 +66,20 @@ class _RegisterPageState extends State<RegisterPage> {
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
-            child: Column(
-              children: [
-                FineanceBackButtonWithTitle(
-                    text: translate(LocaleKeys.general_register)),
-                const SizedBox(height: Dimens.kMarginLarge),
-                _buildEmailField(),
-                _buildUsernameField(),
-                _buildPasswordField(),
-                _buildPasswordConfirmationField(),
-                _buildConfirmButton(),
-              ],
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  FineanceBackButtonWithTitle(
+                      text: translate(LocaleKeys.general_register)),
+                  const SizedBox(height: Dimens.kMarginLarge),
+                  _buildEmailField(),
+                  _buildUsernameField(),
+                  _buildPasswordField(),
+                  _buildPasswordConfirmationField(),
+                  _buildConfirmButton(),
+                ],
+              ),
             ),
           ),
         );
@@ -68,6 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return FineanceTextField(
       label: translate(LocaleKeys.general_email),
       controller: _emailController,
+      validator: _emailValidator,
     );
   }
 
@@ -75,6 +99,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return FineanceTextField(
       label: translate(LocaleKeys.general_username),
       controller: _usernameController,
+      validator: _usernameValidator,
     );
   }
 
@@ -83,6 +108,7 @@ class _RegisterPageState extends State<RegisterPage> {
       label: translate(LocaleKeys.general_password),
       controller: _passwordController,
       obscureText: true,
+      validator: _passwordValidator,
     );
   }
 
@@ -91,6 +117,8 @@ class _RegisterPageState extends State<RegisterPage> {
       label: translate(LocaleKeys.general_confirm_password),
       controller: _passwordConfirmationController,
       obscureText: true,
+      validator: (val) => MatchValidator(errorText: 'passwords do not match')
+          .validateMatch(val ?? "", _passwordController.text),
     );
   }
 
@@ -102,9 +130,10 @@ class _RegisterPageState extends State<RegisterPage> {
           final password = _passwordController.text;
 
           // Todo: Validate
-
-          BlocProvider.of<RegisterBloc>(context).add(RegisterUser(
-              email: email, username: username, password: password));
+          if (_formKey.currentState?.validate() == true) {
+            BlocProvider.of<RegisterBloc>(context).add(RegisterUser(
+                email: email, username: username, password: password));
+          }
         },
         text: translate(LocaleKeys.general_register));
   }

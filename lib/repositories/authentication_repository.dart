@@ -1,6 +1,6 @@
 import 'package:local_auth/local_auth.dart';
 
-abstract class AuthorizationRepository {
+abstract class AuthenticationRepository {
   Future<bool> login(String username, String password);
 
   Future<void> register(String email, String username, String password);
@@ -10,10 +10,10 @@ abstract class AuthorizationRepository {
   Future<bool> authenticateUsingBiometrics(String reason);
 }
 
-class AuthorizationRepositoryImpl extends AuthorizationRepository {
+class AuthenticationRepositoryImpl extends AuthenticationRepository {
   final LocalAuthentication localAuthentication;
 
-  AuthorizationRepositoryImpl(this.localAuthentication);
+  AuthenticationRepositoryImpl(this.localAuthentication);
 
   @override
   Future<bool> login(String username, String password) async {

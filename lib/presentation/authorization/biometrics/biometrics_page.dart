@@ -29,7 +29,7 @@ class _BiometricsPageState extends State<BiometricsPage> {
         if (state is AuthSuccess) {
           context.router.replace(const TabRoute());
         } else if (state is AuthError) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Sending Message"),
           ));
         }
