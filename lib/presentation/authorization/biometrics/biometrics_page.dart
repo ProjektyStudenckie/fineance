@@ -22,6 +22,8 @@ class BiometricsPage extends StatefulWidget implements AutoRouteWrapper {
 }
 
 class _BiometricsPageState extends State<BiometricsPage> {
+  bool _isLoginVisible = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<BiometricsBloc, BiometricsState>(
@@ -29,9 +31,7 @@ class _BiometricsPageState extends State<BiometricsPage> {
         if (state is AuthSuccess) {
           context.router.replace(const TabRoute());
         } else if (state is AuthError) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Sending Message"),
-          ));
+          _isLoginVisible = true;
         }
       },
       builder: (context, state) {
@@ -57,19 +57,23 @@ class _BiometricsPageState extends State<BiometricsPage> {
           style: context.typo.extraLargeBold(
               color: context.isDarkTheme ? AppColors.white : AppColors.black),
         ),
-        AnimatedOpacity(
-          opacity: 1.0,
-          duration: const Duration(milliseconds: 400),
-          child: TextButton(
-              onPressed: () {
-                context.router.replace(const LoginRoute());
-              },
-              child: Text("login",
-                  style: context.typo
-                      .main(color: AppColors.red)
-                      .copyWith(decoration: TextDecoration.underline))),
-        ),
+        _buildLoginButton()
       ],
+    );
+  }
+
+  Widget _buildLoginButton() {
+    return AnimatedOpacity(
+      opacity: _isLoginVisible ? 1.0 : 0.0,
+      duration: const Duration(milliseconds: 400),
+      child: TextButton(
+          onPressed: () {
+            context.router.replace(const LoginRoute());
+          },
+          child: Text("login",
+              style: context.typo
+                  .main(color: AppColors.red)
+                  .copyWith(decoration: TextDecoration.underline))),
     );
   }
 

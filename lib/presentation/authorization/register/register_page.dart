@@ -129,7 +129,6 @@ class _RegisterPageState extends State<RegisterPage> {
           final username = _usernameController.text;
           final password = _passwordController.text;
 
-          // Todo: Validate
           if (_formKey.currentState?.validate() == true) {
             BlocProvider.of<RegisterBloc>(context).add(RegisterUser(
                 email: email, username: username, password: password));
