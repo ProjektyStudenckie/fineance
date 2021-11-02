@@ -15,6 +15,7 @@ class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
 
 class FakeLoginEvent extends Fake implements LoginEvent {}
 
+// ignore: avoid_implementing_value_types
 class FakeLoginState extends Fake implements LoginState {}
 
 Future<void> main() async {
@@ -70,7 +71,7 @@ Future<void> main() async {
     });
 
     testWidgets(
-        "should show validation error when username field empty and login button pressed",
+        "should show validation error when username and password fields empty and login button pressed",
         (WidgetTester tester) async {
       whenListen(
         bloc,

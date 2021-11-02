@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:fineance/injection/modules.dart';
 import 'package:fineance/repositories/authentication_repository.dart';
 import 'package:hive/hive.dart';
@@ -17,14 +18,20 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       try {
         emit(LoginLoading());
 
-        await _authenticationRepository.login(event.username, event.password);
+        final authenticated = await _authenticationRepository.login(
+            event.username, event.password);
 
-        final shouldShowOnboarding = _settingsBox.get(IS_ONBOARDING_DONE) != true;
-        if (shouldShowOnboarding) {
-          _settingsBox.put(IS_ONBOARDING_DONE, true);
+        if (!authenticated) {
+          emit(LoginIncorrect());
+        } else {
+          final shouldShowOnboarding =
+              _settingsBox.get(IS_ONBOARDING_DONE) != true;
+          if (shouldShowOnboarding) {
+            _settingsBox.put(IS_ONBOARDING_DONE, true);
+          }
+
+          emit(LoginSuccess(shouldShowOnboarding: shouldShowOnboarding));
         }
-
-        emit(LoginSuccess(shouldShowOnboarding: shouldShowOnboarding));
       } catch (e) {
         emit(LoginError());
       }
