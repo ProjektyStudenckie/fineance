@@ -78,11 +78,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildLoginLabel() {
-    return FineanceTitle(text: translate(LocaleKeys.general_login));
+    return FineanceTitle(
+        key: const ValueKey("loginTitle"), text: translate(LocaleKeys.general_login));
   }
 
   Widget _buildUsernameField() {
     return FineanceTextField(
+      key: const ValueKey("usernameInput"),
       label: translate(LocaleKeys.general_username),
       controller: _usernameController,
       validator: _usernameValidator,
@@ -92,6 +94,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildPassword() {
     return FineanceTextField(
+      key: const ValueKey("passwordInput"),
         label: translate(LocaleKeys.general_password),
         controller: _passwordController,
         obscureText: true,
@@ -100,6 +103,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildConfirmButton() {
     return FineanceButton(
+      key: const ValueKey("loginButton"),
         onPressed: () {
           final username = _usernameController.text;
           final password = _passwordController.text;
@@ -114,6 +118,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildRegisterButton() {
     return FineanceButton.positive(
+      key: const ValueKey("registerButton"),
         onPressed: () {
           context.router.push(const RegisterRoute());
         },

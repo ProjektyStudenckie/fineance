@@ -7,7 +7,9 @@ class FineanceBackButtonWithTitle extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
 
-  const FineanceBackButtonWithTitle({required this.text, this.onPressed});
+  const FineanceBackButtonWithTitle(
+      {Key? key, required this.text, this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

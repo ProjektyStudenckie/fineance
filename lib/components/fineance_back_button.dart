@@ -8,8 +8,9 @@ class FineanceBackButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   const FineanceBackButton({
+    Key? key,
     required this.onPressed,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -12,7 +12,11 @@ class FineanceSwitch extends StatelessWidget {
   final ValueChanged<bool> onChanged;
 
   const FineanceSwitch(
-      {required this.label, required this.value, required this.onChanged});
+      {Key? key,
+      required this.label,
+      required this.value,
+      required this.onChanged})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
