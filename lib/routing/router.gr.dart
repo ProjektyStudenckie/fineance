@@ -13,6 +13,7 @@ import '../presentation/authorization/register/register_page.dart' as _i3;
 import '../presentation/home/home_page.dart' as _i7;
 import '../presentation/onboarding/onboarding_page.dart' as _i4;
 import '../presentation/settings/settings_page.dart' as _i8;
+import '../presentation/splash/fineance_quick_actions.dart' as _i11;
 import '../presentation/splash/splash_page.dart' as _i1;
 import '../presentation/tabs/tab_page.dart' as _i6;
 
@@ -39,8 +40,11 @@ class AppRouter extends _i9.RootStackRouter {
           routeData: routeData, child: const _i4.OnboardingPage());
     },
     BiometricsRoute.name: (routeData) {
+      final args = routeData.argsAs<BiometricsRouteArgs>(
+          orElse: () => const BiometricsRouteArgs());
       return _i9.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i5.BiometricsPage());
+          routeData: routeData,
+          child: _i5.BiometricsPage(quickAction: args.quickAction));
     },
     TabRoute.name: (routeData) {
       return _i9.MaterialPageX<dynamic>(
@@ -99,10 +103,19 @@ class OnboardingRoute extends _i9.PageRouteInfo<void> {
 }
 
 /// generated route for [_i5.BiometricsPage]
-class BiometricsRoute extends _i9.PageRouteInfo<void> {
-  const BiometricsRoute() : super(name, path: '/biometrics-page');
+class BiometricsRoute extends _i9.PageRouteInfo<BiometricsRouteArgs> {
+  BiometricsRoute({_i11.FineanceQuickActions? quickAction})
+      : super(name,
+            path: '/biometrics-page',
+            args: BiometricsRouteArgs(quickAction: quickAction));
 
   static const String name = 'BiometricsRoute';
+}
+
+class BiometricsRouteArgs {
+  const BiometricsRouteArgs({this.quickAction});
+
+  final _i11.FineanceQuickActions? quickAction;
 }
 
 /// generated route for [_i6.TabPage]

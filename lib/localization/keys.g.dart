@@ -36,5 +36,7 @@ abstract class  LocaleKeys {
   static const settings_dark_mode = 'settings.dark_mode';
   static const settings_biometric_authentication = 'settings.biometric_authentication';
   static const settings = 'settings';
+  static const quick_actions_register_new_income_expense = 'quick_actions.register_new_income_expense';
+  static const quick_actions = 'quick_actions';
 
 }

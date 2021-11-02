@@ -7,4 +7,10 @@ class SplashLoading extends SplashState {}
 
 class SplashOpenHome extends SplashState {}
 
-class SplashOpenBiometrics extends SplashState {}
+class SplashOpenRegisterIncomeExpense extends SplashState {}
+
+class SplashOpenBiometrics extends SplashState {
+  final FineanceQuickActions? quickAction;
+
+  SplashOpenBiometrics([this.quickAction]);
+}
