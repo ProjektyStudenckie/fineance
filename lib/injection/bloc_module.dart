@@ -3,6 +3,7 @@ import 'package:fineance/presentation/authorization/biometrics/bloc/biometrics_b
 import 'package:fineance/presentation/authorization/login/bloc/login_bloc.dart';
 import 'package:fineance/presentation/authorization/register/bloc/register_bloc.dart';
 import 'package:fineance/presentation/home/bloc/home_bloc.dart';
+import 'package:fineance/presentation/income_expense/bloc/income_expense_bloc.dart';
 import 'package:fineance/presentation/onboarding/bloc/onboarding_bloc.dart';
 import 'package:fineance/presentation/settings/bloc/settings_bloc.dart';
 import 'package:fineance/presentation/splash/bloc/splash_bloc.dart';
@@ -18,4 +19,5 @@ void registerBlocModules(GetIt injector, ThemeScheme theme) {
   injector.registerFactory(() => BiometricsBloc(injector.get()));
   injector.registerFactory(() => HomeBloc());
   injector.registerFactory(() => SettingsBloc(injector.get(), injector.get(instanceName: themeBox)));
+  injector.registerFactory(() => IncomeExpenseBloc());
 }
