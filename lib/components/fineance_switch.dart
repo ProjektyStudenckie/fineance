@@ -25,11 +25,14 @@ class FineanceSwitch extends StatelessWidget {
           const EdgeInsets.symmetric(horizontal: Dimens.kMarginLargeDouble),
       child: Row(
         children: [
-          Text(label,
-              style: context.typo.main(
-                  color:
-                      context.isDarkTheme ? AppColors.white : AppColors.black)),
-          const Spacer(),
+          Expanded(
+            child: Text(label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+                style: context.typo.main(
+                    color:
+                        context.isDarkTheme ? AppColors.white : AppColors.black)),
+          ),
           SizedBox(height: 40.0, child: _buildSwitch()),
         ],
       ),

@@ -88,7 +88,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Widget _buildBiometricsOption(SettingsLoaded state) {
     return FineanceSwitch(
-        label: translate(LocaleKeys.biometrics_authentication),
+        label: translate(LocaleKeys.settings_biometric_authentication),
         value: state.settings.isBiometricsActive,
         onChanged: (newValue) {
           BlocProvider.of<SettingsBloc>(context).add(ChangeBiometricsOption(

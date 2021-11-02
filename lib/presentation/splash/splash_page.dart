@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:fineance/components/fineance_loader.dart';
 import 'package:fineance/extension/context_extension.dart';
-import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
 import 'package:fineance/presentation/splash/bloc/splash_bloc.dart';
