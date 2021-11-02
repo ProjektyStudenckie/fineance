@@ -39,5 +39,8 @@
         "logout": "logout",
         "dark_mode": "dark mode",
         "biometric_authentication": "biometric authentication"
+    },
+    "quick_actions": {
+        "register_new_income_expense": "Register new income / expense"
     }
 }

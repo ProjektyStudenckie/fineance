@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:fineance/presentation/splash/fineance_quick_actions.dart';
 import 'package:fineance/repositories/authentication_repository.dart';
 import 'package:fineance/repositories/settings_service.dart';
 import 'package:meta/meta.dart';
@@ -17,12 +18,30 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
 
       // TODO: Check if user is logged in
 
-      if (_settingsService.isBiometricsActive() &&
-          await _authorizationRepository.canDeviceUseBiometrics()) {
-        emit(SplashOpenBiometrics());
+      if (event.quickAction ==
+          FineanceQuickActions.REGISTER_NEW_INCOME_EXPENSE) {
+        emit(await _handleRegisterNewIncomeExpenseQuickAction());
       } else {
-        emit(SplashOpenHome());
+        emit(await _handleLoadingWithoutQuickAction());
       }
     });
+  }
+
+  Future<SplashState> _handleRegisterNewIncomeExpenseQuickAction() async {
+    if (_settingsService.isBiometricsActive() &&
+        await _authorizationRepository.canDeviceUseBiometrics()) {
+      return SplashOpenBiometrics(FineanceQuickActions.REGISTER_NEW_INCOME_EXPENSE);
+    } else {
+      return SplashOpenRegisterIncomeExpense();
+    }
+  }
+
+  Future<SplashState> _handleLoadingWithoutQuickAction() async {
+    if (_settingsService.isBiometricsActive() &&
+        await _authorizationRepository.canDeviceUseBiometrics()) {
+      return SplashOpenBiometrics();
+    } else {
+      return SplashOpenHome();
+    }
   }
 }
