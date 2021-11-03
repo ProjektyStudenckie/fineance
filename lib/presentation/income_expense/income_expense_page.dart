@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:fineance/components/fineance_back_button.dart';
+import 'package:fineance/components/fineance_values_switch.dart';
 import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/presentation/income_expense/bloc/income_expense_bloc.dart';
 import 'package:flutter/material.dart';
@@ -24,9 +26,21 @@ class _IncomeExpensePageState extends State<IncomeExpensePage> {
     return BlocConsumer<IncomeExpenseBloc, IncomeExpenseState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return const Scaffold(
-          body: Center(
-            child: Text("income / expense page"),
+        return Scaffold(
+          body: SafeArea(
+            child: SingleChildScrollView(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FineanceBackButton(onPressed: () {
+                  context.router.pop();
+                }),
+                Center(
+                    child: FineanceValuesSwitch(
+                  onChange: (tabIndex) {},
+                )),
+              ],
+            )),
           ),
         );
       },

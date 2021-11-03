@@ -42,5 +42,9 @@
     },
     "quick_actions": {
         "register_new_income_expense": "Register new income / expense"
+    },
+    "income_expense": {
+        "income": "income",
+        "expense": "expense"
     }
 }
