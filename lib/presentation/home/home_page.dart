@@ -22,67 +22,22 @@ class _HomePageState extends State<HomePage> {
           context.router.push(const IncomeExpenseRoute());
         },
       ),
-      body: Center(
-          child:
-              _chartWithButton(Theme.of(context).brightness == Brightness.dark)),
+      body: Center(child: _chart()),
     );
   }
 
-  Widget _chartWithButton(bool isDarkMode) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        child: Stack(
-          children: <Widget>[
-            _chart(isDarkMode),
-            _avgButton(),
-          ],
-        ),
-      );
-
-  Widget _chart(bool isDarkMode) => AspectRatio(
-        aspectRatio: 1.70,
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: isDarkMode ? AppColors.grey : AppColors.white,
-            ),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(18),
-            ),
-            color: isDarkMode ? AppColors.darkGrey : AppColors.grey,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(
-                right: 18.0, left: 12.0, top: 24, bottom: 12),
-            child: LineChart(
-              fineanceChart(
-                isDarkMode: isDarkMode,
-                sideTexts: ['1k', '3k', '5k'],
-                bottomTexts: ['SEP', 'OCT', 'NOV'],
-                earningSpots: _earningSpots(),
-                spendingSpots: _spendingSpots(),
-              ), // showAvg
-            ),
-          ),
-        ),
-      );
-
-  Widget _avgButton() => SizedBox(
-        width: 60,
-        height: 34,
-        child: TextButton(
-          onPressed: () {
-            setState(() {
-              showAvg = !showAvg;
-            });
-          },
-          child: Text(
-            'Avg',
-            style: TextStyle(
-              fontSize: 12,
-              color: showAvg ? Colors.white.withOpacity(0.5) : Colors.white,
-            ),
-          ),
-        ),
+  Widget _chart() => FineanceChart(
+        showAvg: showAvg,
+        setShowAvg: () => setState(() => showAvg = !showAvg),
+        sideTexts: const ['1k', '3k', '5k'],
+        bottomTexts: const ['SEP', 'OCT', 'NOV'],
+        spots: [_earningSpots(), _spendingSpots()],
+        sideTextsPlacement: const [1, 3, 5],
+        bottomTextsPlacement: const [2, 5, 8],
+        spotsColors: const [
+          AppColors.earningLineColor,
+          AppColors.spendingLineColor
+        ],
       );
 
   List<FlSpot> _earningSpots() {
