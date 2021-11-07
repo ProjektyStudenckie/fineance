@@ -42,5 +42,13 @@
     },
     "quick_actions": {
         "register_new_income_expense": "Zarejestruj nowy przychód / koszt"
+    },
+    "income_expense": {
+        "register_value": "zarejestruj wartość",
+        "income": "przychód",
+        "expense": "koszt",
+        "title": "tytuł",
+        "value": "wartość",
+        "date": "data"
     }
 }

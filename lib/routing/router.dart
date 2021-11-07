@@ -3,6 +3,7 @@ import 'package:fineance/presentation/authorization/biometrics/biometrics_page.d
 import 'package:fineance/presentation/authorization/login/login_page.dart';
 import 'package:fineance/presentation/authorization/register/register_page.dart';
 import 'package:fineance/presentation/home/home_page.dart';
+import 'package:fineance/presentation/income_expense/income_expense_page.dart';
 import 'package:fineance/presentation/onboarding/onboarding_page.dart';
 import 'package:fineance/presentation/settings/settings_page.dart';
 import 'package:fineance/presentation/splash/splash_page.dart';
@@ -16,6 +17,7 @@ import 'package:fineance/presentation/tabs/tab_page.dart';
     AutoRoute(page: RegisterPage),
     AutoRoute(page: OnboardingPage),
     AutoRoute(page: BiometricsPage),
+    AutoRoute(page: IncomeExpensePage),
     AutoRoute(page: TabPage, children: [
       AutoRoute(page: HomePage),
       AutoRoute(page: SettingsPage),

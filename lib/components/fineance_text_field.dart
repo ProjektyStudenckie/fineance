@@ -3,6 +3,7 @@ import 'package:fineance/style/colors.dart';
 import 'package:fineance/style/dimens.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class FineanceTextField extends StatelessWidget {
   final String label;
@@ -10,6 +11,9 @@ class FineanceTextField extends StatelessWidget {
   final bool obscureText;
   final String? Function(String?)? validator;
   final TextInputAction? textInputAction;
+  final List<TextInputFormatter>? textInputFormatters;
+  final void Function()? onTap;
+  final bool readOnly;
 
   const FineanceTextField({
     Key? key,
@@ -18,6 +22,9 @@ class FineanceTextField extends StatelessWidget {
     this.obscureText = false,
     this.validator,
     this.textInputAction,
+    this.textInputFormatters,
+    this.onTap,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
@@ -37,6 +44,9 @@ class FineanceTextField extends StatelessWidget {
         obscureText: obscureText,
         validator: validator,
         textInputAction: textInputAction,
+        inputFormatters: textInputFormatters,
+        onTap: onTap,
+        readOnly: readOnly,
         decoration: InputDecoration(
           labelText: label,
           labelStyle: context.typo.main(),

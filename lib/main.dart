@@ -26,7 +26,7 @@ Future<void> main() async {
       create: (context) => BlocFactory(injector: injector),
       child: EasyLocalization(
           path: 'assets/translations',
-          supportedLocales: const [Locale("en")],
+          supportedLocales: const [Locale("en"), Locale("pl")],
           fallbackLocale: const Locale("en"),
           child: App())));
 }
