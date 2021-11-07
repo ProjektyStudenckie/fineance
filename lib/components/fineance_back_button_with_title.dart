@@ -20,7 +20,7 @@ class FineanceBackButtonWithTitle extends StatelessWidget {
                 () {
                   context.router.pop();
                 }),
-        FineanceTitle(text: text),
+        Expanded(child: FittedBox(child: FineanceTitle(text: text))),
       ],
     );
   }

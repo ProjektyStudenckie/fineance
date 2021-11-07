@@ -38,8 +38,12 @@ abstract class  LocaleKeys {
   static const settings = 'settings';
   static const quick_actions_register_new_income_expense = 'quick_actions.register_new_income_expense';
   static const quick_actions = 'quick_actions';
+  static const income_expense_register_value = 'income_expense.register_value';
   static const income_expense_income = 'income_expense.income';
   static const income_expense_expense = 'income_expense.expense';
+  static const income_expense_title = 'income_expense.title';
+  static const income_expense_value = 'income_expense.value';
+  static const income_expense_date = 'income_expense.date';
   static const income_expense = 'income_expense';
 
 }

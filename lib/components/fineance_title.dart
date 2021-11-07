@@ -19,10 +19,13 @@ class FineanceTitle extends StatelessWidget {
           top: Dimens.kMarginLargeDouble,
           left: Dimens.kMarginLargeDouble,
           right: Dimens.kMarginLargeDouble),
-      child: Text(text,
-          overflow: TextOverflow.ellipsis,
-          style: context.typo.extraLargeBold(
-              color: context.isDarkTheme ? AppColors.white : AppColors.black)),
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(text,
+            overflow: TextOverflow.ellipsis,
+            style: context.typo.extraLargeBold(
+                color: context.isDarkTheme ? AppColors.white : AppColors.black)),
+      ),
     );
   }
 }

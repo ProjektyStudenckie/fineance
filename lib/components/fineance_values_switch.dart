@@ -1,14 +1,22 @@
 import 'package:fineance/extension/context_extension.dart';
-import 'package:fineance/localization/keys.g.dart';
-import 'package:fineance/localization/utils.dart';
 import 'package:fineance/style/colors.dart';
 import 'package:flutter/material.dart';
 
 class FineanceValuesSwitch extends StatefulWidget {
+  final String firstText;
+  final String secondText;
+  final Color firstColor;
+  final Color secondColor;
   final void Function(int) onChange;
 
-  const FineanceValuesSwitch({Key? key, required this.onChange})
-      : super(key: key);
+  const FineanceValuesSwitch({
+    Key? key,
+    required this.firstText,
+    required this.secondText,
+    required this.onChange,
+    this.firstColor = AppColors.green,
+    this.secondColor = AppColors.red,
+  }) : super(key: key);
 
   @override
   _FineanceValuesSwitchState createState() => _FineanceValuesSwitchState();
@@ -23,7 +31,7 @@ class _FineanceValuesSwitchState extends State<FineanceValuesSwitch>
   void initState() {
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 200));
-    _colorTween = ColorTween(begin: AppColors.green, end: AppColors.red)
+    _colorTween = ColorTween(begin: widget.firstColor, end: widget.secondColor)
         .animate(_animationController);
 
     super.initState();
@@ -58,8 +66,8 @@ class _FineanceValuesSwitchState extends State<FineanceValuesSwitch>
                         borderRadius: BorderRadius.circular(8.0)),
                     isScrollable: true,
                     tabs: [
-                      Tab(text: translate(LocaleKeys.income_expense_income)),
-                      Tab(text: translate(LocaleKeys.income_expense_expense))
+                      Tab(text: widget.firstText),
+                      Tab(text: widget.secondText),
                     ],
                     onTap: (index) {
                       widget.onChange(index);

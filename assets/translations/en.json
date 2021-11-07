@@ -44,7 +44,11 @@
         "register_new_income_expense": "Register new income / expense"
     },
     "income_expense": {
+        "register_value": "register value",
         "income": "income",
-        "expense": "expense"
+        "expense": "expense",
+        "title": "title",
+        "value": "value",
+        "date": "date"
     }
 }
