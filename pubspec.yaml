@@ -12,6 +12,7 @@ dependencies:
   auto_route: 2.4.2
   bloc: 7.2.1
   bloc_test: 8.4.0
+  crypt: 4.0.1
   cupertino_icons: 1.0.3
   easy_localization: 3.0.0
   equatable: 2.0.3
