@@ -1,4 +1,5 @@
 import 'package:local_auth/local_auth.dart';
+import 'package:crypt/crypt.dart';
 
 abstract class AuthenticationRepository {
   Future<bool> login(String username, String password);
@@ -15,13 +16,18 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
 
   AuthenticationRepositoryImpl(this.localAuthentication);
 
+  String get _salt => "fineance"; 
+
   @override
   Future<bool> login(String username, String password) async {
+    final crypt = Crypt.sha256(password, salt: _salt);
     return true;
   }
 
   @override
-  Future<void> register(String email, String username, String password) async {}
+  Future<void> register(String email, String username, String password) async {
+    final crypt = Crypt.sha256(password, salt: _salt);
+  }
 
   @override
   Future<bool> canDeviceUseBiometrics() async {
