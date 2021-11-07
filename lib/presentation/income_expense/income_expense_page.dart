@@ -101,6 +101,7 @@ class _IncomeExpensePageState extends State<IncomeExpensePage> {
     return FineanceTextField(
         label: translate(LocaleKeys.income_expense_date),
         controller: _dateController,
+        readOnly: true,
         onTap: () async {
           final pickedDate = await showDatePicker(
             context: context,
