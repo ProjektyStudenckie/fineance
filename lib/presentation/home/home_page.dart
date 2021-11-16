@@ -1,18 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:fineance/components/fineance_chart.dart';
+import 'package:fineance/helpers/fineance_chart.dart';
 import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  bool showAvg = false;
-
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,71 +16,48 @@ class _HomePageState extends State<HomePage> {
           context.router.push(const IncomeExpenseRoute());
         },
       ),
-      body: Center(child: _chart()),
+      body: Center(
+          child: FineanceChart(
+        spots: FineanceChartSpots(
+          spots: [_earningSpots()],
+          colors: [AppColors.earningLineColor, AppColors.spendingLineColor],
+        ),
+      )),
     );
   }
 
-  Widget _chart() => FineanceChart(
-        showAvg: showAvg,
-        setShowAvg: () => setState(() => showAvg = !showAvg),
-        sideTexts: const ['1k', '3k', '5k'],
-        bottomTexts: const ['SEP', 'OCT', 'NOV'],
-        spots: [_earningSpots(), _spendingSpots()],
-        sideTextsPlacement: const [1, 3, 5],
-        bottomTextsPlacement: const [2, 5, 8],
-        spotsColors: const [
-          AppColors.earningLineColor,
-          AppColors.spendingLineColor
-        ],
-      );
-
+  // mock data - each month is 1.5 points long
   List<FlSpot> _earningSpots() {
-    // mock data
-    if (!showAvg) {
-      return const [
-        FlSpot(0, 3),
-        FlSpot(2.6, 2.9),
-        FlSpot(4.5, 5),
-        FlSpot(6.8, 2.2),
-        FlSpot(8, 3),
-        FlSpot(9.5, 3.5),
-        FlSpot(11, 4),
-      ];
-    }
-
     return const [
-      FlSpot(0, 3.44),
-      FlSpot(2.6, 3.44),
-      FlSpot(4.9, 3.44),
-      FlSpot(6.8, 3.44),
-      FlSpot(8, 3.44),
-      FlSpot(9.5, 3.44),
-      FlSpot(11, 3.44),
-    ];
-  }
+      FlSpot(0, 0),
+      FlSpot(2, 20),
+      FlSpot(4, 10),
+      FlSpot(6, 10),
+      FlSpot(8, 60),
+      FlSpot(10, 13),
+      // half year
+      FlSpot(12, 17),
+      FlSpot(14, 40),
+      FlSpot(14.5, 20),
+      FlSpot(15.0, 25),
+      FlSpot(16.0, 28),
 
-  List<FlSpot> _spendingSpots() {
-    // mock data
-    if (!showAvg) {
-      return const [
-        FlSpot(0, 1),
-        FlSpot(3, 0.6),
-        FlSpot(5.2, 3),
-        FlSpot(7.1, 3.4),
-        FlSpot(8.2, 2.9),
-        FlSpot(9.9, 2.2),
-        FlSpot(11, 1.1),
-      ];
-    }
+      // last 3 months
+      FlSpot(16.5, 25),
+      FlSpot(17.0, 22),
+      FlSpot(17.5, 18),
+      FlSpot(18, 20),
+      // last 2 months
+      FlSpot(18.5, 18),
+      FlSpot(19.0, 22),
+      FlSpot(19.5, 26),
+      FlSpot(20.0, 25),
 
-    return const [
-      FlSpot(0, 2.1),
-      FlSpot(2.6, 2.1),
-      FlSpot(4.9, 2.1),
-      FlSpot(6.8, 2.1),
-      FlSpot(8, 2.1),
-      FlSpot(9.5, 2.1),
-      FlSpot(11, 2.1),
+      // last month
+      FlSpot(20.5, 6),
+      FlSpot(21, 15),
+      FlSpot(21.5, 12),
+      FlSpot(22, 10),
     ];
   }
 }

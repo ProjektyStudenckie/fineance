@@ -7,4 +7,5 @@ class Dimens {
   static const double kMarginExtraLarge = 16.0;
   static const double kMarginLargeDouble = 24.0;
   static const double kMarginExtraLargeDouble = 32.0;
+  static const double kChartXMaxExtent = 22.0;
 }

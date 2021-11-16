@@ -1,48 +1,46 @@
+import 'package:fineance/components/fineance_chart_buttons.dart';
+import 'package:fineance/helpers/fineance_chart.dart';
 import 'package:fineance/style/colors.dart';
+import 'package:fineance/style/dimens.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class FineanceChart extends StatefulWidget {
-  const FineanceChart({
-    required this.showAvg,
-    required this.setShowAvg,
-    required this.bottomTexts,
-    required this.bottomTextsPlacement,
-    required this.sideTexts,
-    required this.sideTextsPlacement,
-    required this.spots,
-    required this.spotsColors,
-  });
-  final bool showAvg;
-  final VoidCallback setShowAvg;
-  final List<String> bottomTexts;
-  final List<int> bottomTextsPlacement;
-  final List<String> sideTexts;
-  final List<int> sideTextsPlacement;
-  final List<List<FlSpot>> spots;
-  final List<List<Color>> spotsColors;
+  final FineanceChartSpots spots;
+  const FineanceChart({required this.spots});
 
   @override
   State<FineanceChart> createState() => _FineanceChartState();
 }
 
 class _FineanceChartState extends State<FineanceChart> {
+  bool showAvg = false;
+  ChartExtent chartExtent = ChartExtent.year;
+
+  void setExtent(ChartExtent newExtent) =>
+      setState(() => chartExtent = newExtent);
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         _chartContainer(
-          sideTextsPlacement: widget.sideTextsPlacement,
-          bottomTextsPlacement: widget.bottomTextsPlacement,
-          spotsColors: widget.spotsColors,
           isDarkMode: Theme.of(context).brightness == Brightness.dark,
-          spots: widget.spots,
-          sideTexts: widget.sideTexts,
-          bottomTexts: widget.bottomTexts,
+          spots: detailedSpots(spots: widget.spots, extent: chartExtent),
+          sideTexts: sideLabels(
+              detailedSpots(spots: widget.spots, extent: chartExtent).spots),
+          bottomTexts: bottomLabels(chartExtent),
+          chartExtent: financeChartExtent(
+              spots:
+                  detailedSpots(spots: widget.spots, extent: chartExtent).spots,
+              xExtent: chartExtent),
         ),
-        _avgButton(
-          setShowAvg: () => widget.setShowAvg(),
-          showAvg: widget.showAvg,
+        FineanceChartButtons(
+          setShowAvg: () => setState(() => showAvg = !showAvg),
+          showAvg: showAvg,
+          extent: chartExtent,
+          setNewExtent: (newExtent) => setExtent(newExtent),
         ),
       ],
     );
@@ -51,96 +49,80 @@ class _FineanceChartState extends State<FineanceChart> {
 
 Widget _chartContainer({
   required bool isDarkMode,
-  required List<String> bottomTexts,
-  required List<int> bottomTextsPlacement,
-  required List<String> sideTexts,
-  required List<int> sideTextsPlacement,
-  required List<List<FlSpot>> spots,
-  required List<List<Color>> spotsColors,
+  required FineanceChartLabel bottomTexts,
+  required FineanceChartLabel sideTexts,
+  required FineanceChartSpots spots,
+  required FineanceChartExtent chartExtent,
 }) =>
-    SizedBox(
-      width: 350.0,
-      height: 220.0,
+    AspectRatio(
+      aspectRatio: 1.7,
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(
-            color: isDarkMode ? AppColors.grey : AppColors.white,
-          ),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(18),
-          ),
+          border:
+              Border.all(color: isDarkMode ? AppColors.grey : AppColors.white),
+          borderRadius: const BorderRadius.all(Radius.circular(18)),
           color: isDarkMode ? AppColors.darkGrey : AppColors.grey,
         ),
         child: Padding(
           padding: const EdgeInsets.only(
-              right: 18.0, left: 12.0, top: 24, bottom: 12),
+              right: 18.0, left: 10.0, top: 12, bottom: 2.0),
           child: LineChart(
-            _chart(
-              isDarkMode: isDarkMode,
-              sideTexts: sideTexts,
-              bottomTexts: bottomTexts,
-              spots: spots,
-              spotsColors: spotsColors,
-              sideTextsPlacement: sideTextsPlacement,
-              bottomTextsPlacement: bottomTextsPlacement,
+            LineChartData(
+              lineTouchData: LineTouchData(
+                touchTooltipData: LineTouchTooltipData(
+                    maxContentWidth: 100,
+                    tooltipBgColor: AppColors.black,
+                    getTooltipItems: (touchedSpots) {
+                      return touchedSpots.map((LineBarSpot touchedSpot) {
+                        final textStyle = TextStyle(
+                          color: touchedSpot.bar.colors[0],
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        );
+                        return LineTooltipItem(
+                            touchedSpot.y.toStringAsFixed(2), textStyle);
+                      }).toList();
+                    }),
+                handleBuiltInTouches: true,
+                getTouchLineStart: (data, index) => 0,
+              ),
+              gridData: _grid(chartExtent),
+              titlesData:
+                  _titles(sideTexts: sideTexts, bottomTexts: bottomTexts),
+              borderData: _border(isDarkMode),
+              minX: chartExtent.minX,
+              maxX: Dimens.kChartXMaxExtent,
+              minY: chartExtent.minY,
+              maxY: chartExtent.maxY,
+              lineBarsData: List.generate(
+                  spots.spots.length,
+                  (index) => _line(
+                      spots: spots.spots[index],
+                      lineColor: spots.colors[index])),
             ), // showAvg
           ),
         ),
       ),
     );
 
-LineChartData _chart({
-  required bool isDarkMode,
-  required List<String> bottomTexts,
-  required List<int> bottomTextsPlacement,
-  required List<String> sideTexts,
-  required List<int> sideTextsPlacement,
-  required List<List<FlSpot>> spots,
-  required List<List<Color>> spotsColors,
-}) {
-  return LineChartData(
-    gridData: _grid(isDarkMode),
-    titlesData: _titles(
-      sideTexts: sideTexts,
-      bottomTexts: bottomTexts,
-      sideTextPlacement: sideTextsPlacement,
-      bottomTextsPlacement: bottomTextsPlacement,
-    ),
-    borderData: _border(isDarkMode),
-    minX: 0,
-    maxX: 11,
-    minY: 0,
-    maxY: 6,
-    lineBarsData: List.generate(spots.length,
-        (index) => _line(spots: spots[index], lineColor: spotsColors[index])),
-  );
-}
-
-FlGridData _grid(bool isDarkMode) => FlGridData(
+FlGridData _grid(FineanceChartExtent extent) => FlGridData(
       show: true,
+      drawHorizontalLine: true,
       drawVerticalLine: true,
-      getDrawingHorizontalLine: (value) => FlLine(
-        color: isDarkMode ? AppColors.grey : const Color(0xff37434d),
-        strokeWidth: 1,
-      ),
-      getDrawingVerticalLine: (value) => FlLine(
-        color: isDarkMode ? AppColors.grey : const Color(0xff37434d),
-        strokeWidth: 1,
-      ),
+      horizontalInterval: (extent.maxY - extent.minY) / 4,
+      verticalInterval: extent.verticalInterval,
     );
 
 FlTitlesData _titles({
-  required List<String> bottomTexts,
-  required List<String> sideTexts,
-  required List<int> sideTextPlacement,
-  required List<int> bottomTextsPlacement,
+  required FineanceChartLabel bottomTexts,
+  required FineanceChartLabel sideTexts,
 }) =>
     FlTitlesData(
       show: true,
       rightTitles: SideTitles(showTitles: false),
       topTitles: SideTitles(showTitles: false),
-      bottomTitles: _bottomTexts(bottomTexts, bottomTextsPlacement),
-      leftTitles: _sideTexts(sideTexts, sideTextPlacement),
+      bottomTitles: _bottomTexts(bottomTexts),
+      leftTitles: _sideTexts(sideTexts),
     );
 
 FlBorderData _border(bool isDarkMode) => FlBorderData(
@@ -151,37 +133,37 @@ FlBorderData _border(bool isDarkMode) => FlBorderData(
       ),
     );
 
-SideTitles _sideTexts(List<String> texts, List<int> placement) => SideTitles(
+SideTitles _sideTexts(FineanceChartLabel texts) => SideTitles(
       showTitles: true,
       interval: 1,
       reservedSize: 32,
-      margin: 12,
+      margin: 20,
       getTextStyles: (context, value) => const TextStyle(
         color: AppColors.white,
         fontWeight: FontWeight.bold,
-        fontSize: 15,
+        fontSize: 12,
       ),
       getTitles: (value) {
-        for (int i = 0; i < placement.length; i++) {
-          if (value.toInt() == placement[i]) return texts[i];
+        for (int i = 0; i < texts.placements.length; i++) {
+          if (value.toInt() == texts.placements[i]) return texts.titles[i];
         }
         return '';
       },
     );
 
-SideTitles _bottomTexts(List<String> texts, List<int> placement) => SideTitles(
+SideTitles _bottomTexts(FineanceChartLabel texts) => SideTitles(
       showTitles: true,
       reservedSize: 22,
-      interval: 1,
+      interval: 0.25,
       margin: 8,
       getTextStyles: (context, value) => const TextStyle(
         color: AppColors.white,
         fontWeight: FontWeight.bold,
-        fontSize: 16,
+        fontSize: 12,
       ),
       getTitles: (value) {
-        for (int i = 0; i < placement.length; i++) {
-          if (value.toInt() == placement[i]) return texts[i];
+        for (int i = 0; i < texts.placements.length; i++) {
+          if (value == texts.placements[i]) return texts.titles[i];
         }
         return '';
       },
@@ -196,20 +178,4 @@ LineChartBarData _line(
       barWidth: 5,
       isStrokeCapRound: true,
       dotData: FlDotData(show: false),
-    );
-
-Widget _avgButton({required VoidCallback setShowAvg, required bool showAvg}) =>
-    SizedBox(
-      width: 60,
-      height: 34,
-      child: TextButton(
-        onPressed: () => setShowAvg(),
-        child: Text(
-          'Avg',
-          style: TextStyle(
-            fontSize: 12,
-            color: showAvg ? Colors.white.withOpacity(0.5) : Colors.white,
-          ),
-        ),
-      ),
     );
