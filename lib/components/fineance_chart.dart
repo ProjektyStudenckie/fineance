@@ -22,27 +22,35 @@ class _FineanceChartState extends State<FineanceChart> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        _chartContainer(
-          isDarkMode: Theme.of(context).brightness == Brightness.dark,
-          spots: detailedSpots(spots: widget.spots, extent: chartExtent),
-          sideTexts: sideLabels(
-              detailedSpots(spots: widget.spots, extent: chartExtent).spots),
-          bottomTexts: bottomLabels(chartExtent),
-          chartExtent: financeChartExtent(
-              spots:
-                  detailedSpots(spots: widget.spots, extent: chartExtent).spots,
-              xExtent: chartExtent),
-        ),
-        FineanceChartButtons(
-          setShowAvg: () => setState(() => showAvg = !showAvg),
-          showAvg: showAvg,
-          extent: chartExtent,
-          setNewExtent: (newExtent) => setExtent(newExtent),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          _chartContainer(
+            isDarkMode: Theme.of(context).brightness == Brightness.dark,
+            spots: detailedSpots(
+                spots: widget.spots, extent: chartExtent, isAvg: showAvg),
+            sideTexts: sideLabels(detailedSpots(
+                    spots: widget.spots, extent: chartExtent, isAvg: showAvg)
+                .spots),
+            bottomTexts: bottomLabels(chartExtent),
+            chartExtent: financeChartExtent(
+                spots: detailedSpots(
+                        spots: widget.spots,
+                        extent: chartExtent,
+                        isAvg: showAvg)
+                    .spots,
+                xExtent: chartExtent),
+          ),
+          FineanceChartButtons(
+            setShowAvg: () => setState(() => showAvg = !showAvg),
+            showAvg: showAvg,
+            extent: chartExtent,
+            setNewExtent: (newExtent) => setExtent(newExtent),
+          ),
+        ],
+      ),
     );
   }
 }

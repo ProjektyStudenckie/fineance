@@ -22,48 +22,56 @@ class FineanceChartButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // not functional for now
-          SizedBox(
-            width: 40,
-            height: 32,
-            child: TextButton(
-              onPressed: () => setShowAvg(),
-              child: Text(
-                translate(LocaleKeys.chart_avg),
-                style: TextStyle(
-                  fontSize: 12,
-                  color: showAvg ? Colors.white.withOpacity(0.5) : Colors.white,
-                ),
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            decoration: BoxDecoration(
-                color: AppColors.darkGrey,
-                borderRadius: BorderRadius.circular(10)),
-            child: DropdownButton<ChartExtent>(
-              value: extent,
-              icon: const Icon(Icons.arrow_drop_down),
-              iconSize: 42,
-              onChanged: (ex) => setNewExtent(ex!),
-              items: ChartExtent.values
-                  .map(
-                    (extent) => DropdownMenuItem<ChartExtent>(
-                      value: extent,
-                      child: Text(extent.toNameString()),
-                    ),
-                  )
-                  .toList(),
-            ),
-          ),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _avgButton(isDarkMode: Theme.of(context).brightness == Brightness.dark),
+        _dropDownButton(
+            isDarkMode: Theme.of(context).brightness == Brightness.dark),
+      ],
     );
   }
+
+  Widget _avgButton({required bool isDarkMode}) => SizedBox(
+        width: 40,
+        height: 32,
+        child: TextButton(
+          onPressed: () => setShowAvg(),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(
+                isDarkMode ? AppColors.darkGrey : AppColors.grey),
+          ),
+          child: Text(
+            translate(LocaleKeys.chart_avg),
+            style: TextStyle(
+              fontSize: 12,
+              color: isDarkMode
+                  ? (showAvg ? Colors.white.withOpacity(0.5) : Colors.white)
+                  : (showAvg ? AppColors.lightGrey : Colors.black),
+            ),
+          ),
+        ),
+      );
+
+  Widget _dropDownButton({required bool isDarkMode}) => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        decoration: BoxDecoration(
+          color: isDarkMode ? AppColors.darkGrey : AppColors.grey,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: DropdownButton<ChartExtent>(
+          value: extent,
+          icon: const Icon(Icons.arrow_drop_down),
+          iconSize: 42,
+          onChanged: (ex) => setNewExtent(ex!),
+          items: ChartExtent.values
+              .map(
+                (extent) => DropdownMenuItem<ChartExtent>(
+                  value: extent,
+                  child: Text(extent.toNameString()),
+                ),
+              )
+              .toList(),
+        ),
+      );
 }

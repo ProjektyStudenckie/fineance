@@ -145,7 +145,9 @@ List<String> _reorderedMonths(ChartExtent extent) {
 }
 
 FineanceChartSpots detailedSpots(
-    {required FineanceChartSpots spots, required ChartExtent extent}) {
+    {required FineanceChartSpots spots,
+    required ChartExtent extent,
+    required bool isAvg}) {
   double _xMinExtent = 0;
 
   // This has to be adjusted to the way we'll be storing our spots.
@@ -164,15 +166,30 @@ FineanceChartSpots detailedSpots(
       break;
   }
 
+  final List<double> _yTotals = [];
   final List<List<FlSpot>> _newSpotLists = [];
+
   for (final list in spots.spots) {
     final List<FlSpot> _newSpots = [];
+    double _totalY = 0;
+    int _extentLength = 0;
     for (final spot in list) {
       if (spot.x >= _xMinExtent) {
+        _totalY += spot.y;
+        _extentLength++;
         _newSpots.add(spot);
       }
     }
     _newSpotLists.add(_newSpots);
+    _yTotals.add(_totalY / _extentLength);
+  }
+
+  if (isAvg) {
+    for (int i = 0; i < _newSpotLists.length; i++) {
+      for (int j = 0; j < _newSpotLists[i].length; j++) {
+        _newSpotLists[i][j] = _newSpotLists[i][j].copyWith(y: _yTotals[i]);
+      }
+    }
   }
 
   return FineanceChartSpots(spots: _newSpotLists, colors: spots.colors);
