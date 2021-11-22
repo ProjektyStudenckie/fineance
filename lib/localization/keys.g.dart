@@ -59,5 +59,8 @@ abstract class  LocaleKeys {
   static const chart_november = 'chart.november';
   static const chart_december = 'chart.december';
   static const chart = 'chart';
+  static const progress_indicator_you_completed = 'progress_indicator.you_completed';
+  static const progress_indicator_of_savings_goal = 'progress_indicator.of_savings_goal';
+  static const progress_indicator = 'progress_indicator';
 
 }
