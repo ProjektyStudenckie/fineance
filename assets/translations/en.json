@@ -50,5 +50,20 @@
         "title": "title",
         "value": "value",
         "date": "date"
+    },
+    "chart": {
+        "avg": "avg",
+        "january": "JAN",
+        "february": "FEB",
+        "march": "MAR",
+        "april": "APR",
+        "may": "MAY",
+        "june": "JUN",
+        "july": "JUl",
+        "august": "AUG",
+        "september": "SEP",
+        "october": "OCT",
+        "november": "NOV",
+        "december": "DEC"
     }
 }

@@ -45,5 +45,19 @@ abstract class  LocaleKeys {
   static const income_expense_value = 'income_expense.value';
   static const income_expense_date = 'income_expense.date';
   static const income_expense = 'income_expense';
+  static const chart_avg = 'chart.avg';
+  static const chart_january = 'chart.january';
+  static const chart_february = 'chart.february';
+  static const chart_march = 'chart.march';
+  static const chart_april = 'chart.april';
+  static const chart_may = 'chart.may';
+  static const chart_june = 'chart.june';
+  static const chart_july = 'chart.july';
+  static const chart_august = 'chart.august';
+  static const chart_september = 'chart.september';
+  static const chart_october = 'chart.october';
+  static const chart_november = 'chart.november';
+  static const chart_december = 'chart.december';
+  static const chart = 'chart';
 
 }
