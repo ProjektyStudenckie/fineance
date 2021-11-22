@@ -50,5 +50,9 @@
         "title": "tytuł",
         "value": "wartość",
         "date": "data"
+    },
+    "progress_indicator": {
+        "you_completed": "Udalo Ci sie uzbierac",
+        "of_savings_goal": "swojego celu oszczednosci"
     }
 }

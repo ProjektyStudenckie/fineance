@@ -50,5 +50,9 @@
         "title": "title",
         "value": "value",
         "date": "date"
+    },
+    "progress_indicator": {
+        "you_completed": "You completed",
+        "of_savings_goal": "of your savings goal"
     }
 }

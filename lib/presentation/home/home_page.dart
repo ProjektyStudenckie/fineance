@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:fineance/components/fineance_button.dart';
-import 'package:fineance/components/fineance_text_field.dart';
+import 'package:fineance/components/fineance_loading_indicator.dart';
+import 'package:fineance/localization/keys.g.dart';
+import 'package:fineance/localization/utils.dart';
 import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,17 +27,13 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            /// Example use of new components
-            FineanceButton(
-              onPressed: () {},
-              text: 'label',
+            FineanceProgressIndicator(
+              topText: translate(LocaleKeys.progress_indicator_you_completed),
+              bottomText:
+                  translate(LocaleKeys.progress_indicator_of_savings_goal),
+              completedPercent: 0.5,
+              barColor: AppColors.red,
             ),
-            FineanceButton(
-              onPressed: () {},
-              text: 'label',
-              color: AppColors.green,
-            ),
-            const FineanceTextField(label: 'label'),
           ],
         ),
       ),

@@ -45,5 +45,8 @@ abstract class  LocaleKeys {
   static const income_expense_value = 'income_expense.value';
   static const income_expense_date = 'income_expense.date';
   static const income_expense = 'income_expense';
+  static const progress_indicator_you_completed = 'progress_indicator.you_completed';
+  static const progress_indicator_of_savings_goal = 'progress_indicator.of_savings_goal';
+  static const progress_indicator = 'progress_indicator';
 
 }
