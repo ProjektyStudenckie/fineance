@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:fineance/components/fineance_chart.dart';
-import 'package:fineance/components/fineance_loading_indicator.dart';
+import 'package:fineance/components/fineance_progress_indicator.dart';
+import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/helpers/fineance_chart.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
@@ -29,15 +30,32 @@ class HomePage extends StatelessWidget {
               colors: [AppColors.earningLineColor, AppColors.spendingLineColor],
             ),
           ),
-          FineanceProgressIndicator(
-            topText: translate(LocaleKeys.progress_indicator_you_completed),
-            bottomText:
-                translate(LocaleKeys.progress_indicator_of_savings_goal),
-            completedPercent: 0.5,
-            barColor: AppColors.red,
-          ),
+          _buildProgressIndicator(context)
         ],
       ),
+    );
+  }
+
+  Widget _buildProgressIndicator(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          translate(LocaleKeys.progress_indicator_you_completed),
+          style: context.typo.main(
+            color: context.isDarkTheme ? AppColors.white : AppColors.black,
+          ),
+        ),
+        const FineanceProgressIndicator(
+          completedPercent: 0.989,
+          barColor: AppColors.red,
+        ),
+        Text(
+          translate(LocaleKeys.progress_indicator_of_savings_goal),
+          style: context.typo.main(
+            color: context.isDarkTheme ? AppColors.white : AppColors.black,
+          ),
+        ),
+      ],
     );
   }
 
