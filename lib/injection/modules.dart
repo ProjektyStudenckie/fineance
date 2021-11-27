@@ -7,14 +7,20 @@ import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:local_auth/local_auth.dart';
 
+const String tokensBox = "tokens_box";
 const String themeBox = 'theme_box';
 const String settingsBox = "settings_box";
+
+const REFRESH_TOKEN = "refresh_token";
+const ACCESS_TOKEN = "access_token";
 
 const IS_LIGHT_THEME = "is_light_theme";
 const IS_ONBOARDING_DONE = "is_onboarding_done";
 const FINEANCE_SETTINGS = "fineance_settings";
 
 void registerModules(GetIt injector) {
+  injector.registerLazySingleton<Box>(() => Hive.box(tokensBox),
+      instanceName: tokensBox);
   injector.registerLazySingleton<Box>(() => Hive.box(themeBox),
       instanceName: themeBox);
   injector.registerLazySingleton<Box>(() => Hive.box(settingsBox),
@@ -24,7 +30,7 @@ void registerModules(GetIt injector) {
 
   final dio = Dio();
   injector.registerFactory<ApiClient>(() => ApiClient(dio));
-  
+
   registerRepositoryModules(injector, localAuthentication);
   registerBlocModules(injector, getSavedTheme());
 }

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:fineance/data/network/authorization/login_response/login_response.dart';
+import 'package:fineance/data/network/authorization/tokens_response/tokens_response.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_client.g.dart';
@@ -26,4 +27,7 @@ abstract class ApiClient {
 
   @GET("/login")
   Future<LoginResponse> login(@Header("Authorization") String auth);
+
+  @GET("/refresh_access")
+  Future<TokensResponse> refreshTokens(@Header("Token") String refreshToken);
 }
