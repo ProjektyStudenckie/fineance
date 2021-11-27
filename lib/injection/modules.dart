@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:fineance/injection/bloc_module.dart';
 import 'package:fineance/injection/repository_module.dart';
+import 'package:fineance/networking/api_client.dart';
 import 'package:fineance/presentation/theme_bloc/theme_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
@@ -19,6 +21,9 @@ void registerModules(GetIt injector) {
       instanceName: settingsBox);
 
   final LocalAuthentication localAuthentication = LocalAuthentication();
+
+  final dio = Dio();
+  injector.registerFactory<ApiClient>(() => ApiClient(dio));
   
   registerRepositoryModules(injector, localAuthentication);
   registerBlocModules(injector, getSavedTheme());

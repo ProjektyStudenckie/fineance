@@ -5,6 +5,6 @@ import 'package:get_it/get_it.dart';
 import 'package:local_auth/local_auth.dart';
 
 void registerRepositoryModules(GetIt injector, LocalAuthentication localAuthentication) {
-  injector.registerFactory<AuthenticationRepository>(() => AuthenticationRepositoryImpl(localAuthentication));
+  injector.registerFactory<AuthenticationRepository>(() => AuthenticationRepositoryImpl(injector.get(), localAuthentication));
   injector.registerFactory<SettingsService>(() => SettingsServiceImpl(injector.get(instanceName: settingsBox)));
 }
