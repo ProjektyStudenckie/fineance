@@ -36,7 +36,6 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
 
       final response = await _apiClient.login(auth);
 
-      // final crypt = Crypt.sha256(password, salt: _salt);
       if (response.accessToken != null && response.refreshToken != null) {
         _storageService.saveTokens(
             response.accessToken ?? "", response.refreshToken ?? "");
