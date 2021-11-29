@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:fineance/data/network/api_error/api_error.dart';
 import 'package:fineance/networking/api_client.dart';
 import 'package:fineance/repositories/storage_repository.dart';
+import 'package:fineance/repositories/user.dart';
 import 'package:local_auth/local_auth.dart';
 
 abstract class AuthenticationRepository {
@@ -48,8 +49,22 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<void> register(String email, String username, String password) async {
-    final crypt = Crypt.sha256(password, salt: _salt);
+  Future<bool> register(String email, String username, String password) async {
+    try {
+
+      User user = User(username: username, password: password, email: email);
+
+      final response = await _apiClient.registration(user);
+
+      if (response.accessToken != null && response.refreshToken != null) {
+        _storageService.saveTokens(
+            response.accessToken ?? "", response.refreshToken ?? "");
+        return true;
+      }
+    } on DioError catch (error) {
+      throw ApiError.fromJson(error.response?.data as Map<String, dynamic>);
+    }
+    return false;
   }
 
   @override

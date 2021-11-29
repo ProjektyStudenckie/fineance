@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:fineance/data/network/authorization/login_response/login_response.dart';
 import 'package:fineance/data/network/authorization/tokens_response/tokens_response.dart';
+import 'package:fineance/repositories/user.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_client.g.dart';
@@ -17,7 +18,7 @@ part 'api_client.g.dart';
 // 	<true/>
 // </dict>
 
-@RestApi(baseUrl: "http://127.0.0.1:1332")
+@RestApi(baseUrl: "http://192.168.0.66:1332")
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String? baseUrl}) {
     dio.options = BaseOptions(receiveTimeout: 30000, connectTimeout: 30000);
@@ -26,7 +27,10 @@ abstract class ApiClient {
   }
 
   @GET("/login")
-  Future<LoginResponse> login(@Header("Authorization") String auth);
+  Future<LoginResponse> login(String auth);
+
+  @POST("/register")
+  Future<LoginResponse> registration(@Body() User auth);
 
   @GET("/refresh_access")
   Future<TokensResponse> refreshTokens(@Header("Token") String refreshToken);
