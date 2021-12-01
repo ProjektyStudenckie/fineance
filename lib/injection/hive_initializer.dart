@@ -8,6 +8,7 @@ Future<void> setupHive() async {
 
   Hive.registerAdapter(FineanceSettingsEntityAdapter());
 
+  await Hive.openBox(tokensBox);
   await Hive.openBox(themeBox);
   await Hive.openBox(settingsBox);
 }
