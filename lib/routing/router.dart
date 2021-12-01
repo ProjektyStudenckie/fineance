@@ -8,6 +8,7 @@ import 'package:fineance/presentation/onboarding/onboarding_page.dart';
 import 'package:fineance/presentation/settings/settings_page.dart';
 import 'package:fineance/presentation/splash/splash_page.dart';
 import 'package:fineance/presentation/tabs/tab_page.dart';
+import 'package:fineance/presentation/wallets/wallets_page.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
@@ -20,6 +21,7 @@ import 'package:fineance/presentation/tabs/tab_page.dart';
     AutoRoute(page: IncomeExpensePage),
     AutoRoute(page: TabPage, children: [
       AutoRoute(page: HomePage),
+      AutoRoute(page: WalletsPage),
       AutoRoute(page: SettingsPage),
     ])
   ],
