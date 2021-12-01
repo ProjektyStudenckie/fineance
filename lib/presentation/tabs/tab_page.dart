@@ -4,6 +4,7 @@ import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
 import 'package:fineance/presentation/home/bloc/home_bloc.dart';
 import 'package:fineance/presentation/settings/bloc/settings_bloc.dart';
+import 'package:fineance/presentation/wallets/bloc/wallets_bloc.dart';
 import 'package:fineance/routing/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,10 +14,12 @@ class TabPage extends StatelessWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) {
     final BlocFactory blocFactory = BlocFactory.of(context);
     final HomeBloc homeBloc = blocFactory.get();
+    final WalletsBloc walletsBloc = blocFactory.get();
     final SettingsBloc settingsBloc = blocFactory.get();
 
     return MultiBlocProvider(providers: [
       BlocProvider<HomeBloc>(create: (context) => homeBloc),
+      BlocProvider<WalletsBloc>(create: (context) => walletsBloc),
       BlocProvider<SettingsBloc>(create: (context) => settingsBloc)
     ], child: this);
   }
@@ -26,7 +29,7 @@ class TabPage extends StatelessWidget implements AutoRouteWrapper {
     return AutoTabsScaffold(
       lazyLoad: false,
       animationDuration: const Duration(seconds: 0),
-      routes: const [HomeRoute(), SettingsRoute()],
+      routes: const [HomeRoute(), WalletsRoute(), SettingsRoute()],
       bottomNavigationBuilder: (_, tabsRouter) {
         return BottomNavigationBar(
             selectedItemColor: Theme.of(context).brightness == Brightness.dark
@@ -41,6 +44,9 @@ class TabPage extends StatelessWidget implements AutoRouteWrapper {
               BottomNavigationBarItem(
                   icon: const Icon(Icons.home),
                   label: translate(LocaleKeys.tab_home)),
+              BottomNavigationBarItem(
+                  icon: const Icon(Icons.account_balance_wallet),
+                  label: translate(LocaleKeys.tab_wallets)),
               BottomNavigationBarItem(
                   icon: const Icon(Icons.settings),
                   label: translate(LocaleKeys.tab_settings)),

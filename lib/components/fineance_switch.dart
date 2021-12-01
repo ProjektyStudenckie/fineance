@@ -27,11 +27,12 @@ class FineanceSwitch extends StatelessWidget {
         children: [
           Expanded(
             child: Text(label,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: context.typo.main(
-                    color:
-                        context.isDarkTheme ? AppColors.white : AppColors.black)),
+                    color: context.isDarkTheme
+                        ? AppColors.white
+                        : AppColors.black)),
           ),
           SizedBox(height: 40.0, child: _buildSwitch()),
         ],
@@ -48,10 +49,11 @@ class FineanceSwitch extends StatelessWidget {
 
   Widget _buildCupertinoSwitch() {
     return CupertinoSwitch(
-        value: value,
-        onChanged: onChanged,
-        activeColor: AppColors.green,
-        trackColor: AppColors.red);
+      value: value,
+      onChanged: onChanged,
+      activeColor: AppColors.green,
+      trackColor: AppColors.red,
+    );
   }
 
   Widget _buildMaterialSwitch() {
