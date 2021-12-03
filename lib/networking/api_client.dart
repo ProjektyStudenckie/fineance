@@ -49,6 +49,9 @@ abstract class ApiClient {
   @POST("/add_sub_owner")
   Future<bool> add_sub_owner(@Body() UserWallet userWallet);
 
+  @POST("/update_wallet")
+  Future<bool> update_wallet(@Body() Wallet wallet);
+
   @POST("/remove_sub_owner")
   Future<bool> remove_sub_owner(@Body() UserWallet userWallet);
 
