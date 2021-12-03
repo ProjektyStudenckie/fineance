@@ -55,4 +55,12 @@ abstract class ApiClient {
   @POST("/remove_sub_owner")
   Future<bool> remove_sub_owner(@Body() UserWallet userWallet);
 
+  @POST("/add_goal")
+  Future<bool> add_goal(@Body() GoalWallet goalWallet);
+
+  @POST("/remove_goal")
+  Future<bool> remove_goal(@Body() GoalWallet goalWallet);
+
+
+
 }
