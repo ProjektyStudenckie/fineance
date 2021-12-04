@@ -3,7 +3,10 @@ import 'package:fineance/data/network/api_error/api_error.dart';
 import 'package:fineance/networking/api_client.dart';
 import 'package:fineance/repositories/storage_repository.dart';
 import 'package:fineance/repositories/user.dart';
+import 'package:fineance/repositories/userwallet.dart';
 import 'package:fineance/repositories/wallet.dart';
+
+import 'goal.dart';
 
 
 class WalletRepository{
@@ -51,6 +54,20 @@ class WalletRepository{
     return false;
   }
 
+  Future<bool> addGoal(Wallet wallet, Goal goal) async {
+    try {
+      final username = _storageService.getUserName();
+
+      GoalWallet user = GoalWallet(goal: goal, wallet: wallet);
+
+    } on DioError catch (error) {
+      throw ApiError.fromJson(error.response?.data as Map<String, dynamic>);
+    }
+    return false;
+  }
+//  Future<bool> addSubowner() async {}
+// Future<bool> removeGoal() async {}
+// Future<bool> removeSubOwner() async {}
 
 
 }
