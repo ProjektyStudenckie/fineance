@@ -6,6 +6,10 @@ abstract class StorageService {
 
   String getRefreshToken();
 
+  String getUserName();
+
+  void saveUserName(String username);
+
   void saveTokens(String accessToken, String refreshToken);
 
   Future<int> clearTokens();
@@ -41,5 +45,19 @@ class StorageServiceImpl implements StorageService {
   @override
   Future<int> clearTokens() async {
     return _tokensBox.clear();
+  }
+
+  @override
+  String getUserName() {
+    final username = _tokensBox.get(USER_NAME) as String?;
+    if (username?.isNotEmpty == true) {
+      return username!;
+    }
+    return "";
+  }
+
+  @override
+  Future<void> saveUserName(String username) async {
+    await _tokensBox.put(USER_NAME, username);
   }
 }

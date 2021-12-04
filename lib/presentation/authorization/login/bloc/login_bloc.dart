@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fineance/injection/modules.dart';
 import 'package:fineance/repositories/authentication_repository.dart';
+import 'package:fineance/repositories/storage_repository.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
@@ -11,9 +12,39 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthenticationRepository _authenticationRepository;
   final Box _settingsBox;
+  final StorageService _storageService;
 
-  LoginBloc(this._authenticationRepository, this._settingsBox)
+
+  TryLoginOnStart() async {
+    final username =_storageService.getUserName();
+    final authenticated = await _authenticationRepository.refreshToken();
+    if(authenticated){
+      emit(LoginSuccess(shouldShowOnboarding: true));
+    }
+  }
+
+  LoginBloc(this._authenticationRepository, this._settingsBox, this._storageService)
       : super(LoginInitial()) {
+
+    on<LoginTryLoginOnStart>((event, emit) async {
+
+      final username = _storageService.getUserName();
+      if(username!=""){
+        final value = await _authenticationRepository.refreshToken();
+
+        if(value){
+          final shouldShowOnboarding =
+              _settingsBox.get(IS_ONBOARDING_DONE) != true;
+          if (shouldShowOnboarding) {
+            _settingsBox.put(IS_ONBOARDING_DONE, true);
+          }
+
+          emit(LoginSuccess(shouldShowOnboarding: shouldShowOnboarding));
+        }
+      }
+
+    });
+
     on<LoginUser>((event, emit) async {
       try {
         emit(LoginLoading());

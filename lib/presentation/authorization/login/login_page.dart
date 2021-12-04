@@ -37,12 +37,17 @@ class _LoginPageState extends State<LoginPage> {
 
   final _passwordValidator = RequiredValidator(
       errorText: translate(LocaleKeys.validation_password_is_required));
-
+ @override
+  void initState() {
+   BlocProvider.of<LoginBloc>(context)
+       .add(LoginTryLoginOnStart());
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state is LoginSuccess) {
+         if (state is LoginSuccess) {
           if (state.shouldShowOnboarding) {
             context.router.replace(const OnboardingRoute());
           } else {
@@ -51,6 +56,7 @@ class _LoginPageState extends State<LoginPage> {
         } else if (state is LoginError) {
           // TODO: Display error to the user
         }
+
       },
       builder: (context, state) {
         return Scaffold(

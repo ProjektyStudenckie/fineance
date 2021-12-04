@@ -5,6 +5,7 @@ import 'package:fineance/data/network/api_error/api_error.dart';
 import 'package:fineance/networking/api_client.dart';
 import 'package:fineance/repositories/storage_repository.dart';
 import 'package:fineance/repositories/user.dart';
+import 'package:fineance/repositories/user.dart';
 import 'package:local_auth/local_auth.dart';
 
 abstract class AuthenticationRepository {
@@ -12,7 +13,7 @@ abstract class AuthenticationRepository {
 
   Future<void> register(String email, String username, String password);
 
-  Future<void> refreshToken();
+  Future<bool> refreshToken();
 
   Future<bool> canDeviceUseBiometrics();
 
@@ -39,6 +40,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
       if (response.accessToken != null && response.refreshToken != null) {
         _storageService.saveTokens(
             response.accessToken ?? "", response.refreshToken ?? "");
+        _storageService.saveUserName(username);
         return true;
       }
     } on DioError catch (error) {
@@ -67,16 +69,19 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<void> refreshToken() async {
+  Future<bool> refreshToken() async {
     try {
       final refreshToken = _storageService.getRefreshToken();
       final response = await _apiClient.refreshTokens(refreshToken);
 
+      if(response.accessToken != null && response.refreshToken  != null){
       _storageService.saveTokens(
           response.accessToken ?? "", response.refreshToken ?? "");
+      return true;}
     } on DioError catch (error) {
       throw ApiError.fromJson(error.response?.data as Map<String, dynamic>);
     }
+    return false;
   }
 
   @override

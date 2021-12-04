@@ -12,6 +12,7 @@ const String themeBox = 'theme_box';
 const String settingsBox = "settings_box";
 
 const REFRESH_TOKEN = "refresh_token";
+const USER_NAME = "user_name";
 const ACCESS_TOKEN = "access_token";
 
 const IS_LIGHT_THEME = "is_light_theme";
