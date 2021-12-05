@@ -1,5 +1,5 @@
 import 'package:fineance/components/fineance_list.dart';
-import 'package:fineance/components/fineance_title.dart';
+import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
 import 'package:fineance/style/colors.dart';
@@ -18,21 +18,48 @@ class _WalletsPageState extends State<WalletsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            FineanceTitle(text: translate(LocaleKeys.tab_wallets)),
-            const SizedBox(height: Dimens.kMarginExtraLarge),
-            const FineanceList(),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.green,
-        child: const Icon(Icons.add),
-        onPressed: () {},
+      appBar: _buildAppBar(),
+      body: const SafeArea(
+        child: FineanceList(),
       ),
     );
   }
+
+  AppBar _buildAppBar() => AppBar(
+        backgroundColor:
+            context.isDarkTheme ? AppColors.darkGrey : AppColors.white,
+        elevation: 0.0,
+        leading: _buildAppBarLeading(),
+        automaticallyImplyLeading: false,
+        leadingWidth: 500.0,
+        toolbarHeight: 100.0,
+        actions: [_buildActions()],
+      );
+
+  Widget _buildAppBarLeading() => Padding(
+        padding: const EdgeInsets.only(
+          top: Dimens.kMarginLargeDouble,
+          left: Dimens.kMarginLargeDouble,
+        ),
+        child: Text(
+          translate(LocaleKeys.tab_wallets).replaceAll('s', ''),
+          style: context.typo.extraLargeBold(
+              color: context.isDarkTheme ? AppColors.white : AppColors.black),
+        ),
+      );
+
+  Widget _buildActions() => Padding(
+        padding: const EdgeInsets.only(right: Dimens.kMarginLargeDouble),
+        child: SizedBox(
+          height: 45.0,
+          width: 45.0,
+          child: FittedBox(
+            child: FloatingActionButton(
+              onPressed: () {},
+              backgroundColor: AppColors.blue,
+              child: const Icon(Icons.add),
+            ),
+          ),
+        ),
+      );
 }

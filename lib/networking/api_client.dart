@@ -20,7 +20,7 @@ part 'api_client.g.dart';
 // 	<true/>
 // </dict>
 
-@RestApi(baseUrl: "http://192.168.0.66:1332")
+@RestApi(baseUrl: "http://192.168.1.233:1332")
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String? baseUrl}) {
     dio.options = BaseOptions(receiveTimeout: 30000, connectTimeout: 30000);
@@ -60,7 +60,4 @@ abstract class ApiClient {
 
   @POST("/remove_goal")
   Future<bool> remove_goal(@Body() GoalWallet goalWallet);
-
-
-
 }
