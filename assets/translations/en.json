@@ -70,5 +70,11 @@
     "progress_indicator": {
         "you_completed": "You completed",
         "of_savings_goal": "of your savings goal"
+    },
+    "add_wallet_page": {
+        "add_wallet": "Add wallet",
+        "description": "description",
+        "confirm": "confirm",
+        "add_income_expense": "Add income / expense"
     }
 }

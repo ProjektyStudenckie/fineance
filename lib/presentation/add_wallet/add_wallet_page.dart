@@ -3,31 +3,31 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:fineance/components/fineance_back_button_with_title.dart';
 import 'package:fineance/components/fineance_button.dart';
 import 'package:fineance/components/fineance_text_field.dart';
-import 'package:fineance/components/fineance_values_switch.dart';
 import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
-import 'package:fineance/presentation/income_expense/bloc/income_expense_bloc.dart';
+import 'package:fineance/presentation/add_wallet/bloc/add_wallet_bloc.dart';
+import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class IncomeExpensePage extends StatefulWidget implements AutoRouteWrapper {
+class AddWalletPage extends StatefulWidget implements AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     final BlocFactory blocFactory = BlocFactory.of(context);
-    return BlocProvider<IncomeExpenseBloc>(
-      create: (context) => blocFactory.get<IncomeExpenseBloc>(),
+    return BlocProvider<AddWalletBloc>(
+      create: (context) => blocFactory.get<AddWalletBloc>(),
       child: this,
     );
   }
 
   @override
-  _IncomeExpensePageState createState() => _IncomeExpensePageState();
+  _AddWalletPageState createState() => _AddWalletPageState();
 }
 
-class _IncomeExpensePageState extends State<IncomeExpensePage> {
+class _AddWalletPageState extends State<AddWalletPage> {
   final _titleController = TextEditingController();
   final _valueController = TextEditingController();
   final _dateController = TextEditingController();
@@ -41,7 +41,7 @@ class _IncomeExpensePageState extends State<IncomeExpensePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<IncomeExpenseBloc, IncomeExpenseState>(
+    return BlocBuilder<AddWalletBloc, AddWalletState>(
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
@@ -49,20 +49,20 @@ class _IncomeExpensePageState extends State<IncomeExpensePage> {
                 child: Column(
               children: [
                 FineanceBackButtonWithTitle(
-                    text: translate(LocaleKeys.income_expense_register_value),
+                    text: translate(LocaleKeys.add_wallet_page_add_wallet),
                     onPressed: () {
                       context.router.pop();
                     }),
-                const SizedBox(height: Dimens.kMarginLargeDouble),
-                FineanceValuesSwitch(
-                  firstText: translate(LocaleKeys.income_expense_income),
-                  secondText: translate(LocaleKeys.income_expense_expense),
-                  onChange: (tabIndex) {},
-                ),
                 const SizedBox(height: Dimens.kMarginExtraLarge),
                 _buildTitleTextField(),
-                _buildValueTextField(),
+                _buildDescriptionTextField(),
+                FineanceButton(
+                    text: translate(
+                        LocaleKeys.add_wallet_page_add_income_expense),
+                    onPressed: () =>
+                        context.router.push(const IncomeExpenseRoute())),
                 _buildDatePicker(),
+                const SizedBox(height: Dimens.kMarginExtraLarge),
                 _buildConfirmButton(),
               ],
             )),
@@ -80,16 +80,24 @@ class _IncomeExpensePageState extends State<IncomeExpensePage> {
     );
   }
 
-  Widget _buildValueTextField() {
+  Widget _buildDescriptionTextField() {
     return FineanceTextField(
-      label: translate(LocaleKeys.income_expense_value),
+      label: translate(LocaleKeys.add_wallet_page_description),
       textInputAction: TextInputAction.next,
-      controller: _valueController,
-      textInputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d{0,2}"))
-      ],
+      controller: _titleController,
     );
   }
+
+  // Widget _buildValueTextField() {
+  //   return FineanceTextField(
+  //     label: translate(LocaleKeys.income_expense_value),
+  //     textInputAction: TextInputAction.next,
+  //     controller: _valueController,
+  //     textInputFormatters: [
+  //       FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d{0,2}"))
+  //     ],
+  //   );
+  // }
 
   Widget _buildDatePicker() {
     const twentyYearsInDays = 7300;
@@ -118,6 +126,7 @@ class _IncomeExpensePageState extends State<IncomeExpensePage> {
   }
 
   Widget _buildConfirmButton() {
-    return FineanceButton.positive(text: "Confirm", onPressed: () {});
+    return FineanceButton.positive(
+        text: translate(LocaleKeys.add_wallet_page_confirm), onPressed: () {});
   }
 }

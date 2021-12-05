@@ -1,4 +1,5 @@
 import 'package:fineance/injection/modules.dart';
+import 'package:fineance/presentation/add_wallet/bloc/add_wallet_bloc.dart';
 import 'package:fineance/presentation/authorization/biometrics/bloc/biometrics_bloc.dart';
 import 'package:fineance/presentation/authorization/login/bloc/login_bloc.dart';
 import 'package:fineance/presentation/authorization/register/bloc/register_bloc.dart';
@@ -14,8 +15,8 @@ import 'package:get_it/get_it.dart';
 void registerBlocModules(GetIt injector, ThemeScheme theme) {
   injector.registerFactory(() => ThemeBloc(theme));
   injector.registerFactory(() => SplashBloc(injector.get(), injector.get()));
-  injector.registerFactory(
-      () => LoginBloc(injector.get(), injector.get(instanceName: settingsBox),injector.get()));
+  injector.registerFactory(() => LoginBloc(
+      injector.get(), injector.get(instanceName: settingsBox), injector.get()));
   injector.registerFactory(() =>
       RegisterBloc(injector.get(), injector.get(instanceName: settingsBox)));
   injector.registerFactory(() => OnboardingBloc(injector.get()));
@@ -25,4 +26,5 @@ void registerBlocModules(GetIt injector, ThemeScheme theme) {
   injector.registerFactory(
       () => SettingsBloc(injector.get(), injector.get(instanceName: themeBox)));
   injector.registerFactory(() => IncomeExpenseBloc());
+  injector.registerFactory(() => AddWalletBloc());
 }

@@ -63,5 +63,10 @@ abstract class  LocaleKeys {
   static const progress_indicator_you_completed = 'progress_indicator.you_completed';
   static const progress_indicator_of_savings_goal = 'progress_indicator.of_savings_goal';
   static const progress_indicator = 'progress_indicator';
+  static const add_wallet_page_add_wallet = 'add_wallet_page.add_wallet';
+  static const add_wallet_page_description = 'add_wallet_page.description';
+  static const add_wallet_page_confirm = 'add_wallet_page.confirm';
+  static const add_wallet_page_add_income_expense = 'add_wallet_page.add_income_expense';
+  static const add_wallet_page = 'add_wallet_page';
 
 }
