@@ -25,7 +25,7 @@ class WalletRepository{
 
       User user = User(username: username, password: "", email: "");
 
-      final response = await _apiClient.wallets(user);
+      final response = await _apiClient.wallets(_storageService.getBearerToken(),user);
       if(response!=null){
         wallets=response;
         return true;
@@ -43,7 +43,7 @@ class WalletRepository{
 
       User user = User(username: username, password: "", email: "");
 
-      final response = await _apiClient.sub_wallets(user);
+      final response = await _apiClient.sub_wallets(_storageService.getBearerToken(),user);
       if(response!=null){
         subWallets=response;
         return true;
