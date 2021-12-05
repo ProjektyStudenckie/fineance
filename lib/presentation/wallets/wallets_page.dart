@@ -1,7 +1,9 @@
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:fineance/components/fineance_list.dart';
 import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
+import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/colors.dart';
 import 'package:fineance/style/dimens.dart';
 import 'package:flutter/cupertino.dart';
@@ -55,8 +57,8 @@ class _WalletsPageState extends State<WalletsPage> {
           width: 45.0,
           child: FittedBox(
             child: FloatingActionButton(
-              onPressed: () {},
-              backgroundColor: AppColors.blue,
+              onPressed: () => context.router.push(const AddWalletRoute()),
+              backgroundColor: AppColors.green,
               child: const Icon(Icons.add),
             ),
           ),

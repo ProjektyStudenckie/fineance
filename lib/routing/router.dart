@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:fineance/presentation/add_wallet/add_wallet_page.dart';
 import 'package:fineance/presentation/authorization/biometrics/biometrics_page.dart';
 import 'package:fineance/presentation/authorization/login/login_page.dart';
 import 'package:fineance/presentation/authorization/register/register_page.dart';
@@ -19,6 +20,7 @@ import 'package:fineance/presentation/wallets/wallets_page.dart';
     AutoRoute(page: OnboardingPage),
     AutoRoute(page: BiometricsPage),
     AutoRoute(page: IncomeExpensePage),
+    AutoRoute(page: AddWalletPage),
     AutoRoute(page: TabPage, children: [
       AutoRoute(page: HomePage),
       AutoRoute(page: WalletsPage),

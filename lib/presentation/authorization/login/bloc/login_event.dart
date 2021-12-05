@@ -10,7 +10,6 @@ class LoginUser extends LoginEvent {
   LoginUser({required this.username, required this.password});
 }
 
-
-class LoginTryLoginOnStart extends LoginEvent {
-  LoginTryLoginOnStart();
+class TryLoginOnStart extends LoginEvent {
+  TryLoginOnStart();
 }

@@ -13,13 +13,13 @@ class TabPage extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     final BlocFactory blocFactory = BlocFactory.of(context);
-    final HomeBloc homeBloc = blocFactory.get();
     final WalletsBloc walletsBloc = blocFactory.get();
+    final HomeBloc homeBloc = blocFactory.get();
     final SettingsBloc settingsBloc = blocFactory.get();
 
     return MultiBlocProvider(providers: [
-      BlocProvider<HomeBloc>(create: (context) => homeBloc),
       BlocProvider<WalletsBloc>(create: (context) => walletsBloc),
+      BlocProvider<HomeBloc>(create: (context) => homeBloc),
       BlocProvider<SettingsBloc>(create: (context) => settingsBloc)
     ], child: this);
   }
@@ -29,7 +29,7 @@ class TabPage extends StatelessWidget implements AutoRouteWrapper {
     return AutoTabsScaffold(
       lazyLoad: false,
       animationDuration: const Duration(seconds: 0),
-      routes: const [HomeRoute(), WalletsRoute(), SettingsRoute()],
+      routes: const [WalletsRoute(), HomeRoute(), SettingsRoute()],
       bottomNavigationBuilder: (_, tabsRouter) {
         return BottomNavigationBar(
             selectedItemColor: Theme.of(context).brightness == Brightness.dark
@@ -42,11 +42,11 @@ class TabPage extends StatelessWidget implements AutoRouteWrapper {
             onTap: tabsRouter.setActiveIndex,
             items: [
               BottomNavigationBarItem(
-                  icon: const Icon(Icons.home),
-                  label: translate(LocaleKeys.tab_home)),
-              BottomNavigationBarItem(
                   icon: const Icon(Icons.account_balance_wallet),
                   label: translate(LocaleKeys.tab_wallets)),
+              BottomNavigationBarItem(
+                  icon: const Icon(Icons.home),
+                  label: translate(LocaleKeys.tab_home)),
               BottomNavigationBarItem(
                   icon: const Icon(Icons.settings),
                   label: translate(LocaleKeys.tab_settings)),

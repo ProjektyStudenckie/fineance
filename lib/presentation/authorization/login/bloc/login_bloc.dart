@@ -14,25 +14,25 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final Box _settingsBox;
   final StorageService _storageService;
 
+  // TryLoginOnStart() async {
+  //   final username =_storageService.getUserName();
+  //   final authenticated = await _authenticationRepository.refreshToken();
+  //   if(authenticated){
+  //     emit(LoginSuccess(shouldShowOnboarding: true));
+  //   }
+  // }
 
-  TryLoginOnStart() async {
-    final username =_storageService.getUserName();
-    final authenticated = await _authenticationRepository.refreshToken();
-    if(authenticated){
-      emit(LoginSuccess(shouldShowOnboarding: true));
-    }
-  }
-
-  LoginBloc(this._authenticationRepository, this._settingsBox, this._storageService)
+  LoginBloc(
+      this._authenticationRepository, this._settingsBox, this._storageService)
       : super(LoginInitial()) {
-
-    on<LoginTryLoginOnStart>((event, emit) async {
+    on<TryLoginOnStart>((event, emit) async {
+      emit(LoginChecking(isLoginChecking: true));
 
       final username = _storageService.getUserName();
-      if(username!=""){
+      if (username != "") {
         final value = await _authenticationRepository.refreshToken();
 
-        if(value){
+        if (value) {
           final shouldShowOnboarding =
               _settingsBox.get(IS_ONBOARDING_DONE) != true;
           if (shouldShowOnboarding) {
@@ -43,6 +43,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         }
       }
 
+      emit(LoginChecking(isLoginChecking: false));
     });
 
     on<LoginUser>((event, emit) async {
