@@ -14,27 +14,21 @@ class FineanceList extends StatefulWidget {
 class _FineanceListState extends State<FineanceList> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 600.0,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 60.0),
-        child: ListView.separated(
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            final item = items[index];
+    return ListView.separated(
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        final item = items[index];
 
-            return Slidable(
-              key: Key(item),
-              startActionPane: _buildSwipeActionRight(index),
-              endActionPane: _buildSwipeActionLeft(index),
-              child: _buildTile(item),
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) => Divider(
-            height: 0.8,
-            color: context.isDarkTheme ? AppColors.white : AppColors.grey,
-          ),
-        ),
+        return Slidable(
+          key: Key(item),
+          startActionPane: _buildSwipeActionRight(index),
+          endActionPane: _buildSwipeActionLeft(index),
+          child: _buildTile(item),
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) => Divider(
+        height: 0.8,
+        color: context.isDarkTheme ? AppColors.white : AppColors.grey,
       ),
     );
   }
@@ -115,3 +109,42 @@ class _FineanceListState extends State<FineanceList> {
 
 // mock data
 final items = ['Horse', 'Cow', 'Camel', 'Sheep', 'Goat'];
+
+class DismissBackground extends StatelessWidget {
+  const DismissBackground({
+    this.isPrimaryBackground = true,
+    Key? key,
+  }) : super(key: key);
+  final bool isPrimaryBackground;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        color: Colors.red,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Row(
+            mainAxisAlignment: isPrimaryBackground
+                ? MainAxisAlignment.start
+                : MainAxisAlignment.end,
+            children: const [
+              Text(
+                'Delete',
+                style: TextStyle(
+                  fontSize: 22.0,
+                ),
+              ),
+              SizedBox(width: 5.0),
+              Icon(
+                Icons.delete_forever,
+                size: 22.0,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

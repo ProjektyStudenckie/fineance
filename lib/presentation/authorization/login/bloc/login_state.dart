@@ -8,6 +8,15 @@ abstract class LoginState extends Equatable {
 
 class LoginInitial extends LoginState {}
 
+class LoginChecking extends LoginState {
+  final bool isLoginChecking;
+
+  LoginChecking({required this.isLoginChecking});
+
+  @override
+  List<Object?> get props => [isLoginChecking];
+}
+
 class LoginLoading extends LoginState {}
 
 class LoginSuccess extends LoginState {

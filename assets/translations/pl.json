@@ -70,5 +70,11 @@
     "progress_indicator": {
         "you_completed": "Udało Ci się uzbierać",
         "of_savings_goal": "swojego celu oszczędności"
+    },
+    "add_wallet_page": {
+        "add_wallet": "Dodaj portfel",
+        "description": "opis",
+        "confirm": "dodaj",
+        "add_income_expense": "Dodaj przychod / wydatki"
     }
 }

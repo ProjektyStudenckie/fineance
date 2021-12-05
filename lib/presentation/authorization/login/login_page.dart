@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:fineance/components/fineance_button.dart';
+import 'package:fineance/components/fineance_loader.dart';
 import 'package:fineance/components/fineance_text_field.dart';
 import 'package:fineance/components/fineance_title.dart';
 import 'package:fineance/injection/bloc_factory.dart';
@@ -37,17 +38,18 @@ class _LoginPageState extends State<LoginPage> {
 
   final _passwordValidator = RequiredValidator(
       errorText: translate(LocaleKeys.validation_password_is_required));
- @override
+
+  @override
   void initState() {
-   BlocProvider.of<LoginBloc>(context)
-       .add(LoginTryLoginOnStart());
+    BlocProvider.of<LoginBloc>(context).add(TryLoginOnStart());
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
-         if (state is LoginSuccess) {
+        if (state is LoginSuccess) {
           if (state.shouldShowOnboarding) {
             context.router.replace(const OnboardingRoute());
           } else {
@@ -56,9 +58,12 @@ class _LoginPageState extends State<LoginPage> {
         } else if (state is LoginError) {
           // TODO: Display error to the user
         }
-
       },
       builder: (context, state) {
+        if (state is LoginChecking) {
+          return const Scaffold(body: Center(child: FineanceLoader()));
+        }
+
         return Scaffold(
           body: SafeArea(
             child: SingleChildScrollView(

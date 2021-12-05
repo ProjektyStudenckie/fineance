@@ -15,12 +15,12 @@ class FineanceBackButtonWithTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        FineanceBackButton(
-            onPressed: onPressed ??
-                () {
-                  context.router.pop();
-                }),
-        Expanded(child: FittedBox(child: FineanceTitle(text: text))),
+        FineanceBackButton(onPressed: onPressed ?? () => context.router.pop()),
+        Expanded(
+          child: FittedBox(
+            child: FineanceTitle(text: text),
+          ),
+        ),
       ],
     );
   }
