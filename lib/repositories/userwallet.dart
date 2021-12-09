@@ -53,3 +53,28 @@ class GoalWallet {
     "goal": goal
   };
 }
+
+
+class RemittanceWallet {
+  RemittanceWallet({
+    required this.wallet,
+    required this.remittance,
+  });
+
+  final Wallet wallet;
+  final Remittance remittance;
+
+  factory RemittanceWallet.fromRawJson(String str) => RemittanceWallet.fromJson(json.decode(str) as Map<String,dynamic>);
+
+  String toRawJson() => json.encode(toJson());
+
+  factory RemittanceWallet.fromJson(Map<String, dynamic> json) => RemittanceWallet(
+    wallet: json["wallet"] as Wallet,
+    remittance: json["remittance"] as Remittance,
+  );
+
+  Map<String, dynamic> toJson() => {
+    "wallet": wallet,
+    "remittance": remittance
+  };
+}
