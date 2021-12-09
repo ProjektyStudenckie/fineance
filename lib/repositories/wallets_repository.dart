@@ -56,18 +56,102 @@ class WalletRepository{
 
   Future<bool> addGoal(Wallet wallet, Goal goal) async {
     try {
-      final username = _storageService.getUserName();
 
-      GoalWallet user = GoalWallet(goal: goal, wallet: wallet);
+      GoalWallet goalWallet = GoalWallet(goal: goal, wallet: wallet);
+
+      final response = await _apiClient.add_goal(_storageService.getBearerToken(),goalWallet);
+
+      if(response!=null){
+        return true;
+      }
 
     } on DioError catch (error) {
       throw ApiError.fromJson(error.response?.data as Map<String, dynamic>);
     }
     return false;
   }
-//  Future<bool> addSubowner() async {}
-// Future<bool> removeGoal() async {}
-// Future<bool> removeSubOwner() async {}
 
+  Future<bool> addSubOwner(Wallet wallet, User user) async {
+    try {
+
+      UserWallet userWallet = UserWallet(wallet: wallet, user: user);
+
+      final response = await _apiClient.add_sub_owner(_storageService.getBearerToken(),userWallet);
+
+      if(response!=null){
+        return true;
+      }
+
+    } on DioError catch (error) {
+      throw ApiError.fromJson(error.response?.data as Map<String, dynamic>);
+    }
+    return false;
+  }
+
+  Future<bool> removeGoal(Wallet wallet, Goal goal) async {
+    try {
+
+      GoalWallet goalWallet = GoalWallet(goal: goal, wallet: wallet);
+
+      final response = await _apiClient.remove_goal(_storageService.getBearerToken(),goalWallet);
+
+      if(response!=null){
+        return true;
+      }
+
+    } on DioError catch (error) {
+      throw ApiError.fromJson(error.response?.data as Map<String, dynamic>);
+    }
+    return false;
+  }
+
+
+  Future<bool> removeSubOwner(Wallet wallet, User user) async {
+    try {
+
+      UserWallet userWallet = UserWallet(wallet: wallet, user: user);
+
+      final response = await _apiClient.remove_sub_owner(_storageService.getBearerToken(),userWallet);
+
+      if(response!=null){
+        return true;
+      }
+
+    } on DioError catch (error) {
+      throw ApiError.fromJson(error.response?.data as Map<String, dynamic>);
+    }
+    return false;
+  }
+
+
+  Future<bool> updateWallet(Wallet wallet) async {
+    try {
+      final response = await _apiClient.update_wallet(_storageService.getBearerToken(),wallet);
+
+      if(response!=null){
+        return true;
+      }
+
+    } on DioError catch (error) {
+      throw ApiError.fromJson(error.response?.data as Map<String, dynamic>);
+    }
+    return false;
+  }
+
+  Future<bool> addRemitance(Wallet wallet, Remittance remittance) async {
+    try {
+      RemittanceWallet userWallet = RemittanceWallet(wallet: wallet, remittance: remittance);
+
+      final response = await _apiClient.add_remittance(_storageService.getBearerToken(),userWallet);
+
+      if(response!=null){
+        return true;
+      }
+
+    } on DioError catch (error) {
+      throw ApiError.fromJson(error.response?.data as Map<String, dynamic>);
+    }
+    return false;
+  }
 
 }

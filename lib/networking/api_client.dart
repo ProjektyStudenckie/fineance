@@ -60,4 +60,7 @@ abstract class ApiClient {
 
   @POST("/remove_goal")
   Future<bool> remove_goal(@Header("Token") String accessTokens, @Body() GoalWallet goalWallet);
+
+  @POST("/add_remittance")
+  Future<bool> add_remittance(@Header("Token") String accessTokens, @Body() RemittanceWallet remmittanceWallet);
 }
