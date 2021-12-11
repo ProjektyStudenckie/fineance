@@ -26,5 +26,5 @@ void registerBlocModules(GetIt injector, ThemeScheme theme) {
   injector.registerFactory(
       () => SettingsBloc(injector.get(), injector.get(instanceName: themeBox)));
   injector.registerFactory(() => IncomeExpenseBloc());
-  injector.registerFactory(() => AddWalletBloc());
+  injector.registerFactory(() => AddWalletBloc(injector.get(), injector.get()));
 }

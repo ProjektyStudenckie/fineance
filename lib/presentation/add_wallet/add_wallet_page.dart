@@ -127,6 +127,9 @@ class _AddWalletPageState extends State<AddWalletPage> {
 
   Widget _buildConfirmButton() {
     return FineanceButton.positive(
-        text: translate(LocaleKeys.add_wallet_page_confirm), onPressed: () {});
+        text: translate(LocaleKeys.add_wallet_page_confirm), onPressed: () {
+      BlocProvider.of<AddWalletBloc>(context)
+          .add(AddWalletEventAdd());
+    });
   }
 }

@@ -24,7 +24,7 @@ class StorageServiceImpl implements StorageService {
   String getBearerToken() {
     final token = _tokensBox.get(ACCESS_TOKEN) as String?;
     if (token?.isNotEmpty == true) {
-      return "Bearer $token";
+      return token??"";
     }
 
     return "";

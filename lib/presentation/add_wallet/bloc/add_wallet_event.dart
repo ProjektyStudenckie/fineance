@@ -6,3 +6,10 @@ abstract class AddWalletEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class AddWalletEventAdd extends AddWalletEvent {
+  AddWalletEventAdd();
+
+  @override
+  List<Object> get props => [];
+}
