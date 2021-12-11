@@ -44,7 +44,9 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
         return true;
       }
     } on DioError catch (error) {
-      throw ApiError.fromJson(error.response?.data as Map<String, dynamic>);
+      if(error.response?.data!=null){
+        throw ApiError.fromJson(error.response?.data as Map<String, dynamic>);
+      }
     }
     return false;
   }
@@ -63,7 +65,9 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
         return true;
       }
     } on DioError catch (error) {
-      throw ApiError.fromJson(error.response?.data as Map<String, dynamic>);
+      if(error.response?.data!=null){
+        throw ApiError.fromJson(error.response?.data as Map<String, dynamic>);
+      }
     }
     return false;
   }
@@ -79,7 +83,9 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
           response.accessToken ?? "", response.refreshToken ?? "");
       return true;}
     } on DioError catch (error) {
-      throw ApiError.fromJson(error.response?.data as Map<String, dynamic>);
+      if(error.response?.data!=null){
+        throw ApiError.fromJson(error.response?.data as Map<String, dynamic>);
+      }
     }
     return false;
   }
