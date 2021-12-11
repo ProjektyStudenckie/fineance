@@ -64,10 +64,11 @@ class Wallet {
     description: json["description"].toString(),
     owner: User.fromJson(json["owner"] as Map<String,dynamic>),
     currency: json["currency"].toString(),
-    subowners: List<User>.from((json["subowners"] as List<Map<String,dynamic>>).map((x) => User.fromJson(x)))as List<User>,
-    goal: List<Goal>.from((json["goals"] as List<Map<String,dynamic>>).map((x) => Goal.fromJson(x)))as List<Goal>,
-    value: List<Remittance>.from((json["remittance"] as List<Map<String,dynamic>>).map((x) => Remittance.fromJson(x)))as List<Remittance>,
+    subowners: List<User>.from((tryCAst(json["subowners"])).map((x) => User.fromJson(x)))as List<User>,
+    goal: List<Goal>.from((tryCAst(json["goals"])).map((x) => Goal.fromJson(x)))as List<Goal>,
+    value: List<Remittance>.from((tryCAst(json["remittance"])).map((x) => Remittance.fromJson(x)))as List<Remittance>,
   );
+
 
   Map<String, dynamic> toJson() => {
     "_id": id,
@@ -79,4 +80,14 @@ class Wallet {
     "goals": List<dynamic>.from(goal.map((x) => x.toJson())),
     "value": List<dynamic>.from(value.map((x) => x.toJson())),
   };
+}
+
+List<Map<String,dynamic>> tryCAst(dynamic dyn){
+  if(dyn!= null){
+    return dyn as List<Map<String,dynamic>>;
+  }
+  else{
+    return List.empty();
+  }
+
 }

@@ -35,7 +35,8 @@ class _FineanceListState extends State<FineanceList> {
   _asyncMethod() async {
     final download= await widget.walletRepository.downloadWallets();
     if(download){
-      items.clear();
+      print('KOZAK dostalem wallety');
+      print(widget.walletRepository.wallets.length);
       items = widget.walletRepository.wallets;
     }
   }
