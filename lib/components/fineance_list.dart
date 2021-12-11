@@ -1,17 +1,47 @@
 import 'package:fineance/extension/context_extension.dart';
+import 'package:fineance/repositories/authentication_repository.dart';
+import 'package:fineance/repositories/wallet.dart';
+import 'package:fineance/repositories/wallets_repository.dart';
 import 'package:fineance/style/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class FineanceList extends StatefulWidget {
-  const FineanceList({Key? key}) : super(key: key);
+
+  const FineanceList({Key? key,required this.walletRepository}) : super(key: key);
+  final WalletRepository walletRepository;
 
   @override
   State<FineanceList> createState() => _FineanceListState();
 }
 
 class _FineanceListState extends State<FineanceList> {
+
+  List<Wallet> items = List.empty();
+
+  _FineanceListState(){
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_){
+      _asyncMethod();
+    });
+  }
+
+  _asyncMethod() async {
+    final download= await widget.walletRepository.downloadWallets();
+    if(download){
+      items.clear();
+      items = widget.walletRepository.wallets;
+    }
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -20,10 +50,10 @@ class _FineanceListState extends State<FineanceList> {
         final item = items[index];
 
         return Slidable(
-          key: Key(item),
+          key: Key(item.name),
           startActionPane: _buildSwipeActionRight(index),
           endActionPane: _buildSwipeActionLeft(index),
-          child: _buildTile(item),
+          child: _buildTile(item.name),
         );
       },
       separatorBuilder: (BuildContext context, int index) => Divider(
@@ -97,7 +127,7 @@ class _FineanceListState extends State<FineanceList> {
 
   // TODO connect these functions with db
   void _onDismissed(int index) {
-    final String _itemName = items[index];
+    final String _itemName = items[index].name;
     setState(() => items.removeAt(index));
     // TODO remove item from db
     ScaffoldMessenger.of(context)
@@ -106,9 +136,6 @@ class _FineanceListState extends State<FineanceList> {
 
   void _onEdit(int index) {}
 }
-
-// mock data
-final items = ['Horse', 'Cow', 'Camel', 'Sheep', 'Goat'];
 
 class DismissBackground extends StatelessWidget {
   const DismissBackground({

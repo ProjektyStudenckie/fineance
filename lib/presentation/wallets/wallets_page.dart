@@ -3,26 +3,38 @@ import 'package:fineance/components/fineance_list.dart';
 import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
+import 'package:fineance/repositories/wallets_repository.dart';
 import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/colors.dart';
 import 'package:fineance/style/dimens.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'bloc/wallets_bloc.dart';
 
 class WalletsPage extends StatefulWidget {
   const WalletsPage({Key? key}) : super(key: key);
 
   @override
   _WalletsPageState createState() => _WalletsPageState();
+
 }
 
 class _WalletsPageState extends State<WalletsPage> {
+  late WalletRepository walletRepository;
+  @override
+  void initState() {
+    super.initState();
+
+    walletRepository = BlocProvider.of<WalletsBloc>(context).walletRepository;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      body: const SafeArea(
-        child: FineanceList(),
+      body: SafeArea(
+        child: FineanceList(walletRepository: walletRepository),
       ),
     );
   }
