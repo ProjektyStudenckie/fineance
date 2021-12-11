@@ -6,12 +6,12 @@ import 'goal.dart';
 
 class Remittance{
   Remittance({
-    required this.id,
+    this.id,
     required this.date,
     required this.value,
   });
 
-  String id;
+  String? id;
   String date;
   int value;
 
@@ -35,7 +35,7 @@ class Remittance{
 
 class Wallet {
   Wallet({
-    required this.id,
+    this.id,
     required this.name,
     required this.description,
     required this.owner,
@@ -45,7 +45,7 @@ class Wallet {
     required this.value,
   });
 
-  String id;
+  String? id;
   String name;
   String description;
   User owner;
