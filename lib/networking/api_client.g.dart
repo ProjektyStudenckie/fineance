@@ -124,6 +124,23 @@ class _ApiClient implements ApiClient {
   }
 
   @override
+  Future<bool> remove_wallet(accessTokens, wallet) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Token': accessTokens};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(wallet.toJson());
+    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/remove_wallet',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
   Future<bool> add_sub_owner(accessTokens, userWallet) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

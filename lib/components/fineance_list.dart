@@ -28,15 +28,23 @@ class _FineanceListState extends State<FineanceList> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_){
-      _asyncMethod();
+      _asyncMethodLoad();
     });
   }
 
-  _asyncMethod() async {
+  _asyncMethodLoad() async {
     final download= await widget.walletRepository.downloadWallets();
     if(download){
       print('KOZAK dostalem wallety');
       print(widget.walletRepository.wallets.length);
+      items = widget.walletRepository.wallets;
+    }
+  }
+
+  _asyncMethodDelete(Wallet wallet) async {
+    final download= await widget.walletRepository.removeWallet(wallet);
+    if(download){
+      print('KOZAK wyjebalem walletdostalem wallety');
       items = widget.walletRepository.wallets;
     }
   }
@@ -130,7 +138,9 @@ class _FineanceListState extends State<FineanceList> {
   void _onDismissed(int index) {
     final String _itemName = items[index].name;
     setState(() => items.removeAt(index));
-    // TODO remove item from db
+    WidgetsBinding.instance!.addPostFrameCallback((_){
+      _asyncMethodDelete(items[index]);
+    });
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text('$_itemName dismissed')));
   }

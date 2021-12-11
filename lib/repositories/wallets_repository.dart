@@ -172,9 +172,22 @@ class WalletRepository{
 
   Future<bool> addWallet(Wallet wallet) async {
     try {
+      final response = await _apiClient.remove_wallet(_storageService.getBearerToken(), wallet);
 
-      print(_storageService.getBearerToken());
-      print(_storageService.getRefreshToken());
+      if(response!=null){
+        return true;
+      }
+
+    } on DioError catch (error) {
+      if(error.response?.data!=null){
+        throw ApiError.fromJson(error.response?.data as Map<String, dynamic>);
+      }
+    }
+    return false;
+  }
+
+  Future<bool> removeWallet(Wallet wallet) async {
+    try {
       final response = await _apiClient.add_wallet(_storageService.getBearerToken(), wallet);
 
       if(response!=null){
@@ -188,5 +201,6 @@ class WalletRepository{
     }
     return false;
   }
+
 
 }
