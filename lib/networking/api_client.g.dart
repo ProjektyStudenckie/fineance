@@ -67,10 +67,11 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<List<Wallet>> sub_wallets(auth) async {
+  Future<List<Wallet>> sub_wallets(accessTokens, auth) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Token': accessTokens};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(auth.toJson());
     final _result = await _dio.fetch<List<dynamic>>(
@@ -86,10 +87,11 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<List<Wallet>> wallets(auth) async {
+  Future<List<Wallet>> wallets(accessTokens, auth) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Token': accessTokens};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(auth.toJson());
     final _result = await _dio.fetch<List<dynamic>>(
@@ -105,10 +107,11 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<bool> add_wallet(wallet) async {
+  Future<bool> add_wallet(accessTokens, wallet) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Token': accessTokens};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(wallet.toJson());
     final _result = await _dio.fetch<bool>(_setStreamType<bool>(
@@ -121,10 +124,11 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<bool> add_sub_owner(userWallet) async {
+  Future<bool> add_sub_owner(accessTokens, userWallet) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Token': accessTokens};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(userWallet.toJson());
     final _result = await _dio.fetch<bool>(_setStreamType<bool>(
@@ -137,10 +141,11 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<bool> update_wallet(wallet) async {
+  Future<bool> update_wallet(accessTokens, wallet) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Token': accessTokens};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(wallet.toJson());
     final _result = await _dio.fetch<bool>(_setStreamType<bool>(
@@ -153,10 +158,11 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<bool> remove_sub_owner(userWallet) async {
+  Future<bool> remove_sub_owner(accessTokens, userWallet) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Token': accessTokens};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(userWallet.toJson());
     final _result = await _dio.fetch<bool>(_setStreamType<bool>(
@@ -169,10 +175,11 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<bool> add_goal(goalWallet) async {
+  Future<bool> add_goal(accessTokens, goalWallet) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Token': accessTokens};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(goalWallet.toJson());
     final _result = await _dio.fetch<bool>(_setStreamType<bool>(
@@ -185,15 +192,33 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<bool> remove_goal(goalWallet) async {
+  Future<bool> remove_goal(accessTokens, goalWallet) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Token': accessTokens};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(goalWallet.toJson());
     final _result = await _dio.fetch<bool>(_setStreamType<bool>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/remove_goal',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
+  Future<bool> add_remittance(accessTokens, remmittanceWallet) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Token': accessTokens};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(remmittanceWallet.toJson());
+    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+        Options(method: 'POST', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/add_remittance',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;
