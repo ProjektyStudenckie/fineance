@@ -33,6 +33,7 @@ dependencies:
   provider: 6.0.1
   quick_actions: ^0.6.0+8
   retrofit: 3.0.0
+  yahoofin: ^0.0.8
   rive: 0.7.33
 
 dev_dependencies:
