@@ -8,8 +8,14 @@ abstract class AddWalletEvent extends Equatable {
 }
 
 class AddWalletEventAdd extends AddWalletEvent {
-  AddWalletEventAdd();
+  final String title;
+  final String description;
+  final List<Remittance> remittances;
+  final List<Goal> goals;
 
-  @override
-  List<Object> get props => [];
+  const AddWalletEventAdd(
+      {required this.title,
+      required this.description,
+      required this.remittances,
+      required this.goals});
 }

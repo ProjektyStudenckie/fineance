@@ -8,6 +8,7 @@ import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
 import 'package:fineance/presentation/income_expense/bloc/income_expense_bloc.dart';
+import 'package:fineance/repositories/wallet.dart';
 import 'package:fineance/style/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,6 +33,7 @@ class _IncomeExpensePageState extends State<IncomeExpensePage> {
   final _valueController = TextEditingController();
   final _dateController = TextEditingController();
   DateTime _date = DateTime.now();
+  bool _isIncome = true;
 
   @override
   void dispose() {
@@ -57,7 +59,13 @@ class _IncomeExpensePageState extends State<IncomeExpensePage> {
                 FineanceValuesSwitch(
                   firstText: translate(LocaleKeys.income_expense_income),
                   secondText: translate(LocaleKeys.income_expense_expense),
-                  onChange: (tabIndex) {},
+                  onChange: (tabIndex) {
+                    if (tabIndex == 0) {
+                      _isIncome = true;
+                    } else {
+                      _isIncome = false;
+                    }
+                  },
                 ),
                 const SizedBox(height: Dimens.kMarginExtraLarge),
                 _buildTitleTextField(),
@@ -118,6 +126,17 @@ class _IncomeExpensePageState extends State<IncomeExpensePage> {
   }
 
   Widget _buildConfirmButton() {
-    return FineanceButton.positive(text: "Confirm", onPressed: () {});
+    return FineanceButton.positive(
+        text: "Confirm",
+        onPressed: () {
+          final Remittance _remittance = Remittance(
+              description: _titleController.value.text,
+              date: _dateController.value.text,
+              value: _isIncome
+                  ? int.parse(_valueController.value.text)
+                  : int.parse(_valueController.value.text) * -1);
+
+          context.router.pop(_remittance);
+        });
   }
 }

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fineance/repositories/authentication_repository.dart';
+import 'package:fineance/repositories/goal.dart';
 import 'package:fineance/repositories/storage_repository.dart';
 import 'package:fineance/repositories/user.dart';
 import 'package:fineance/repositories/wallet.dart';
@@ -13,19 +13,25 @@ class AddWalletBloc extends Bloc<AddWalletEvent, AddWalletState> {
   final WalletRepository walletRepository;
   final StorageService storageService;
 
-  AddWalletBloc(this.walletRepository,this.storageService) : super(AddWalletInitial()) {
-    on<AddWalletEvent>((event, emit) async {
-      print('KOZAK');
-      User user =User(email: '', username: storageService.getUserName(), password: '');
-      Wallet wallet = Wallet(description: '', name: '', subowners: [], goal: [], owner: user, value: [], currency: '');
-      bool succes = await walletRepository.addWallet(wallet);
-      if(succes){
+  AddWalletBloc(this.walletRepository, this.storageService)
+      : super(AddWalletInitial()) {
+    on<AddWalletEventAdd>((event, emit) async {
+      final User _user =
+          User(email: '', username: storageService.getUserName(), password: '');
+      final Wallet _wallet = Wallet(
+          description: event.description,
+          name: event.title,
+          subowners: [],
+          goal: event.goals,
+          owner: _user,
+          value: event.remittances,
+          currency: '');
+      final bool _success = await walletRepository.addWallet(_wallet);
+      if (_success) {
         print('KOZAK');
-      }
-      else{
+      } else {
         print('Dupa');
       }
-
     });
   }
 }

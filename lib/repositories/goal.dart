@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:meta/meta.dart';
-
 class Goal {
   Goal({
     required this.name,
@@ -13,7 +11,8 @@ class Goal {
   final String date;
   final int value;
 
-  factory Goal.fromRawJson(String str) => Goal.fromJson(json.decode(str) as Map<String,dynamic>);
+  factory Goal.fromRawJson(String str) =>
+      Goal.fromJson(json.decode(str) as Map<String, dynamic>);
 
   String toRawJson() => json.encode(toJson());
 
@@ -24,8 +23,8 @@ class Goal {
   );
 
   Map<String, dynamic> toJson() => {
-    "name": name,
-    "date": date,
-    "value": value,
-  };
+        "name": name,
+        "date": date,
+        "value": value,
+      };
 }

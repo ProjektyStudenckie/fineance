@@ -7,6 +7,7 @@ import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
 import 'package:fineance/presentation/add_goal/bloc/add_goal_bloc.dart';
+import 'package:fineance/repositories/goal.dart';
 import 'package:fineance/style/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -47,9 +48,9 @@ class _AddGoalPageState extends State<AddGoalPage> {
             child: SingleChildScrollView(
                 child: Column(
               children: [
-                _buildTitleTextField(),
+                _buildPageTitleTextField(),
                 const SizedBox(height: Dimens.kMarginExtraLarge),
-                _buildDescriptionTextField(),
+                _buildGoalTitleTextField(),
                 _buildValueTextField(),
                 _buildDatePicker(),
                 _buildConfirmButton(),
@@ -61,7 +62,7 @@ class _AddGoalPageState extends State<AddGoalPage> {
     );
   }
 
-  Widget _buildTitleTextField() {
+  Widget _buildPageTitleTextField() {
     return SizedBox(
       width: 500.0,
       height: 80.0,
@@ -73,7 +74,7 @@ class _AddGoalPageState extends State<AddGoalPage> {
     );
   }
 
-  Widget _buildDescriptionTextField() {
+  Widget _buildGoalTitleTextField() {
     return FineanceTextField(
       label: translate(LocaleKeys.add_goal_page_title),
       textInputAction: TextInputAction.next,
@@ -86,6 +87,9 @@ class _AddGoalPageState extends State<AddGoalPage> {
       label: translate(LocaleKeys.add_goal_page_goal_value),
       textInputAction: TextInputAction.next,
       controller: _valueController,
+      textInputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly
+      ],
     );
   }
 
@@ -117,6 +121,14 @@ class _AddGoalPageState extends State<AddGoalPage> {
 
   Widget _buildConfirmButton() {
     return FineanceButton.positive(
-        text: translate(LocaleKeys.add_goal_page_confirm), onPressed: () {});
+        text: translate(LocaleKeys.add_goal_page_confirm),
+        onPressed: () {
+          final Goal _goal = Goal(
+              name: _titleController.value.text,
+              date: _dateController.value.text,
+              value: int.parse(_valueController.value.text));
+
+          context.router.pop(_goal);
+        });
   }
 }
