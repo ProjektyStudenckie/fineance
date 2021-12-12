@@ -18,9 +18,9 @@ class Goal {
   String toRawJson() => json.encode(toJson());
 
   factory Goal.fromJson(Map<String, dynamic> json) => Goal(
-    name: json["username"].toString(),
-    date: json["password"].toString(),
-    value: json["email"] as int,
+    name: json["name"].toString(),
+    date: json["date"].toString(),
+    value: json["value"] as int,
   );
 
   Map<String, dynamic> toJson() => {

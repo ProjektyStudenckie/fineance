@@ -78,7 +78,7 @@ class Wallet {
     "currency": currency,
     "subowners": List<dynamic>.from(subowners.map((x) => x.toJson())),
     "goals": List<dynamic>.from(goal.map((x) => x.toJson())),
-    "value": List<dynamic>.from(value.map((x) => x.toJson())),
+    "remittance": List<dynamic>.from(value.map((x) => x.toJson())),
   };
 }
 
