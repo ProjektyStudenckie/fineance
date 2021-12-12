@@ -40,7 +40,7 @@ abstract class ApiClient {
   @GET("/sub_wallets")
   Future<List<Wallet>> sub_wallets(@Header("Token") String accessTokens, @Body() User auth);
 
-  @GET("/wallets")
+  @POST("/wallets")
   Future<List<Wallet>> wallets(@Header("Token") String accessTokens, @Body() User auth);
 
   @POST("/add_wallet")
