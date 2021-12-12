@@ -7,6 +7,7 @@ import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
 part 'login_event.dart';
+
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -33,7 +34,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         } else {
           emit(LoginIncorrect());
         }
-      }else{
+      } else {
         emit(LoginIncorrect());
       }
     });

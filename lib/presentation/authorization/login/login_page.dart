@@ -55,15 +55,11 @@ class _LoginPageState extends State<LoginPage> {
           } else {
             context.router.replace(const TabRoute());
           }
-        } else if (state is LoginError) {
-          Scaffold.of(context).showSnackBar(SnackBar(
+        } else if (state is LoginIncorrect) {
+          ScaffoldMessenger.of(context).showSnackBar( SnackBar(
             content:  Text(translate(LocaleKeys.general_failed)),
-            duration: const Duration(seconds: 1),
-            action: SnackBarAction(
-              label: 'ACTION',
-              onPressed: () { },
-            ),
-          ));
+            duration: const Duration(seconds: 1), )
+          );
         }
       },
       builder: (context, state) {
