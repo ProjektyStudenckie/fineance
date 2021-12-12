@@ -18,3 +18,8 @@ class ChangeBiometricsOption extends SettingsEvent {
 
   ChangeBiometricsOption({required this.enable, required this.settings});
 }
+
+
+class LogOUT extends SettingsEvent {
+  LogOUT();
+}

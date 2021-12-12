@@ -52,6 +52,8 @@ class _SettingsPageState extends State<SettingsPage> {
             FineanceButton.negative(
                 text: translate(LocaleKeys.settings_logout),
                 onPressed: () {
+                  BlocProvider.of<SettingsBloc>(context)
+                      .add(LogOUT());
                   context.router.replace(const SplashRoute());
                 }),
             const SizedBox(height: Dimens.kMarginMedium),

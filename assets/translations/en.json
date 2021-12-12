@@ -5,7 +5,8 @@
         "email": "email",
         "username": "username",
         "password": "password",
-        "confirm_password": "confirm password"
+        "confirm_password": "confirm password",
+        "failed": "login failed"
     },
     "tab": {
         "home": "home",
