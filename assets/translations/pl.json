@@ -5,7 +5,8 @@
         "email": "email",
         "username": "nazwa użytkownika",
         "password": "hasło",
-        "confirm_password": "potwierdź hasło"
+        "confirm_password": "potwierdź hasło",
+        "failed": "login nie udane"
     },
     "tab": {
         "home": "start",

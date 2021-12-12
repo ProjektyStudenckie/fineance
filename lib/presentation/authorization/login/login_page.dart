@@ -56,7 +56,14 @@ class _LoginPageState extends State<LoginPage> {
             context.router.replace(const TabRoute());
           }
         } else if (state is LoginError) {
-          // TODO: Display error to the user
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content:  Text(translate(LocaleKeys.general_failed)),
+            duration: const Duration(seconds: 1),
+            action: SnackBarAction(
+              label: 'ACTION',
+              onPressed: () { },
+            ),
+          ));
         }
       },
       builder: (context, state) {

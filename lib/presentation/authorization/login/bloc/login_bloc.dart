@@ -33,6 +33,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         } else {
           emit(LoginIncorrect());
         }
+      }else{
+        emit(LoginIncorrect());
       }
     });
 
