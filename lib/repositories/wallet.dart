@@ -6,12 +6,12 @@ import 'goal.dart';
 
 class Remittance{
   Remittance({
-    this.id,
+    required this.description,
     required this.date,
     required this.value,
   });
 
-  String? id;
+  String description;
   String date;
   int value;
 
@@ -20,13 +20,13 @@ class Remittance{
   String toRawJson() => json.encode(toJson());
 
   factory Remittance.fromJson(Map<String, dynamic> json) => Remittance(
-    id: json["_id"].toString(),
+    description: json["description"].toString(),
     date: json["date"].toString(),
     value: json["value"] as int,
   );
 
   Map<String, dynamic> toJson() => {
-    "_id": id,
+    "description": description,
     "date": date,
     "value": value,
   };
