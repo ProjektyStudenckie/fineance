@@ -96,7 +96,7 @@ class _ApiClient implements ApiClient {
     _data.addAll(auth.toJson());
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<Wallet>>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
+            Options(method: 'POST', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/wallets',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
