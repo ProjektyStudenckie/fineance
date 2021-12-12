@@ -76,5 +76,12 @@
         "description": "opis",
         "confirm": "dodaj",
         "add_income_expense": "Dodaj przychod / wydatki"
+    },
+    "add_goal_page": {
+        "add_goal": "dodaj cel",
+        "title": "tytuł",
+        "goal_value": "goal value",
+        "goal_date": "data celu",
+        "confirm": "dalej"
     }
 }

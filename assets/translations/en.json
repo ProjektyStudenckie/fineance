@@ -76,5 +76,12 @@
         "description": "description",
         "confirm": "confirm",
         "add_income_expense": "Add income / expense"
+    },
+    "add_goal_page": {
+        "add_goal": "add goal",
+        "title": "title",
+        "goal_value": "goal value",
+        "goal_date": "goal date",
+        "confirm": "confirm"
     }
 }

@@ -68,5 +68,11 @@ abstract class  LocaleKeys {
   static const add_wallet_page_confirm = 'add_wallet_page.confirm';
   static const add_wallet_page_add_income_expense = 'add_wallet_page.add_income_expense';
   static const add_wallet_page = 'add_wallet_page';
+  static const add_goal_page_add_goal = 'add_goal_page.add_goal';
+  static const add_goal_page_title = 'add_goal_page.title';
+  static const add_goal_page_goal_value = 'add_goal_page.goal_value';
+  static const add_goal_page_goal_date = 'add_goal_page.goal_date';
+  static const add_goal_page_confirm = 'add_goal_page.confirm';
+  static const add_goal_page = 'add_goal_page';
 
 }

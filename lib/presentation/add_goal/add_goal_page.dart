@@ -6,28 +6,27 @@ import 'package:fineance/components/fineance_text_field.dart';
 import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
-import 'package:fineance/presentation/add_wallet/bloc/add_wallet_bloc.dart';
-import 'package:fineance/routing/router.gr.dart';
+import 'package:fineance/presentation/add_goal/bloc/add_goal_bloc.dart';
 import 'package:fineance/style/dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AddWalletPage extends StatefulWidget implements AutoRouteWrapper {
+class AddGoalPage extends StatefulWidget implements AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     final BlocFactory blocFactory = BlocFactory.of(context);
-    return BlocProvider<AddWalletBloc>(
-      create: (context) => blocFactory.get<AddWalletBloc>(),
+    return BlocProvider<AddGoalBloc>(
+      create: (context) => blocFactory.get<AddGoalBloc>(),
       child: this,
     );
   }
 
   @override
-  _AddWalletPageState createState() => _AddWalletPageState();
+  _AddGoalPageState createState() => _AddGoalPageState();
 }
 
-class _AddWalletPageState extends State<AddWalletPage> {
+class _AddGoalPageState extends State<AddGoalPage> {
   final _titleController = TextEditingController();
   final _valueController = TextEditingController();
   final _dateController = TextEditingController();
@@ -41,25 +40,18 @@ class _AddWalletPageState extends State<AddWalletPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddWalletBloc, AddWalletState>(
+    return BlocBuilder<AddGoalBloc, AddGoalState>(
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
             child: SingleChildScrollView(
                 child: Column(
               children: [
-                FineanceBackButtonWithTitle(
-                    text: translate(LocaleKeys.add_wallet_page_add_wallet),
-                    onPressed: () {
-                      context.router.pop();
-                    }),
-                const SizedBox(height: Dimens.kMarginExtraLarge),
                 _buildTitleTextField(),
-                _buildDescriptionTextField(),
-                _buildIcomeExpenseButton(),
-                _buildAddGoalButton(),
-                _buildDatePicker(),
                 const SizedBox(height: Dimens.kMarginExtraLarge),
+                _buildDescriptionTextField(),
+                _buildValueTextField(),
+                _buildDatePicker(),
                 _buildConfirmButton(),
               ],
             )),
@@ -70,44 +62,32 @@ class _AddWalletPageState extends State<AddWalletPage> {
   }
 
   Widget _buildTitleTextField() {
-    return FineanceTextField(
-      label: translate(LocaleKeys.income_expense_title),
-      textInputAction: TextInputAction.next,
-      controller: _titleController,
+    return SizedBox(
+      width: 500.0,
+      height: 80.0,
+      child: FineanceBackButtonWithTitle(
+          text: translate(LocaleKeys.add_goal_page_add_goal),
+          onPressed: () {
+            context.router.pop();
+          }),
     );
   }
 
   Widget _buildDescriptionTextField() {
     return FineanceTextField(
-      label: translate(LocaleKeys.add_wallet_page_description),
+      label: translate(LocaleKeys.add_goal_page_title),
       textInputAction: TextInputAction.next,
       controller: _titleController,
     );
   }
 
-  Widget _buildIcomeExpenseButton() {
-    return FineanceButton(
-        text: translate(LocaleKeys.add_wallet_page_add_income_expense),
-        onPressed: () => context.router.push(const IncomeExpenseRoute()));
+  Widget _buildValueTextField() {
+    return FineanceTextField(
+      label: translate(LocaleKeys.add_goal_page_goal_value),
+      textInputAction: TextInputAction.next,
+      controller: _valueController,
+    );
   }
-
-  Widget _buildAddGoalButton() {
-    return FineanceButton(
-        // TODO change to locale
-        text: 'Add goal',
-        onPressed: () => context.router.push(const AddGoalRoute()));
-  }
-
-  // Widget _buildValueTextField() {
-  //   return FineanceTextField(
-  //     label: translate(LocaleKeys.income_expense_value),
-  //     textInputAction: TextInputAction.next,
-  //     controller: _valueController,
-  //     textInputFormatters: [
-  //       FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d{0,2}"))
-  //     ],
-  //   );
-  // }
 
   Widget _buildDatePicker() {
     const twentyYearsInDays = 7300;
@@ -137,9 +117,6 @@ class _AddWalletPageState extends State<AddWalletPage> {
 
   Widget _buildConfirmButton() {
     return FineanceButton.positive(
-        text: translate(LocaleKeys.add_wallet_page_confirm),
-        onPressed: () {
-          BlocProvider.of<AddWalletBloc>(context).add(AddWalletEventAdd());
-        });
+        text: translate(LocaleKeys.add_goal_page_confirm), onPressed: () {});
   }
 }
