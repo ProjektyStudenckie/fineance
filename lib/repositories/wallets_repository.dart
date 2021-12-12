@@ -164,7 +164,7 @@ class WalletRepository{
 
     } on DioError catch (error) {
       if(error.response?.data!=null){
-        return false;);
+        return false;
       }
     }
     return false;
