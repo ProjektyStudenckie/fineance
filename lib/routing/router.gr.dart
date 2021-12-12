@@ -1,3 +1,7 @@
+// **************************************************************************
+// AutoRouteGenerator
+// **************************************************************************
+
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -85,9 +89,12 @@ class AppRouter extends _i12.RootStackRouter {
         _i12.RouteConfig(IncomeExpenseRoute.name, path: '/income-expense-page'),
         _i12.RouteConfig(AddWalletRoute.name, path: '/add-wallet-page'),
         _i12.RouteConfig(TabRoute.name, path: '/tab-page', children: [
-          _i12.RouteConfig(HomeRoute.name, path: 'home-page'),
-          _i12.RouteConfig(WalletsRoute.name, path: 'wallets-page'),
-          _i12.RouteConfig(SettingsRoute.name, path: 'settings-page')
+          _i12.RouteConfig(HomeRoute.name,
+              path: 'home-page', parent: TabRoute.name),
+          _i12.RouteConfig(WalletsRoute.name,
+              path: 'wallets-page', parent: TabRoute.name),
+          _i12.RouteConfig(SettingsRoute.name,
+              path: 'settings-page', parent: TabRoute.name)
         ])
       ];
 }
@@ -134,6 +141,11 @@ class BiometricsRouteArgs {
   const BiometricsRouteArgs({this.quickAction});
 
   final _i14.FineanceQuickActions? quickAction;
+
+  @override
+  String toString() {
+    return 'BiometricsRouteArgs{quickAction: $quickAction}';
+  }
 }
 
 /// generated route for [_i6.IncomeExpensePage]

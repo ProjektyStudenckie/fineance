@@ -60,30 +60,30 @@ class _LoginPageState extends State<LoginPage> {
         }
       },
       builder: (context, state) {
-        if (state is LoginChecking) {
-          return const Scaffold(body: Center(child: FineanceLoader()));
-        }
-
-        return Scaffold(
-          body: SafeArea(
-            child: SingleChildScrollView(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildLoginLabel(),
-                    const SizedBox(height: Dimens.kMarginLarge),
-                    _buildUsernameField(),
-                    _buildPassword(),
-                    _buildConfirmButton(),
-                    _buildRegisterButton(),
-                  ],
+        if (state is LoginIncorrect) {
+          return Scaffold(
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildLoginLabel(),
+                      const SizedBox(height: Dimens.kMarginLarge),
+                      _buildUsernameField(),
+                      _buildPassword(),
+                      _buildConfirmButton(),
+                      _buildRegisterButton(),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        );
+          );
+        }
+
+        return const Scaffold(body: Center(child: FineanceLoader()));
       },
     );
   }
