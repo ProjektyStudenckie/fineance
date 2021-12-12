@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
 part 'register_event.dart';
+
 part 'register_state.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
@@ -16,11 +17,15 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     on<RegisterUser>((event, emit) async {
       try {
         emit(RegisterLoading());
-        await _authenticationRepository.register(
+        bool response = await _authenticationRepository.register(
             event.email, event.username, event.password);
-        settingsBox.put(IS_ONBOARDING_DONE, true);
 
-        emit(RegisterSuccess());
+        if (response) {
+          settingsBox.put(IS_ONBOARDING_DONE, true);
+          emit(RegisterSuccess());
+        } else {
+          emit(RegisterError());
+        }
       } catch (e) {
         emit(RegisterError());
       }
