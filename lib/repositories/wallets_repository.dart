@@ -172,7 +172,7 @@ class WalletRepository{
 
   Future<bool> addWallet(Wallet wallet) async {
     try {
-      final response = await _apiClient.remove_wallet(_storageService.getBearerToken(), wallet);
+      final response = await _apiClient.add_wallet(_storageService.getBearerToken(), wallet);
 
       if(response!=null){
         return true;
@@ -188,7 +188,7 @@ class WalletRepository{
 
   Future<bool> removeWallet(Wallet wallet) async {
     try {
-      final response = await _apiClient.add_wallet(_storageService.getBearerToken(), wallet);
+      final response = await _apiClient.remove_wallet(_storageService.getBearerToken(), wallet);
 
       if(response!=null){
         return true;
