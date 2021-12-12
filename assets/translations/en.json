@@ -6,7 +6,8 @@
         "username": "username",
         "password": "password",
         "confirm_password": "confirm password",
-        "failed": "login failed"
+        "failed": "login failed",
+        "register_failed": "register failed"
     },
     "tab": {
         "home": "home",

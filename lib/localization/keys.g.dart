@@ -8,6 +8,7 @@ abstract class  LocaleKeys {
   static const general_password = 'general.password';
   static const general_confirm_password = 'general.confirm_password';
   static const general_failed = 'general.failed';
+  static const general_register_failed = 'general.register_failed';
   static const general = 'general';
   static const tab_home = 'tab.home';
   static const tab_wallets = 'tab.wallets';

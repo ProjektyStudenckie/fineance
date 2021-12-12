@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:fineance/components/fineance_back_button_with_title.dart';
 import 'package:fineance/components/fineance_button.dart';
+import 'package:fineance/components/fineance_loader.dart';
 import 'package:fineance/components/fineance_text_field.dart';
 import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/localization/keys.g.dart';
@@ -66,10 +67,14 @@ class _RegisterPageState extends State<RegisterPage> {
         if (state is RegisterSuccess) {
           context.router.replace(const OnboardingRoute());
         } else if (state is RegisterError) {
-          // TODO: Display error to the user
+
+          ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+            content:  Text(translate(LocaleKeys.general_register_failed)),
+            duration: const Duration(seconds: 1), ));
         }
       },
       builder: (context, state) {
+        if (state is! RegisterLoading) {
         return Scaffold(
           body: SafeArea(
             child: SingleChildScrollView(
@@ -92,7 +97,8 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
         );
-      },
+      }
+        return const Scaffold(body: Center(child: FineanceLoader()));},
     );
   }
 

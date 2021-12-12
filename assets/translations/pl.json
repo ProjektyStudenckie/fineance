@@ -6,7 +6,8 @@
         "username": "nazwa użytkownika",
         "password": "hasło",
         "confirm_password": "potwierdź hasło",
-        "failed": "login nie udane"
+        "failed": "login nie powiodł się",
+        "register_failed": "rejestracja nie powiodła się"
     },
     "tab": {
         "home": "start",
