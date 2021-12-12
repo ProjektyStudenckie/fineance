@@ -7,6 +7,8 @@ import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
 import 'package:fineance/presentation/add_wallet/bloc/add_wallet_bloc.dart';
+import 'package:fineance/repositories/goal.dart';
+import 'package:fineance/repositories/wallet.dart';
 import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/dimens.dart';
 import 'package:flutter/material.dart';
@@ -29,9 +31,12 @@ class AddWalletPage extends StatefulWidget implements AutoRouteWrapper {
 
 class _AddWalletPageState extends State<AddWalletPage> {
   final _titleController = TextEditingController();
-  final _valueController = TextEditingController();
+  final _descriptionController = TextEditingController();
   final _dateController = TextEditingController();
   DateTime _date = DateTime.now();
+
+  final List<Remittance> _remittances = [];
+  final List<Goal> _goals = [];
 
   @override
   void dispose() {
@@ -48,11 +53,7 @@ class _AddWalletPageState extends State<AddWalletPage> {
             child: SingleChildScrollView(
                 child: Column(
               children: [
-                FineanceBackButtonWithTitle(
-                    text: translate(LocaleKeys.add_wallet_page_add_wallet),
-                    onPressed: () {
-                      context.router.pop();
-                    }),
+                _buildPageTitleTextField(),
                 const SizedBox(height: Dimens.kMarginExtraLarge),
                 _buildTitleTextField(),
                 _buildDescriptionTextField(),
@@ -69,6 +70,18 @@ class _AddWalletPageState extends State<AddWalletPage> {
     );
   }
 
+  Widget _buildPageTitleTextField() {
+    return SizedBox(
+      width: 500.0,
+      height: 80.0,
+      child: FineanceBackButtonWithTitle(
+          text: translate(LocaleKeys.add_wallet_page_add_wallet),
+          onPressed: () {
+            context.router.pop();
+          }),
+    );
+  }
+
   Widget _buildTitleTextField() {
     return FineanceTextField(
       label: translate(LocaleKeys.income_expense_title),
@@ -81,21 +94,28 @@ class _AddWalletPageState extends State<AddWalletPage> {
     return FineanceTextField(
       label: translate(LocaleKeys.add_wallet_page_description),
       textInputAction: TextInputAction.next,
-      controller: _titleController,
+      controller: _descriptionController,
     );
   }
 
   Widget _buildIcomeExpenseButton() {
     return FineanceButton(
         text: translate(LocaleKeys.add_wallet_page_add_income_expense),
-        onPressed: () => context.router.push(const IncomeExpenseRoute()));
+        onPressed: () async {
+          final _newRemittance =
+              await context.router.push(const IncomeExpenseRoute());
+          _remittances.add(_newRemittance as Remittance);
+        });
   }
 
   Widget _buildAddGoalButton() {
     return FineanceButton(
-        // TODO change to locale
+        // TODO change text to locale
         text: 'Add goal',
-        onPressed: () => context.router.push(const AddGoalRoute()));
+        onPressed: () async {
+          final _newGoal = await context.router.push(const AddGoalRoute());
+          _goals.add(_newGoal as Goal);
+        });
   }
 
   // Widget _buildValueTextField() {
@@ -139,7 +159,15 @@ class _AddWalletPageState extends State<AddWalletPage> {
     return FineanceButton.positive(
         text: translate(LocaleKeys.add_wallet_page_confirm),
         onPressed: () {
-          BlocProvider.of<AddWalletBloc>(context).add(AddWalletEventAdd());
+          BlocProvider.of<AddWalletBloc>(context).add(
+            AddWalletEventAdd(
+                remittances: _remittances,
+                goals: _goals,
+                description: _descriptionController.value.text,
+                title: _titleController.value.text),
+          );
+
+          context.popRoute();
         });
   }
 }
