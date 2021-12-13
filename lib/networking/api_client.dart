@@ -20,7 +20,7 @@ part 'api_client.g.dart';
 // 	<true/>
 // </dict>
 
-@RestApi(baseUrl: "http://192.168.1.233:1332")
+@RestApi(baseUrl: "https://fineance.azurewebsites.net")
 abstract class ApiClient {
   factory ApiClient(Dio dio, {String? baseUrl}) {
     dio.options = BaseOptions(receiveTimeout: 30000, connectTimeout: 30000);
