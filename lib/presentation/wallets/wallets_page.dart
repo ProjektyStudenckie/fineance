@@ -1,5 +1,6 @@
 import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:fineance/components/fineance_list.dart';
+import 'package:fineance/components/fineance_loader.dart';
 import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
@@ -18,23 +19,37 @@ class WalletsPage extends StatefulWidget {
 
   @override
   _WalletsPageState createState() => _WalletsPageState();
-
 }
 
 class _WalletsPageState extends State<WalletsPage> {
   late WalletRepository walletRepository;
+
   @override
   void initState() {
-    super.initState();
-
     walletRepository = BlocProvider.of<WalletsBloc>(context).walletRepository;
+    super.initState();
   }
+
+  Future<bool> _loadWallets() async => walletRepository.downloadWallets();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
       body: SafeArea(
-        child: FineanceList(walletRepository: walletRepository),
+        child: FutureBuilder(
+          future: _loadWallets(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(child: FineanceLoader());
+            }
+
+            return FineanceList(
+              items: walletRepository.wallets,
+              onPageChange: () {},
+            );
+          },
+        ),
       ),
     );
   }
@@ -69,7 +84,12 @@ class _WalletsPageState extends State<WalletsPage> {
           width: 45.0,
           child: FittedBox(
             child: FloatingActionButton(
-              onPressed: () => context.router.push(const AddWalletRoute()),
+              onPressed: () async {
+                await context.router.push(const AddWalletRoute());
+
+                // to odswieza liste!
+                setState(() {});
+              },
               backgroundColor: AppColors.green,
               child: const Icon(Icons.add),
             ),

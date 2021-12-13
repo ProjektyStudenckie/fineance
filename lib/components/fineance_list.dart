@@ -1,55 +1,24 @@
 import 'package:fineance/extension/context_extension.dart';
-import 'package:fineance/repositories/authentication_repository.dart';
 import 'package:fineance/repositories/wallet.dart';
-import 'package:fineance/repositories/wallets_repository.dart';
 import 'package:fineance/style/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class FineanceList extends StatefulWidget {
+class FineanceList extends StatelessWidget {
+  final List<Wallet> items;
+  final VoidCallback onPageChange;
+  const FineanceList(
+      {Key? key, required this.items, required this.onPageChange})
+      : super(key: key);
 
-  const FineanceList({Key? key,required this.walletRepository}) : super(key: key);
-  final WalletRepository walletRepository;
-
-  @override
-  State<FineanceList> createState() => _FineanceListState();
-}
-
-class _FineanceListState extends State<FineanceList> {
-
-  List<Wallet> items = List.empty();
-
-  _FineanceListState(){
-  }
-
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_){
-      _asyncMethodLoad();
-    });
-  }
-
-  _asyncMethodLoad() async {
-    final download= await widget.walletRepository.downloadWallets();
-    if(download){
-      print('KOZAK dostalem wallety');
-      print(widget.walletRepository.wallets.length);
-      items = widget.walletRepository.wallets;
-    }
-  }
-
-  _asyncMethodDelete(Wallet wallet) async {
-    final download= await widget.walletRepository.removeWallet(wallet);
-    if(download){
-      print('KOZAK wyjebalem walletdostalem wallety');
-      items = widget.walletRepository.wallets;
-    }
-  }
-
-
+  // void _asyncMethodDelete(Wallet wallet) async {
+  //   final download = await widget.walletRepository.removeWallet(wallet);
+  //   if (download) {
+  //     print('KOZAK wyjebalem walletdostalem wallety');
+  //     items = widget.walletRepository.wallets;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -136,13 +105,13 @@ class _FineanceListState extends State<FineanceList> {
 
   // TODO connect these functions with db
   void _onDismissed(int index) {
-    final String _itemName = items[index].name;
-    setState(() => items.removeAt(index));
-    WidgetsBinding.instance!.addPostFrameCallback((_){
-      _asyncMethodDelete(items[index]);
-    });
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('$_itemName dismissed')));
+    // final String _itemName = items[index].name;
+    // setState(() => items.removeAt(index));
+    // WidgetsBinding.instance!.addPostFrameCallback((_) {
+    //   _asyncMethodDelete(items[index]);
+    // });
+    // ScaffoldMessenger.of(context)
+    //     .showSnackBar(SnackBar(content: Text('$_itemName dismissed')));
   }
 
   void _onEdit(int index) {}

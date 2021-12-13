@@ -8,50 +8,48 @@ import 'package:fineance/repositories/wallet.dart';
 
 import 'goal.dart';
 
-
-class WalletRepository{
-
+class WalletRepository {
   late List<Wallet> wallets;
   late List<Wallet> subWallets;
   final ApiClient _apiClient;
   final StorageService _storageService;
 
-  WalletRepository(
-      this._apiClient, this._storageService);
+  WalletRepository(this._apiClient, this._storageService);
 
   Future<bool> downloadWallets() async {
     try {
       final username = _storageService.getUserName();
 
-      User user = User(username: username, password: "", email: "");
+      final User user = User(username: username, password: "", email: "");
 
-      final response = await _apiClient.wallets(_storageService.getBearerToken(),user);
-      if(response!=null){
-        wallets=response;
+      final response =
+          await _apiClient.wallets(_storageService.getBearerToken(), user);
+      if (response != null) {
+        wallets = response;
         return true;
       }
     } on DioError catch (error) {
-      if(error.response?.data!=null){
+      if (error.response?.data != null) {
         return false;
       }
     }
     return false;
   }
 
-
   Future<bool> downloadSubWallets() async {
     try {
       final username = _storageService.getUserName();
 
-      User user = User(username: username, password: "", email: "");
+      final User user = User(username: username, password: "", email: "");
 
-      final response = await _apiClient.sub_wallets(_storageService.getBearerToken(),user);
-      if(response!=null){
-        subWallets=response;
+      final response =
+          await _apiClient.sub_wallets(_storageService.getBearerToken(), user);
+      if (response != null) {
+        subWallets = response;
         return true;
       }
     } on DioError catch (error) {
-      if(error.response?.data!=null){
+      if (error.response?.data != null) {
         return false;
       }
     }
@@ -60,17 +58,16 @@ class WalletRepository{
 
   Future<bool> addGoal(Wallet wallet, Goal goal) async {
     try {
+      final GoalWallet goalWallet = GoalWallet(goal: goal, wallet: wallet);
 
-      GoalWallet goalWallet = GoalWallet(goal: goal, wallet: wallet);
+      final response = await _apiClient.add_goal(
+          _storageService.getBearerToken(), goalWallet);
 
-      final response = await _apiClient.add_goal(_storageService.getBearerToken(),goalWallet);
-
-      if(response!=null){
+      if (response != null) {
         return true;
       }
-
     } on DioError catch (error) {
-      if(error.response?.data!=null){
+      if (error.response?.data != null) {
         return false;
       }
     }
@@ -79,17 +76,16 @@ class WalletRepository{
 
   Future<bool> addSubOwner(Wallet wallet, User user) async {
     try {
-
       UserWallet userWallet = UserWallet(wallet: wallet, user: user);
 
-      final response = await _apiClient.add_sub_owner(_storageService.getBearerToken(),userWallet);
+      final response = await _apiClient.add_sub_owner(
+          _storageService.getBearerToken(), userWallet);
 
-      if(response!=null){
+      if (response != null) {
         return true;
       }
-
     } on DioError catch (error) {
-      if(error.response?.data!=null){
+      if (error.response?.data != null) {
         return false;
       }
     }
@@ -98,54 +94,50 @@ class WalletRepository{
 
   Future<bool> removeGoal(Wallet wallet, Goal goal) async {
     try {
-
       GoalWallet goalWallet = GoalWallet(goal: goal, wallet: wallet);
 
-      final response = await _apiClient.remove_goal(_storageService.getBearerToken(),goalWallet);
+      final response = await _apiClient.remove_goal(
+          _storageService.getBearerToken(), goalWallet);
 
-      if(response!=null){
+      if (response != null) {
         return true;
       }
-
     } on DioError catch (error) {
-      if(error.response?.data!=null){
+      if (error.response?.data != null) {
         throw ApiError.fromJson(error.response?.data as Map<String, dynamic>);
       }
     }
     return false;
   }
 
-
   Future<bool> removeSubOwner(Wallet wallet, User user) async {
     try {
-
       UserWallet userWallet = UserWallet(wallet: wallet, user: user);
 
-      final response = await _apiClient.remove_sub_owner(_storageService.getBearerToken(),userWallet);
+      final response = await _apiClient.remove_sub_owner(
+          _storageService.getBearerToken(), userWallet);
 
-      if(response!=null){
+      if (response != null) {
         return true;
       }
-
     } on DioError catch (error) {
-      if(error.response?.data!=null){
+      if (error.response?.data != null) {
         return false;
       }
     }
     return false;
   }
 
-
   Future<bool> updateWallet(Wallet wallet) async {
     try {
-      final response = await _apiClient.update_wallet(_storageService.getBearerToken(),wallet);
+      final response = await _apiClient.update_wallet(
+          _storageService.getBearerToken(), wallet);
 
-      if(response!=null){
+      if (response != null) {
         return true;
       }
-
     } on DioError catch (error) {
-      if(error.response?.data!=null){
+      if (error.response?.data != null) {
         return false;
       }
     }
@@ -154,16 +146,17 @@ class WalletRepository{
 
   Future<bool> addRemitance(Wallet wallet, Remittance remittance) async {
     try {
-      RemittanceWallet userWallet = RemittanceWallet(wallet: wallet, remittance: remittance);
+      RemittanceWallet userWallet =
+          RemittanceWallet(wallet: wallet, remittance: remittance);
 
-      final response = await _apiClient.add_remittance(_storageService.getBearerToken(),userWallet);
+      final response = await _apiClient.add_remittance(
+          _storageService.getBearerToken(), userWallet);
 
-      if(response!=null){
+      if (response != null) {
         return true;
       }
-
     } on DioError catch (error) {
-      if(error.response?.data!=null){
+      if (error.response?.data != null) {
         return false;
       }
     }
@@ -172,14 +165,14 @@ class WalletRepository{
 
   Future<bool> addWallet(Wallet wallet) async {
     try {
-      final response = await _apiClient.add_wallet(_storageService.getBearerToken(), wallet);
+      final response =
+          await _apiClient.add_wallet(_storageService.getBearerToken(), wallet);
 
-      if(response!=null){
+      if (response != null) {
         return true;
       }
-
     } on DioError catch (error) {
-      if(error.response?.data!=null){
+      if (error.response?.data != null) {
         return false;
       }
     }
@@ -188,19 +181,17 @@ class WalletRepository{
 
   Future<bool> removeWallet(Wallet wallet) async {
     try {
-      final response = await _apiClient.remove_wallet(_storageService.getBearerToken(), wallet);
+      final response = await _apiClient.remove_wallet(
+          _storageService.getBearerToken(), wallet);
 
-      if(response!=null){
+      if (response != null) {
         return true;
       }
-
     } on DioError catch (error) {
-      if(error.response?.data!=null){
+      if (error.response?.data != null) {
         return false;
       }
     }
     return false;
   }
-
-
 }
