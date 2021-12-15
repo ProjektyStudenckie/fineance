@@ -16,6 +16,8 @@ class WalletRepository {
   final ApiClient _apiClient;
   final StorageService _storageService;
 
+  int chosenWalletIndex = -1;
+
   WalletRepository(this._apiClient, this._storageService);
 
   Future<bool> downloadWallets() async {

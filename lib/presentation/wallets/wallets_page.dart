@@ -48,6 +48,7 @@ class _WalletsPageState extends State<WalletsPage> {
             return FineanceList(
               items: walletRepository.wallets,
               removeWallet: (Wallet wallet) async => _onDismissedTile(wallet),
+              setChosenWallet: (int index) => _setNewChosenWallet(index),
             );
           },
         ),
@@ -57,6 +58,11 @@ class _WalletsPageState extends State<WalletsPage> {
 
   void _onDismissedTile(Wallet wallet) {
     walletRepository.removeWallet(wallet);
+    setState(() {});
+  }
+
+  void _setNewChosenWallet(int index) {
+    walletRepository.chosenWalletIndex = index;
     setState(() {});
   }
 
@@ -93,10 +99,11 @@ class _WalletsPageState extends State<WalletsPage> {
               onPressed: () async {
                 await context.router.push(const AddWalletRoute());
 
-                print('refresh');
-
                 // to odswieza liste!
-                setState(() {});
+                setState(() {
+                  walletRepository =
+                      BlocProvider.of<WalletsBloc>(context).walletRepository;
+                });
               },
               backgroundColor: AppColors.green,
               child: const Icon(Icons.add),

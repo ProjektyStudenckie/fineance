@@ -8,10 +8,13 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 class FineanceList extends StatefulWidget {
   final List<Wallet> items;
   final void Function(Wallet) removeWallet;
+  final void Function(int) setChosenWallet;
+
   const FineanceList({
     Key? key,
     required this.items,
     required this.removeWallet,
+    required this.setChosenWallet,
   }) : super(key: key);
 
   @override
@@ -19,6 +22,8 @@ class FineanceList extends StatefulWidget {
 }
 
 class _FineanceListState extends State<FineanceList> {
+  int _chosenWalletIndex = -1;
+
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -30,7 +35,7 @@ class _FineanceListState extends State<FineanceList> {
           key: Key(item.name),
           startActionPane: _buildSwipeActionRight(index),
           endActionPane: _buildSwipeActionLeft(index),
-          child: _buildTile(item.name),
+          child: _buildTile(item.name, index),
         );
       },
       separatorBuilder: (BuildContext context, int index) => Divider(
@@ -40,7 +45,7 @@ class _FineanceListState extends State<FineanceList> {
     );
   }
 
-  Widget _buildTile(String title) => SizedBox(
+  Widget _buildTile(String title, int index) => SizedBox(
         height: 75.0,
         child: Builder(
           builder: (context) => ListTile(
@@ -50,10 +55,15 @@ class _FineanceListState extends State<FineanceList> {
             ),
             tileColor:
                 context.isDarkTheme ? AppColors.darkGrey : AppColors.grey,
-            trailing: _buildTrailingIcon(),
+            trailing: _buildTrailingIcon(index == _chosenWalletIndex),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
             onTap: () {
+              setState(() {
+                _chosenWalletIndex = index;
+                widget.setChosenWallet(_chosenWalletIndex);
+              });
+
               final SlidableController? _slidable = Slidable.of(context);
               final bool _isClosed = _slidable!.closing;
 
@@ -66,10 +76,10 @@ class _FineanceListState extends State<FineanceList> {
         ),
       );
 
-  Widget _buildTrailingIcon() => const Icon(
+  Widget _buildTrailingIcon(bool isChosen) => Icon(
         Icons.account_balance_wallet_rounded,
         size: 25.0,
-        color: AppColors.blue,
+        color: isChosen ? Colors.yellowAccent : AppColors.blue,
       );
 
   ActionPane _buildSwipeActionRight(int index) => ActionPane(
