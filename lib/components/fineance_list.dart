@@ -5,27 +5,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class FineanceList extends StatelessWidget {
+class FineanceList extends StatefulWidget {
   final List<Wallet> items;
-  final VoidCallback onPageChange;
-  const FineanceList(
-      {Key? key, required this.items, required this.onPageChange})
-      : super(key: key);
+  final void Function(Wallet) removeWallet;
+  const FineanceList({
+    Key? key,
+    required this.items,
+    required this.removeWallet,
+  }) : super(key: key);
 
-  // void _asyncMethodDelete(Wallet wallet) async {
-  //   final download = await widget.walletRepository.removeWallet(wallet);
-  //   if (download) {
-  //     print('KOZAK wyjebalem walletdostalem wallety');
-  //     items = widget.walletRepository.wallets;
-  //   }
-  // }
+  @override
+  State<FineanceList> createState() => _FineanceListState();
+}
 
+class _FineanceListState extends State<FineanceList> {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      itemCount: items.length,
+      itemCount: widget.items.length,
       itemBuilder: (context, index) {
-        final item = items[index];
+        final item = widget.items[index];
 
         return Slidable(
           key: Key(item.name),
@@ -103,18 +102,16 @@ class FineanceList extends StatelessWidget {
         ],
       );
 
-  // TODO connect these functions with db
-  void _onDismissed(int index) {
-    // final String _itemName = items[index].name;
-    // setState(() => items.removeAt(index));
-    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-    //   _asyncMethodDelete(items[index]);
-    // });
-    // ScaffoldMessenger.of(context)
-    //     .showSnackBar(SnackBar(content: Text('$_itemName dismissed')));
-  }
-
   void _onEdit(int index) {}
+
+  void _onDismissed(int index) {
+    final String _itemName = widget.items[index].name;
+    setState(() => widget.items.removeAt(index));
+    WidgetsBinding.instance!
+        .addPostFrameCallback((_) => widget.removeWallet(widget.items[index]));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('$_itemName dismissed')));
+  }
 }
 
 class DismissBackground extends StatelessWidget {

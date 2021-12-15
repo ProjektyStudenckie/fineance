@@ -4,6 +4,7 @@ import 'package:fineance/components/fineance_loader.dart';
 import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
+import 'package:fineance/repositories/wallet.dart';
 import 'package:fineance/repositories/wallets_repository.dart';
 import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/colors.dart';
@@ -46,12 +47,17 @@ class _WalletsPageState extends State<WalletsPage> {
 
             return FineanceList(
               items: walletRepository.wallets,
-              onPageChange: () {},
+              removeWallet: (Wallet wallet) async => _onDismissedTile(wallet),
             );
           },
         ),
       ),
     );
+  }
+
+  void _onDismissedTile(Wallet wallet) {
+    walletRepository.removeWallet(wallet);
+    setState(() {});
   }
 
   AppBar _buildAppBar() => AppBar(
@@ -86,6 +92,8 @@ class _WalletsPageState extends State<WalletsPage> {
             child: FloatingActionButton(
               onPressed: () async {
                 await context.router.push(const AddWalletRoute());
+
+                print('refresh');
 
                 // to odswieza liste!
                 setState(() {});

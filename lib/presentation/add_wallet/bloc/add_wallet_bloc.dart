@@ -31,6 +31,7 @@ class AddWalletBloc extends Bloc<AddWalletEvent, AddWalletState> {
         print('KOZAK');
       } else {
         print('Dupa');
+        await walletRepository.addWallet(_wallet);
       }
     });
   }
