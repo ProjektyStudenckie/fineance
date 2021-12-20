@@ -47,7 +47,7 @@ class _WalletsPageState extends State<WalletsPage> {
 
             return FineanceList(
               items: walletRepository.wallets,
-              removeWallet: (Wallet wallet) async => _onDismissedTile(wallet),
+              removeWallet: (int index) async => _onDismissedTile(index),
               setChosenWallet: (int index) => _setNewChosenWallet(index),
             );
           },
@@ -56,8 +56,9 @@ class _WalletsPageState extends State<WalletsPage> {
     );
   }
 
-  void _onDismissedTile(Wallet wallet) {
-    walletRepository.removeWallet(wallet);
+  void _onDismissedTile(int index) async {
+    await walletRepository.removeWallet(walletRepository.wallets[index]);
+    await walletRepository.downloadWallets();
     setState(() {});
   }
 

@@ -11,7 +11,7 @@ import 'package:fineance/repositories/wallet.dart';
 import 'goal.dart';
 
 class WalletRepository {
-  late List<Wallet> wallets;
+  List<Wallet> wallets = [];
   late List<Wallet> subWallets;
   final ApiClient _apiClient;
   final StorageService _storageService;

@@ -7,7 +7,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 class FineanceList extends StatefulWidget {
   final List<Wallet> items;
-  final void Function(Wallet) removeWallet;
+  final void Function(int) removeWallet;
   final void Function(int) setChosenWallet;
 
   const FineanceList({
@@ -116,9 +116,9 @@ class _FineanceListState extends State<FineanceList> {
 
   void _onDismissed(int index) {
     final String _itemName = widget.items[index].name;
-    setState(() => widget.items.removeAt(index));
     WidgetsBinding.instance!
-        .addPostFrameCallback((_) => widget.removeWallet(widget.items[index]));
+        .addPostFrameCallback((_) => widget.removeWallet(index));
+
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text('$_itemName dismissed')));
   }

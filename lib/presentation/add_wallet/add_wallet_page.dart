@@ -118,17 +118,6 @@ class _AddWalletPageState extends State<AddWalletPage> {
         });
   }
 
-  // Widget _buildValueTextField() {
-  //   return FineanceTextField(
-  //     label: translate(LocaleKeys.income_expense_value),
-  //     textInputAction: TextInputAction.next,
-  //     controller: _valueController,
-  //     textInputFormatters: [
-  //       FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d{0,2}"))
-  //     ],
-  //   );
-  // }
-
   Widget _buildDatePicker() {
     const twentyYearsInDays = 7300;
     final DateFormat formatter = DateFormat.yMMMMd();
