@@ -49,6 +49,7 @@ class _WalletsPageState extends State<WalletsPage> {
               items: walletRepository.wallets,
               removeWallet: (int index) async => _onDismissedTile(index),
               setChosenWallet: (int index) => _setNewChosenWallet(index),
+              getWallets: ()=> walletRepository.wallets,
             );
           },
         ),

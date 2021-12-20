@@ -32,7 +32,11 @@ class WalletRepository {
         wallets = response;
         return true;
       }
+      else{
+        wallets.clear();
+      }
     } on DioError catch (error) {
+      wallets.clear();
       if (error.response?.data != null) {
         return false;
       }

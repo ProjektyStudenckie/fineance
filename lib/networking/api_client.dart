@@ -44,26 +44,26 @@ abstract class ApiClient {
   Future<List<Wallet>> wallets(@Header("Token") String accessTokens, @Body() User auth);
 
   @POST("/add_wallet")
-  Future<bool> add_wallet(@Header("Token") String accessTokens , @Body() Wallet wallet);
+  Future<String> add_wallet(@Header("Token") String accessTokens , @Body() Wallet wallet);
 
   @POST("/remove_wallet")
-  Future<bool> remove_wallet(@Header("Token") String accessTokens , @Body() Wallet wallet);
+  Future<String> remove_wallet(@Header("Token") String accessTokens , @Body() Wallet wallet);
 
   @POST("/add_sub_owner")
-  Future<bool> add_sub_owner(@Header("Token") String accessTokens, @Body() UserWallet userWallet);
+  Future<String> add_sub_owner(@Header("Token") String accessTokens, @Body() UserWallet userWallet);
 
   @POST("/update_wallet")
-  Future<bool> update_wallet(@Header("Token") String accessTokens, @Body() Wallet wallet);
+  Future<String> update_wallet(@Header("Token") String accessTokens, @Body() Wallet wallet);
 
   @POST("/remove_sub_owner")
-  Future<bool> remove_sub_owner(@Header("Token") String accessTokens , @Body() UserWallet userWallet);
+  Future<String> remove_sub_owner(@Header("Token") String accessTokens , @Body() UserWallet userWallet);
 
   @POST("/add_goal")
-  Future<bool> add_goal(@Header("Token") String accessTokens, @Body() GoalWallet goalWallet);
+  Future<String> add_goal(@Header("Token") String accessTokens, @Body() GoalWallet goalWallet);
 
   @POST("/remove_goal")
-  Future<bool> remove_goal(@Header("Token") String accessTokens, @Body() GoalWallet goalWallet);
+  Future<String> remove_goal(@Header("Token") String accessTokens, @Body() GoalWallet goalWallet);
 
   @POST("/add_remittance")
-  Future<bool> add_remittance(@Header("Token") String accessTokens, @Body() RemittanceWallet remmittanceWallet);
+  Future<String> add_remittance(@Header("Token") String accessTokens, @Body() RemittanceWallet remmittanceWallet);
 }

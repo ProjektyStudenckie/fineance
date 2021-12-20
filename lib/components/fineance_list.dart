@@ -6,14 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class FineanceList extends StatefulWidget {
-  final List<Wallet> items;
-  final void Function(int) removeWallet;
+  List<Wallet>? items;
+  final Future<void> Function(int) removeWallet;
+  final List<Wallet> Function() getWallets;
   final void Function(int) setChosenWallet;
 
-  const FineanceList({
+  FineanceList({
     Key? key,
-    required this.items,
+    this.items,
     required this.removeWallet,
+    required this.getWallets,
     required this.setChosenWallet,
   }) : super(key: key);
 
@@ -27,9 +29,9 @@ class _FineanceListState extends State<FineanceList> {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      itemCount: widget.items.length,
+      itemCount: widget.items!.length,
       itemBuilder: (context, index) {
-        final item = widget.items[index];
+        final item = widget.items![index];
 
         return Slidable(
           key: Key(item.name),
@@ -114,10 +116,10 @@ class _FineanceListState extends State<FineanceList> {
 
   void _onEdit(int index) {}
 
-  void _onDismissed(int index) {
-    final String _itemName = widget.items[index].name;
-    WidgetsBinding.instance!
-        .addPostFrameCallback((_) => widget.removeWallet(index));
+  void _onDismissed(int index) async  {
+    final String _itemName = widget.items![index].name;
+    await widget.removeWallet(index);
+    setState(() =>widget.items = widget.getWallets());
 
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text('$_itemName dismissed')));

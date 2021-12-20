@@ -107,14 +107,14 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<bool> add_wallet(accessTokens, wallet) async {
+  Future<String> add_wallet(accessTokens, wallet) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Token': accessTokens};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(wallet.toJson());
-    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+    final _result = await _dio.fetch<String>(_setStreamType<String>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/add_wallet',
                 queryParameters: queryParameters, data: _data)
@@ -124,14 +124,14 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<bool> remove_wallet(accessTokens, wallet) async {
+  Future<String> remove_wallet(accessTokens, wallet) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Token': accessTokens};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(wallet.toJson());
-    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+    final _result = await _dio.fetch<String>(_setStreamType<String>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/remove_wallet',
                 queryParameters: queryParameters, data: _data)
@@ -141,14 +141,14 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<bool> add_sub_owner(accessTokens, userWallet) async {
+  Future<String> add_sub_owner(accessTokens, userWallet) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Token': accessTokens};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(userWallet.toJson());
-    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+    final _result = await _dio.fetch<String>(_setStreamType<String>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/add_sub_owner',
                 queryParameters: queryParameters, data: _data)
@@ -158,14 +158,14 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<bool> update_wallet(accessTokens, wallet) async {
+  Future<String> update_wallet(accessTokens, wallet) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Token': accessTokens};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(wallet.toJson());
-    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+    final _result = await _dio.fetch<String>(_setStreamType<String>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/update_wallet',
                 queryParameters: queryParameters, data: _data)
@@ -175,14 +175,14 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<bool> remove_sub_owner(accessTokens, userWallet) async {
+  Future<String> remove_sub_owner(accessTokens, userWallet) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Token': accessTokens};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(userWallet.toJson());
-    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+    final _result = await _dio.fetch<String>(_setStreamType<String>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/remove_sub_owner',
                 queryParameters: queryParameters, data: _data)
@@ -192,14 +192,14 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<bool> add_goal(accessTokens, goalWallet) async {
+  Future<String> add_goal(accessTokens, goalWallet) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Token': accessTokens};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(goalWallet.toJson());
-    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+    final _result = await _dio.fetch<String>(_setStreamType<String>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/add_goal',
                 queryParameters: queryParameters, data: _data)
@@ -209,14 +209,14 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<bool> remove_goal(accessTokens, goalWallet) async {
+  Future<String> remove_goal(accessTokens, goalWallet) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Token': accessTokens};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(goalWallet.toJson());
-    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+    final _result = await _dio.fetch<String>(_setStreamType<String>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/remove_goal',
                 queryParameters: queryParameters, data: _data)
@@ -226,14 +226,14 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<bool> add_remittance(accessTokens, remmittanceWallet) async {
+  Future<String> add_remittance(accessTokens, remmittanceWallet) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Token': accessTokens};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(remmittanceWallet.toJson());
-    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+    final _result = await _dio.fetch<String>(_setStreamType<String>(
         Options(method: 'POST', headers: _headers, extra: _extra)
             .compose(_dio.options, '/add_remittance',
                 queryParameters: queryParameters, data: _data)
