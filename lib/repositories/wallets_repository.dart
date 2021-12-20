@@ -11,10 +11,12 @@ import 'package:fineance/repositories/wallet.dart';
 import 'goal.dart';
 
 class WalletRepository {
-  late List<Wallet> wallets;
+  List<Wallet> wallets = [];
   late List<Wallet> subWallets;
   final ApiClient _apiClient;
   final StorageService _storageService;
+
+  int chosenWalletIndex = -1;
 
   WalletRepository(this._apiClient, this._storageService);
 
@@ -30,7 +32,11 @@ class WalletRepository {
         wallets = response;
         return true;
       }
+      else{
+        wallets.clear();
+      }
     } on DioError catch (error) {
+      wallets.clear();
       if (error.response?.data != null) {
         return false;
       }

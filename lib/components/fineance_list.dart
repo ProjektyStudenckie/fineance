@@ -6,12 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class FineanceList extends StatefulWidget {
-  final List<Wallet> items;
-  final void Function(Wallet) removeWallet;
-  const FineanceList({
+  List<Wallet>? items;
+  final Future<void> Function(int) removeWallet;
+  final List<Wallet> Function() getWallets;
+  final void Function(int) setChosenWallet;
+
+  FineanceList({
     Key? key,
-    required this.items,
+    this.items,
     required this.removeWallet,
+    required this.getWallets,
+    required this.setChosenWallet,
   }) : super(key: key);
 
   @override
@@ -19,18 +24,20 @@ class FineanceList extends StatefulWidget {
 }
 
 class _FineanceListState extends State<FineanceList> {
+  int _chosenWalletIndex = -1;
+
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      itemCount: widget.items.length,
+      itemCount: widget.items!.length,
       itemBuilder: (context, index) {
-        final item = widget.items[index];
+        final item = widget.items![index];
 
         return Slidable(
           key: Key(item.name),
           startActionPane: _buildSwipeActionRight(index),
           endActionPane: _buildSwipeActionLeft(index),
-          child: _buildTile(item.name),
+          child: _buildTile(item.name, index),
         );
       },
       separatorBuilder: (BuildContext context, int index) => Divider(
@@ -40,7 +47,7 @@ class _FineanceListState extends State<FineanceList> {
     );
   }
 
-  Widget _buildTile(String title) => SizedBox(
+  Widget _buildTile(String title, int index) => SizedBox(
         height: 75.0,
         child: Builder(
           builder: (context) => ListTile(
@@ -50,10 +57,15 @@ class _FineanceListState extends State<FineanceList> {
             ),
             tileColor:
                 context.isDarkTheme ? AppColors.darkGrey : AppColors.grey,
-            trailing: _buildTrailingIcon(),
+            trailing: _buildTrailingIcon(index == _chosenWalletIndex),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
             onTap: () {
+              setState(() {
+                _chosenWalletIndex = index;
+                widget.setChosenWallet(_chosenWalletIndex);
+              });
+
               final SlidableController? _slidable = Slidable.of(context);
               final bool _isClosed = _slidable!.closing;
 
@@ -66,10 +78,10 @@ class _FineanceListState extends State<FineanceList> {
         ),
       );
 
-  Widget _buildTrailingIcon() => const Icon(
+  Widget _buildTrailingIcon(bool isChosen) => Icon(
         Icons.account_balance_wallet_rounded,
         size: 25.0,
-        color: AppColors.blue,
+        color: isChosen ? Colors.yellowAccent : AppColors.blue,
       );
 
   ActionPane _buildSwipeActionRight(int index) => ActionPane(
@@ -104,11 +116,11 @@ class _FineanceListState extends State<FineanceList> {
 
   void _onEdit(int index) {}
 
-  void _onDismissed(int index) {
-    final String _itemName = widget.items[index].name;
-    setState(() => widget.items.removeAt(index));
-    WidgetsBinding.instance!
-        .addPostFrameCallback((_) => widget.removeWallet(widget.items[index]));
+  void _onDismissed(int index) async  {
+    final String _itemName = widget.items![index].name;
+    await widget.removeWallet(index);
+    setState(() =>widget.items = widget.getWallets());
+
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text('$_itemName dismissed')));
   }
