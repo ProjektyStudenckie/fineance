@@ -14,7 +14,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc(this.walletsRepository, this.walletBox) : super(HomeInitial()) {
     on<GetNewWallet>((event, emit) {
       final int _chosenWallet =
-          walletBox.get(CHOSEN_WALLET_INDEX).toString() as int;
+      walletBox.get(CHOSEN_WALLET_INDEX, defaultValue: 0) as int;
 
       emit(ChosenWallet(chosenWallet: _chosenWallet));
     });
