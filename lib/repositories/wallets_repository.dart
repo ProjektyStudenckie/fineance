@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:core';
 
 import 'package:dio/dio.dart';
@@ -16,9 +17,11 @@ class WalletRepository {
   final ApiClient _apiClient;
   final StorageService _storageService;
 
-  int chosenWalletIndex = -1;
+  //int chosenWalletIndex = -1;
 
   WalletRepository(this._apiClient, this._storageService);
+
+  final StreamController<int> chosenWalletIndex = StreamController<int>();
 
   Future<bool> downloadWallets() async {
     try {
@@ -31,8 +34,7 @@ class WalletRepository {
       if (response != null) {
         wallets = response;
         return true;
-      }
-      else{
+      } else {
         wallets.clear();
       }
     } on DioError catch (error) {

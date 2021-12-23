@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:fineance/injection/modules.dart';
 import 'package:fineance/repositories/wallets_repository.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
@@ -12,8 +11,9 @@ class WalletsBloc extends Bloc<WalletsEvent, WalletsState> {
   final Box walletBox;
 
   WalletsBloc(this.walletRepository, this.walletBox) : super(WalletsInitial()) {
-    on<ChooseNewWallet>((event, emit) {
-      walletBox.put(CHOSEN_WALLET_INDEX, event.chosenWallet);
-    });
+    // on<ChooseNewWallet>((event, emit) {
+    //   print(event.chosenWallet);
+    //   walletBox.put(CHOSEN_WALLET_INDEX, event.chosenWallet);
+    // });
   }
 }
