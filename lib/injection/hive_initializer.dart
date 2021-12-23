@@ -11,4 +11,5 @@ Future<void> setupHive() async {
   await Hive.openBox(tokensBox);
   await Hive.openBox(themeBox);
   await Hive.openBox(settingsBox);
+  await Hive.openBox(walletBox);
 }

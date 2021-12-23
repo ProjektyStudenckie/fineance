@@ -22,10 +22,12 @@ void registerBlocModules(GetIt injector, ThemeScheme theme) {
       RegisterBloc(injector.get(), injector.get(instanceName: settingsBox)));
   injector.registerFactory(() => OnboardingBloc(injector.get()));
   injector.registerFactory(() => BiometricsBloc(injector.get()));
-  injector.registerFactory(() => HomeBloc());
-  injector.registerFactory(() => WalletsBloc(injector.get()));
   injector.registerFactory(
-      () => SettingsBloc(injector.get(), injector.get(instanceName: themeBox),injector.get()));
+      () => HomeBloc(injector.get(), injector.get(instanceName: walletBox)));
+  injector.registerFactory(
+      () => WalletsBloc(injector.get(), injector.get(instanceName: walletBox)));
+  injector.registerFactory(() => SettingsBloc(
+      injector.get(), injector.get(instanceName: themeBox), injector.get()));
   injector.registerFactory(() => IncomeExpenseBloc());
   injector.registerFactory(() => AddGoalBloc());
   injector.registerFactory(() => AddWalletBloc(injector.get(), injector.get()));

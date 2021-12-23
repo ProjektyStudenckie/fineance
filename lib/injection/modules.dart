@@ -10,6 +10,7 @@ import 'package:local_auth/local_auth.dart';
 const String tokensBox = "tokens_box";
 const String themeBox = 'theme_box';
 const String settingsBox = "settings_box";
+const String walletBox = "wallet_box";
 
 const REFRESH_TOKEN = "refresh_token";
 const USER_NAME = "user_name";
@@ -18,6 +19,7 @@ const ACCESS_TOKEN = "access_token";
 const IS_LIGHT_THEME = "is_light_theme";
 const IS_ONBOARDING_DONE = "is_onboarding_done";
 const FINEANCE_SETTINGS = "fineance_settings";
+const CHOSEN_WALLET_INDEX = "chosen_wallet_index";
 
 void registerModules(GetIt injector) {
   injector.registerLazySingleton<Box>(() => Hive.box(tokensBox),
@@ -26,6 +28,8 @@ void registerModules(GetIt injector) {
       instanceName: themeBox);
   injector.registerLazySingleton<Box>(() => Hive.box(settingsBox),
       instanceName: settingsBox);
+  injector.registerLazySingleton<Box>(() => Hive.box(walletBox),
+      instanceName: walletBox);
 
   final LocalAuthentication localAuthentication = LocalAuthentication();
 

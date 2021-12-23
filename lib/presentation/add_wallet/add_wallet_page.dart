@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fineance/components/fineance_back_button_with_title.dart';
 import 'package:fineance/components/fineance_button.dart';
+import 'package:fineance/components/fineance_loader.dart';
 import 'package:fineance/components/fineance_text_field.dart';
 import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/localization/keys.g.dart';
@@ -48,6 +49,14 @@ class _AddWalletPageState extends State<AddWalletPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<AddWalletBloc, AddWalletState>(
       builder: (context, state) {
+        if (state is AddWalletAdded){
+        context.popRoute();
+        return const Scaffold(body: Center(child: FineanceLoader()));
+        }
+        else if(state is AddWalletAdding){
+          return const Scaffold(body: Center(child: FineanceLoader()));
+        }
+        else{
         return Scaffold(
           body: SafeArea(
             child: SingleChildScrollView(
@@ -65,7 +74,7 @@ class _AddWalletPageState extends State<AddWalletPage> {
               ],
             )),
           ),
-        );
+        );}
       },
     );
   }
@@ -118,17 +127,6 @@ class _AddWalletPageState extends State<AddWalletPage> {
         });
   }
 
-  // Widget _buildValueTextField() {
-  //   return FineanceTextField(
-  //     label: translate(LocaleKeys.income_expense_value),
-  //     textInputAction: TextInputAction.next,
-  //     controller: _valueController,
-  //     textInputFormatters: [
-  //       FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d{0,2}"))
-  //     ],
-  //   );
-  // }
-
   Widget _buildDatePicker() {
     const twentyYearsInDays = 7300;
     final DateFormat formatter = DateFormat.yMMMMd();
@@ -166,8 +164,6 @@ class _AddWalletPageState extends State<AddWalletPage> {
                 description: _descriptionController.value.text,
                 title: _titleController.value.text),
           );
-
-          context.popRoute();
         });
   }
 }
