@@ -4,7 +4,6 @@ import 'package:fineance/components/fineance_loader.dart';
 import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
-import 'package:fineance/repositories/wallet.dart';
 import 'package:fineance/repositories/wallets_repository.dart';
 import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/colors.dart';
@@ -49,7 +48,7 @@ class _WalletsPageState extends State<WalletsPage> {
               items: walletRepository.wallets,
               removeWallet: (int index) async => _onDismissedTile(index),
               setChosenWallet: (int index) => _setNewChosenWallet(index),
-              getWallets: ()=> walletRepository.wallets,
+              getWallets: () => walletRepository.wallets,
             );
           },
         ),
@@ -64,8 +63,9 @@ class _WalletsPageState extends State<WalletsPage> {
   }
 
   void _setNewChosenWallet(int index) {
-    BlocProvider.of<WalletsBloc>(context).add(ChooseNewWallet(chosenWallet: index));
-    walletRepository.chosenWalletIndex = index;
+    BlocProvider.of<WalletsBloc>(context)
+        .add(ChooseNewWallet(chosenWallet: index));
+    //walletRepository.chosenWalletIndex = index;
     setState(() {});
   }
 

@@ -14,12 +14,12 @@ class TabPage extends StatelessWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) {
     final BlocFactory blocFactory = BlocFactory.of(context);
     final WalletsBloc walletsBloc = blocFactory.get();
-    final HomeBloc homeBloc = blocFactory.get();
+    final HomeCubit homeBloc = blocFactory.get();
     final SettingsBloc settingsBloc = blocFactory.get();
 
     return MultiBlocProvider(providers: [
       BlocProvider<WalletsBloc>(create: (context) => walletsBloc),
-      BlocProvider<HomeBloc>(create: (context) => homeBloc),
+      BlocProvider<HomeCubit>(create: (context) => homeBloc),
       BlocProvider<SettingsBloc>(create: (context) => settingsBloc)
     ], child: this);
   }

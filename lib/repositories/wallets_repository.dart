@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'package:dio/dio.dart';
 import 'package:fineance/data/network/api_error/api_error.dart';
+import 'package:fineance/extensions/stream_value.dart';
 import 'package:fineance/networking/api_client.dart';
 import 'package:fineance/repositories/authentication_repository.dart';
 import 'package:fineance/repositories/storage_repository.dart';
@@ -18,9 +19,21 @@ class WalletRepository {
   final AuthenticationRepository authenticationRepository;
   final StorageService _storageService;
 
-  int chosenWalletIndex = -1;
+  WalletRepository(
+      this.authenticationRepository, this._apiClient, this._storageService);
 
-  WalletRepository(this.authenticationRepository, this._apiClient, this._storageService);
+  final StreamValue<int> _chosenWalletIndex = StreamValue();
+  Stream<int> get walletIndexStream => _chosenWalletIndex.getStreamValue;
+  int? get chosenWalletIndex => _chosenWalletIndex.getLastValue;
+
+  void setSelectedWallet(int index) {
+    _chosenWalletIndex.setCallback(_callback);
+    _chosenWalletIndex.setValue(index);
+  }
+
+  void _callback() {
+    print('Stream value changed');
+  }
 
   Future<bool> downloadWallets() async {
     try {
@@ -34,8 +47,7 @@ class WalletRepository {
       if (response != null) {
         wallets = response;
         return true;
-      }
-      else{
+      } else {
         wallets.clear();
       }
     } on DioError catch (error) {

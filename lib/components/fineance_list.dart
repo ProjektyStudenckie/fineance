@@ -116,10 +116,10 @@ class _FineanceListState extends State<FineanceList> {
 
   void _onEdit(int index) {}
 
-  void _onDismissed(int index) async  {
+  void _onDismissed(int index) async {
     final String _itemName = widget.items![index].name;
     await widget.removeWallet(index);
-    setState(() =>widget.items = widget.getWallets());
+    setState(() => widget.items = widget.getWallets());
 
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text('$_itemName dismissed')));

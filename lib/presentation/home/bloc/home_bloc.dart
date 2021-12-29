@@ -1,31 +1,44 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
-import 'package:fineance/injection/modules.dart';
+import 'package:fineance/repositories/goal.dart';
 import 'package:fineance/repositories/wallet.dart';
 import 'package:fineance/repositories/wallets_repository.dart';
-import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 
-part 'home_event.dart';
 part 'home_state.dart';
 
-class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  final WalletRepository walletsRepository;
-  final Box walletBox;
+class HomeCubit extends Cubit<HomeState> {
+  final WalletRepository _walletsRepository;
+  late StreamSubscription _walletChange;
 
-  HomeBloc(this.walletsRepository, this.walletBox) : super(HomeInitial()) {
-    Init();
+  HomeCubit(this._walletsRepository) : super(HomeInitial()) {
+    _listenForChanges();
+  }
 
-    on<GetNewWallet>((event, emit) async {
-      await Init();
+  void _listenForChanges() {
+    _walletChange = _walletsRepository.walletIndexStream.listen((data) {
+      _setChosenWallet(data);
     });
   }
 
-  Init() async{
-    final int _chosenWallet =
-    walletBox.get(CHOSEN_WALLET_INDEX, defaultValue: 0) as int;
-    await walletsRepository.downloadWallets();
-    Wallet wallet =walletsRepository.wallets[_chosenWallet];
-    emit(ChosenWallet(wallet: wallet));
+  void _setChosenWallet(int index) async {
+    await _walletsRepository.downloadWallets();
+    final Wallet _wallet = _walletsRepository.wallets[index];
+    emit(ChosenWallet(wallet: _wallet));
   }
 
+  void addGoal(Wallet wallet, Goal goal) {
+    _walletsRepository.addGoal(wallet, goal);
+  }
+
+  void addRemittance(Wallet wallet, Remittance remittance) {
+    _walletsRepository.addRemitance(wallet, remittance);
+  }
+
+  @override
+  Future<void> close() {
+    _walletChange.cancel();
+    return super.close();
+  }
 }
