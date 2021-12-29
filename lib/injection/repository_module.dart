@@ -8,9 +8,9 @@ import 'package:get_it/get_it.dart';
 import 'package:local_auth/local_auth.dart';
 
 void registerRepositoryModules(GetIt injector, LocalAuthentication localAuthentication) {
-  injector.registerFactory<StorageService>(() => StorageServiceImpl(injector.get(instanceName: tokensBox)));
-  injector.registerFactory<AuthenticationRepository>(() => AuthenticationRepositoryImpl(injector.get(), localAuthentication, injector.get()));
-  injector.registerFactory<WalletRepository>(() => WalletRepository(injector.get(), injector.get(), injector.get()));
-  injector.registerFactory<YahooFinRepo>(() => YahooFinRepo());
-  injector.registerFactory<SettingsService>(() => SettingsServiceImpl(injector.get(instanceName: settingsBox)));
+  injector.registerSingleton<StorageService>(StorageServiceImpl(injector.get(instanceName: tokensBox)));
+  injector.registerSingleton<AuthenticationRepository>(AuthenticationRepositoryImpl(injector.get(), localAuthentication, injector.get()));
+  injector.registerSingleton<WalletRepository>(WalletRepository(injector.get(), injector.get(), injector.get()));
+  injector.registerSingleton<YahooFinRepo>(YahooFinRepo());
+  injector.registerSingleton<SettingsService>(SettingsServiceImpl(injector.get(instanceName: settingsBox)));
 }
