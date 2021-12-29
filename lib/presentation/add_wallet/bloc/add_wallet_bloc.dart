@@ -16,6 +16,7 @@ class AddWalletBloc extends Bloc<AddWalletEvent, AddWalletState> {
   AddWalletBloc(this.walletRepository, this.storageService)
       : super(AddWalletInitial()) {
     on<AddWalletEventAdd>((event, emit) async {
+      emit(AddWalletAdding());
       final User _user =
           User(email: '', username: storageService.getUserName(), password: '');
       final Wallet _wallet = Wallet(
@@ -33,6 +34,8 @@ class AddWalletBloc extends Bloc<AddWalletEvent, AddWalletState> {
         print('Dupa');
         await walletRepository.addWallet(_wallet);
       }
+      await walletRepository.downloadWallets();
+      emit(AddWalletAdded());
     });
   }
 }

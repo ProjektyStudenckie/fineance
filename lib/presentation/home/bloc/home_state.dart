@@ -6,7 +6,7 @@ abstract class HomeState {}
 class HomeInitial extends HomeState {}
 
 class ChosenWallet extends HomeState {
-  final int chosenWallet;
+  final Wallet wallet;
 
-  ChosenWallet({required this.chosenWallet});
+  ChosenWallet({required this.wallet});
 }

@@ -8,3 +8,5 @@ abstract class AddWalletState extends Equatable {
 }
 
 class AddWalletInitial extends AddWalletState {}
+class AddWalletAdding extends AddWalletState {}
+class AddWalletAdded extends AddWalletState {}

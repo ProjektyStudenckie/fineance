@@ -19,7 +19,6 @@ const ACCESS_TOKEN = "access_token";
 const IS_LIGHT_THEME = "is_light_theme";
 const IS_ONBOARDING_DONE = "is_onboarding_done";
 const FINEANCE_SETTINGS = "fineance_settings";
-
 const CHOSEN_WALLET_INDEX = "chosen_wallet_index";
 
 void registerModules(GetIt injector) {
