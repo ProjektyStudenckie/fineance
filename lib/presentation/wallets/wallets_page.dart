@@ -63,8 +63,10 @@ class _WalletsPageState extends State<WalletsPage> {
   }
 
   void _setNewChosenWallet(int index) {
-    BlocProvider.of<WalletsBloc>(context).add(ChooseNewWallet(chosenWallet: index));
-    walletRepository.chosenWalletIndex = index;
+    print(index);
+    walletRepository.chosenWalletIndexValue = index;
+    walletRepository.chosenWalletIndex.sink.add(index);
+
     setState(() {});
   }
 

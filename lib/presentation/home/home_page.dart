@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/injection/bloc_factory.dart';
 import 'package:fineance/localization/keys.g.dart';
 import 'package:fineance/localization/utils.dart';
@@ -28,7 +30,6 @@ class HomePage extends StatefulWidget implements AutoRouteWrapper {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    //BlocProvider.of<HomeBloc>(context).add(GetNewWallet());
     super.initState();
   }
 
@@ -37,11 +38,21 @@ class _HomePageState extends State<HomePage> {
     return StreamBuilder(
         stream: BlocProvider.of<HomeBloc>(context).walletsStream,
         builder: (context, snapshot) {
-          return Scaffold(
-            body: Center(
-              child: Text(snapshot.data.toString()),
+          if(snapshot.connectionState==ConnectionState.waiting){
+            return Scaffold(
+              appBar: AppBar(title: Text("Wallet State")),
+               body: Center(
+              child: Text("Create And Choose Wallet First"),
             ),
           );
+          }
+          else{
+          return Scaffold(
+            appBar: AppBar(title: Text(snapshot.data.toString() )),
+               body: Center(
+              child: Text(snapshot.data.toString()),
+            ),
+          );}
         });
     // return BlocBuilder<HomeBloc, HomeState>(
     //   builder: (context, state) {

@@ -19,7 +19,7 @@ class WalletRepository {
   final AuthenticationRepository authenticationRepository;
   final StorageService _storageService;
 
-  //int chosenWalletIndex = -1;
+  int chosenWalletIndexValue = -1;
 
   WalletRepository(this.authenticationRepository, this._apiClient, this._storageService);
 

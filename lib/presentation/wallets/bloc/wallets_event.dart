@@ -4,7 +4,7 @@ part of 'wallets_bloc.dart';
 abstract class WalletsEvent {}
 
 class ChooseNewWallet extends WalletsEvent {
-  final int chosenWallet;
+  int chosenWallet;
 
   ChooseNewWallet({required this.chosenWallet});
 }

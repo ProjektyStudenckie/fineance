@@ -11,9 +11,5 @@ class WalletsBloc extends Bloc<WalletsEvent, WalletsState> {
   final Box walletBox;
 
   WalletsBloc(this.walletRepository, this.walletBox) : super(WalletsInitial()) {
-    // on<ChooseNewWallet>((event, emit) {
-    //   print(event.chosenWallet);
-    //   walletBox.put(CHOSEN_WALLET_INDEX, event.chosenWallet);
-    // });
   }
 }
