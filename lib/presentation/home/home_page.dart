@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:fineance/components/fineance_button.dart';
 import 'package:fineance/components/fineance_chart.dart';
+import 'package:fineance/components/fineance_info_tab.dart';
 import 'package:fineance/components/fineance_progress_indicator.dart';
 import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/helpers/fineance_chart.dart';
@@ -13,7 +14,6 @@ import 'package:fineance/repositories/wallet.dart';
 import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/colors.dart';
 import 'package:fineance/style/dimens.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,17 +46,26 @@ class _HomePageState extends State<HomePage> {
               body: SafeArea(child: FutureBuilder(
                 builder:
                     (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        _buildChart(),
-                        SizedBox(height: 30.0),
-                        _buildProgressIndicator(),
-                        SizedBox(height: 30.0),
-                        _buildIncomeExpenseButton(),
-                        _buildAddGoalButton(),
-                      ],
-                    ),
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height - 450.0,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              _buildChart(),
+                              const SizedBox(height: 30.0),
+                              _buildProgressIndicator(),
+                              const SizedBox(height: 30.0),
+                              _buildIncomeExpenseInfoTabs(),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10.0),
+                      _buildIncomeExpenseButton(),
+                      _buildAddGoalButton(),
+                    ],
                   );
                 },
               )));
@@ -91,8 +100,8 @@ class _HomePageState extends State<HomePage> {
       );
 
   Widget _buildChart() => FineanceChart(
-          spots: FineanceChartSpots(spots:
-          [widget.wallet.calculatePointToDisplayWholeValue(),
+          spots: FineanceChartSpots(spots: [
+        widget.wallet.calculatePointToDisplayWholeValue(),
         widget.wallet.calculatePointToDisplay(),
       ], colors: [
         AppColors.earningLineColor,
@@ -100,11 +109,9 @@ class _HomePageState extends State<HomePage> {
       ]));
 
   Widget _buildProgressIndicator() {
-    if( widget.wallet != null && widget.wallet.nextGoal().value!=0)
-    {
-    return Column(
+    if (widget.wallet != null && widget.wallet.nextGoal().value != 0) {
+      return Column(
         children: [
-
           Text(
             'You have completed',
             style: context.typo.mainBold().copyWith(
@@ -112,30 +119,29 @@ class _HomePageState extends State<HomePage> {
                 ),
           ),
           FineanceProgressIndicator(
-              barColor: AppColors.red, completedPercent: widget.wallet.wholeValue / widget.wallet.nextGoal().value),
+              barColor: AppColors.red,
+              completedPercent:
+                  widget.wallet.wholeValue / widget.wallet.nextGoal().value),
           Text(
             'of your next goal.',
             style: context.typo.mainBold().copyWith(
                   color: context.isDarkTheme ? Colors.white : Colors.black,
                 ),
           ),
-
+        ],
+      );
+    } else {
+      return Column(
+        children: [
+          Text(
+            'You Have Completed All Goals',
+            style: context.typo.mainBold().copyWith(
+                  color: context.isDarkTheme ? Colors.white : Colors.black,
+                ),
+          ),
         ],
       );
     }
-    else{
-      return Column(
-          children: [
-            Text(
-              'You Have Completed All Goals',
-              style: context.typo.mainBold().copyWith(
-                color: context.isDarkTheme ? Colors.white : Colors.black,
-              ),
-            ),
-
-],);
-      }
-
   }
 
   Widget _buildIncomeExpenseButton() {
@@ -158,5 +164,16 @@ class _HomePageState extends State<HomePage> {
           BlocProvider.of<HomeCubit>(context)
               .addGoal(widget.wallet, _newGoal as Goal);
         });
+  }
+
+  Widget _buildIncomeExpenseInfoTabs() {
+    return Column(
+      children: List.generate(
+          widget.wallet.value.length,
+          (index) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: FineanceInfoTab(remittance: widget.wallet.value[index]),
+              )),
+    );
   }
 }
