@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:fineance/repositories/user.dart';
 import 'package:fl_chart/fl_chart.dart';
 
@@ -82,27 +83,26 @@ class Wallet {
     return Goal(date: "null",name:"null",value: 0);
   }
 
-  List<FlSpot> calculatePointToDisplayWholeValue(){
+  List<FlSpot> calculatePointToDisplay(bool incomes){
     List<FlSpot> spots = List<FlSpot>.empty(growable: true);
-    int val = 0;
-    int x=0;
-    spots.add(new FlSpot(x.toDouble(), 0));
+    List<Remittance> values = List<Remittance>.empty(growable: true);
     value.forEach((element) {
-      x++;
-      val += element.value;
-      spots.add(new FlSpot(x.toDouble(), val.toDouble()));
+      if((incomes? element.value:element.value*-1.0)>0){
+      var val = values.where((element2)=>DateFormat.yMMMMd().parse(element.date).difference(DateFormat.yMMMMd().parse(element2.date)).inDays==0);
+      if(val.length>0){
+        val.first.value += element.value;
+      }
+      else{
+        values.add(element);
+      }}
     });
-    return spots;
-  }
-
-  List<FlSpot> calculatePointToDisplay(){
-    List<FlSpot> spots = List<FlSpot>.empty(growable: true);
-    int x=0;
-    spots.add(new FlSpot(x.toDouble(), 0));
-    value.forEach((element) {
-      x++;
-      spots.add(new FlSpot(x.toDouble(), element.value.toDouble()));
+    values.forEach((element) {
+      var parsedDate = DateFormat.yMMMMd().parse(element.date);
+      var date =  DateTime.now();
+      if(parsedDate.millisecondsSinceEpoch < date.millisecondsSinceEpoch){
+      spots.add(new FlSpot(22 - (date.difference(parsedDate).inDays/31.0) * 2, element.value.toDouble()));}
     });
+    spots.sort((a, b) => -a.x.compareTo(b.x));
     return spots;
   }
 

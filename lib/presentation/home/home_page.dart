@@ -100,9 +100,9 @@ class _HomePageState extends State<HomePage> {
       );
 
   Widget _buildChart() => FineanceChart(
-          spots: FineanceChartSpots(spots: [
-        widget.wallet.calculatePointToDisplayWholeValue(),
-        widget.wallet.calculatePointToDisplay(),
+          spots: FineanceChartSpots(spots:
+          [widget.wallet.calculatePointToDisplay(true),
+        widget.wallet.calculatePointToDisplay(false),
       ], colors: [
         AppColors.earningLineColor,
         AppColors.spendingLineColor
