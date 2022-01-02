@@ -117,7 +117,7 @@ FlGridData _grid(FineanceChartExtent extent) => FlGridData(
       show: true,
       drawHorizontalLine: true,
       drawVerticalLine: true,
-      horizontalInterval: (extent.maxY - extent.minY) / 4,
+      horizontalInterval: (extent.maxY - extent.minY)!=0? (extent.maxY - extent.minY)/ 4 : 100,
       verticalInterval: extent.verticalInterval,
     );
 
