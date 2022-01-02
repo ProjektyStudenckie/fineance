@@ -1,4 +1,5 @@
 import 'package:fineance/components/fineance_chart_buttons.dart';
+import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/helpers/fineance_chart.dart';
 import 'package:fineance/style/colors.dart';
 import 'package:fineance/style/dimens.dart';
@@ -28,7 +29,7 @@ class _FineanceChartState extends State<FineanceChart> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           _chartContainer(
-            isDarkMode: Theme.of(context).brightness == Brightness.dark,
+            isDarkMode: context.isDarkTheme,
             spots: detailedSpots(
                 spots: widget.spots, extent: chartExtent, isAvg: showAvg),
             sideTexts: sideLabels(detailedSpots(
@@ -66,10 +67,10 @@ Widget _chartContainer({
       aspectRatio: 1.7,
       child: Container(
         decoration: BoxDecoration(
-          border:
-              Border.all(color: isDarkMode ? AppColors.grey : AppColors.white),
+          border: Border.all(
+              color: isDarkMode ? AppColors.grey : AppColors.darkGrey),
           borderRadius: const BorderRadius.all(Radius.circular(18)),
-          color: isDarkMode ? AppColors.darkGrey : AppColors.grey,
+          color: isDarkMode ? AppColors.darkGrey : AppColors.white,
         ),
         child: Padding(
           padding: const EdgeInsets.only(
@@ -117,7 +118,9 @@ FlGridData _grid(FineanceChartExtent extent) => FlGridData(
       show: true,
       drawHorizontalLine: true,
       drawVerticalLine: true,
-      horizontalInterval: (extent.maxY - extent.minY)!=0? (extent.maxY - extent.minY)/ 4 : 100,
+      horizontalInterval: (extent.maxY - extent.minY) != 0
+          ? (extent.maxY - extent.minY) / 4
+          : 100,
       verticalInterval: extent.verticalInterval,
     );
 
@@ -146,8 +149,8 @@ SideTitles _sideTexts(FineanceChartLabel texts) => SideTitles(
       interval: 1,
       reservedSize: 32,
       margin: 20,
-      getTextStyles: (context, value) => const TextStyle(
-        color: AppColors.white,
+      getTextStyles: (context, value) => TextStyle(
+        color: context.isDarkTheme ? AppColors.white : AppColors.darkGrey,
         fontWeight: FontWeight.bold,
         fontSize: 12,
       ),
@@ -164,8 +167,8 @@ SideTitles _bottomTexts(FineanceChartLabel texts) => SideTitles(
       reservedSize: 22,
       interval: 0.25,
       margin: 8,
-      getTextStyles: (context, value) => const TextStyle(
-        color: AppColors.white,
+      getTextStyles: (context, value) => TextStyle(
+        color: context.isDarkTheme ? AppColors.white : AppColors.darkGrey,
         fontWeight: FontWeight.bold,
         fontSize: 12,
       ),

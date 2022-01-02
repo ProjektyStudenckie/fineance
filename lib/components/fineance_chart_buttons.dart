@@ -22,42 +22,47 @@ class FineanceChartButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _avgButton(isDarkMode: Theme.of(context).brightness == Brightness.dark),
-        _dropDownButton(
-            isDarkMode: Theme.of(context).brightness == Brightness.dark),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 5.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _avgButton(
+              isDarkMode: Theme.of(context).brightness == Brightness.dark),
+          _dropDownButton(
+              isDarkMode: Theme.of(context).brightness == Brightness.dark),
+        ],
+      ),
     );
   }
 
-  Widget _avgButton({required bool isDarkMode}) => SizedBox(
-        width: 40,
-        height: 32,
-        child: TextButton(
-          onPressed: () => setShowAvg(),
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(
-                isDarkMode ? AppColors.darkGrey : AppColors.grey),
-          ),
-          child: Text(
-            translate(LocaleKeys.chart_avg),
-            style: TextStyle(
-              fontSize: 12,
-              color: isDarkMode
-                  ? (showAvg ? Colors.white.withOpacity(0.5) : Colors.white)
-                  : (showAvg ? AppColors.lightGrey : Colors.black),
-            ),
+  Widget _avgButton({required bool isDarkMode}) => TextButton(
+        onPressed: () => setShowAvg(),
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
+              side: const BorderSide(color: AppColors.darkGrey))),
+          backgroundColor: MaterialStateProperty.all<Color>(
+              isDarkMode ? AppColors.darkGrey : AppColors.white),
+        ),
+        child: Text(
+          translate(LocaleKeys.chart_avg),
+          style: TextStyle(
+            fontSize: 12,
+            color: isDarkMode
+                ? (showAvg ? Colors.white.withOpacity(0.5) : Colors.white)
+                : (showAvg ? AppColors.lightGrey : Colors.black),
           ),
         ),
       );
 
   Widget _dropDownButton({required bool isDarkMode}) => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
-          color: isDarkMode ? AppColors.darkGrey : AppColors.grey,
-          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+              color: isDarkMode ? AppColors.grey : AppColors.darkGrey),
+          borderRadius: const BorderRadius.all(Radius.circular(18)),
+          color: isDarkMode ? AppColors.darkGrey : AppColors.white,
         ),
         child: DropdownButton<ChartExtent>(
           value: extent,

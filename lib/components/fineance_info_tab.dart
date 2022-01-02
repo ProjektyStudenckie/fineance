@@ -22,9 +22,10 @@ class FineanceInfoTab extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
-                color: context.isDarkTheme ? AppColors.grey : AppColors.white),
+                color:
+                    context.isDarkTheme ? AppColors.grey : AppColors.darkGrey),
             borderRadius: const BorderRadius.all(Radius.circular(18)),
-            color: context.isDarkTheme ? AppColors.darkGrey : AppColors.grey,
+            color: context.isDarkTheme ? AppColors.darkGrey : AppColors.white,
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
