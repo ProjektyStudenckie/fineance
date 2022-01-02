@@ -91,16 +91,20 @@ class _HomePageState extends State<HomePage> {
       );
 
   Widget _buildChart() => FineanceChart(
-          spots: FineanceChartSpots(spots: [
-        [FlSpot(1, 3), FlSpot(2, 5), FlSpot(3, 7)],
-        [FlSpot(1, 1), FlSpot(2, 3), FlSpot(3, 2)]
+          spots: FineanceChartSpots(spots:
+          [widget.wallet.calculatePointToDisplayWholeValue(),
+        widget.wallet.calculatePointToDisplay(),
       ], colors: [
         AppColors.earningLineColor,
         AppColors.spendingLineColor
       ]));
 
-  Widget _buildProgressIndicator() => Column(
+  Widget _buildProgressIndicator() {
+    if( widget.wallet != null && widget.wallet.nextGoal().value!=0)
+    {
+    return Column(
         children: [
+
           Text(
             'You have completed',
             style: context.typo.mainBold().copyWith(
@@ -108,15 +112,31 @@ class _HomePageState extends State<HomePage> {
                 ),
           ),
           FineanceProgressIndicator(
-              barColor: AppColors.red, completedPercent: 0.5),
+              barColor: AppColors.red, completedPercent: widget.wallet.wholeValue / widget.wallet.nextGoal().value),
           Text(
-            'of your goal.',
+            'of your next goal.',
             style: context.typo.mainBold().copyWith(
                   color: context.isDarkTheme ? Colors.white : Colors.black,
                 ),
           ),
+
         ],
       );
+    }
+    else{
+      return Column(
+          children: [
+            Text(
+              'You Have Completed All Goals',
+              style: context.typo.mainBold().copyWith(
+                color: context.isDarkTheme ? Colors.white : Colors.black,
+              ),
+            ),
+
+],);
+      }
+
+  }
 
   Widget _buildIncomeExpenseButton() {
     return FineanceButton(

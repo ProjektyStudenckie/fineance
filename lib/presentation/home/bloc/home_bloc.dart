@@ -11,6 +11,7 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   final WalletRepository _walletsRepository;
   late StreamSubscription _walletChange;
+  late int indexWallet;
 
   HomeCubit(this._walletsRepository) : super(HomeInitial()) {
     _listenForChanges();
@@ -25,15 +26,22 @@ class HomeCubit extends Cubit<HomeState> {
   void _setChosenWallet(int index) async {
     await _walletsRepository.downloadWallets();
     final Wallet _wallet = _walletsRepository.wallets[index];
+    indexWallet = index;
     emit(ChosenWallet(wallet: _wallet));
   }
 
-  void addGoal(Wallet wallet, Goal goal) {
-    _walletsRepository.addGoal(wallet, goal);
+  void addGoal(Wallet wallet, Goal goal) async {
+    await _walletsRepository.addGoal(wallet, goal);
+    await _walletsRepository.downloadWallets();
+    final Wallet _wallet = _walletsRepository.wallets[indexWallet];
+    emit(ChosenWallet(wallet: _wallet));
   }
 
-  void addRemittance(Wallet wallet, Remittance remittance) {
-    _walletsRepository.addRemitance(wallet, remittance);
+  void addRemittance(Wallet wallet, Remittance remittance) async{
+    await _walletsRepository.addRemitance(wallet, remittance);
+    await _walletsRepository.downloadWallets();
+    final Wallet _wallet = _walletsRepository.wallets[indexWallet];
+    emit(ChosenWallet(wallet: _wallet));
   }
 
   @override
