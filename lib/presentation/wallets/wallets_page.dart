@@ -97,20 +97,18 @@ class _WalletsPageState extends State<WalletsPage> {
         child: SizedBox(
           height: 45.0,
           width: 45.0,
-          child: FittedBox(
-            child: FloatingActionButton(
-              onPressed: () async {
-                await context.router.push(const AddWalletRoute());
+          child: FloatingActionButton(
+            onPressed: () async {
+              await context.router.push(const AddWalletRoute());
 
-                // to odswieza liste!
-                setState(() {
-                  walletRepository =
-                      BlocProvider.of<WalletsBloc>(context).walletRepository;
-                });
-              },
-              backgroundColor: AppColors.green,
-              child: const Icon(Icons.add),
-            ),
+              // to odswieza liste!
+              setState(() {
+                walletRepository =
+                    BlocProvider.of<WalletsBloc>(context).walletRepository;
+              });
+            },
+            backgroundColor: AppColors.green,
+            child: const Icon(Icons.add),
           ),
         ),
       );

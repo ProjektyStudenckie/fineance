@@ -31,14 +31,23 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void addGoal(Wallet wallet, Goal goal) async {
+    print(goal);
     await _walletsRepository.addGoal(wallet, goal);
     await _walletsRepository.downloadWallets();
     final Wallet _wallet = _walletsRepository.wallets[indexWallet];
     emit(ChosenWallet(wallet: _wallet));
   }
 
-  void addRemittance(Wallet wallet, Remittance remittance) async{
+  void addRemittance(Wallet wallet, Remittance remittance) async {
     await _walletsRepository.addRemitance(wallet, remittance);
+    await _walletsRepository.downloadWallets();
+    final Wallet _wallet = _walletsRepository.wallets[indexWallet];
+    emit(ChosenWallet(wallet: _wallet));
+  }
+
+  void deleteGoal(Wallet wallet, Goal goal) async {
+    print('ewg');
+    await _walletsRepository.removeGoal(wallet, goal);
     await _walletsRepository.downloadWallets();
     final Wallet _wallet = _walletsRepository.wallets[indexWallet];
     emit(ChosenWallet(wallet: _wallet));

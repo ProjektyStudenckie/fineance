@@ -6,14 +6,13 @@ import 'package:fineance/components/fineance_progress_indicator.dart';
 import 'package:fineance/extension/context_extension.dart';
 import 'package:fineance/helpers/fineance_chart.dart';
 import 'package:fineance/injection/bloc_factory.dart';
-import 'package:fineance/localization/keys.g.dart';
-import 'package:fineance/localization/utils.dart';
 import 'package:fineance/presentation/home/bloc/home_bloc.dart';
 import 'package:fineance/repositories/goal.dart';
 import 'package:fineance/repositories/wallet.dart';
 import 'package:fineance/routing/router.gr.dart';
 import 'package:fineance/style/colors.dart';
 import 'package:fineance/style/dimens.dart';
+import 'package:fineance/style/typography.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,11 +48,13 @@ class _HomePageState extends State<HomePage> {
                   return Column(
                     children: [
                       SizedBox(
-                        height: MediaQuery.of(context).size.height - 450.0,
+                        height: MediaQuery.of(context).size.height - 325.0,
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
                               _buildChart(),
+                              const SizedBox(height: 30.0),
+                              _buildGoalsInfoTabs(),
                               const SizedBox(height: 30.0),
                               _buildProgressIndicator(),
                               const SizedBox(height: 30.0),
@@ -62,9 +63,19 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10.0),
-                      _buildIncomeExpenseButton(),
-                      _buildAddGoalButton(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SizedBox(
+                              height: 80.0,
+                              width: 180.0,
+                              child: _buildIncomeExpenseButton()),
+                          SizedBox(
+                              height: 80.0,
+                              width: 180.0,
+                              child: _buildAddGoalButton()),
+                        ],
+                      ),
                     ],
                   );
                 },
@@ -85,7 +96,86 @@ class _HomePageState extends State<HomePage> {
         automaticallyImplyLeading: false,
         leadingWidth: 500.0,
         toolbarHeight: 100.0,
+        //actions: [_buildAppBarActions()],
       );
+
+  Widget _buildAppBarActions() => Padding(
+        padding: const EdgeInsets.only(right: Dimens.kMarginLargeDouble),
+        child: SizedBox(
+          height: 45.0,
+          width: 45.0,
+          child: FloatingActionButton(
+            heroTag: 'homeBtn',
+            backgroundColor: AppColors.blue,
+            onPressed: () => _showMyDialog(),
+            child: const Icon(Icons.add),
+          ),
+        ),
+      );
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SizedBox(
+            height: 100.0,
+            child: Column(
+              children: [
+                TextButton(
+                    onPressed: () async {
+                      context.router.pop();
+                      final _newGoal =
+                          await context.router.push(const AddGoalRoute());
+                      BlocProvider.of<HomeCubit>(context)
+                          .addGoal(widget.wallet, _newGoal as Goal);
+                      setState(() {});
+                    },
+                    child: Text(
+                      'Add goal.',
+                      style:
+                          AppTypography().main().copyWith(color: Colors.blue),
+                    )),
+                TextButton(
+                    onPressed: () async {
+                      context.router.pop();
+                      final _newRemittance =
+                          await context.router.push(const IncomeExpenseRoute());
+                      BlocProvider.of<HomeCubit>(context).addRemittance(
+                          widget.wallet, _newRemittance as Remittance);
+                    },
+                    child: Text(
+                      'Add Income / Expense.',
+                      style:
+                          AppTypography().main().copyWith(color: Colors.blue),
+                    )),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // FineanceSmallButton(addGoal: () async {
+  //   final _newGoal = await context.router.push(const AddGoalRoute());
+  //   BlocProvider.of<HomeCubit>(context)
+  //       .addGoal(widget.wallet, _newGoal as Goal);
+  // }, addRemittance: () async {
+  //   final _newRemittance =
+  //       await context.router.push(const IncomeExpenseRoute());
+  //   BlocProvider.of<HomeCubit>(context)
+  //       .addRemittance(widget.wallet, _newRemittance as Remittance);
+  // });
 
   Widget _buildAppBarLeading() => Padding(
         padding: const EdgeInsets.only(
@@ -100,8 +190,8 @@ class _HomePageState extends State<HomePage> {
       );
 
   Widget _buildChart() => FineanceChart(
-          spots: FineanceChartSpots(spots:
-          [widget.wallet.calculatePointToDisplay(true),
+          spots: FineanceChartSpots(spots: [
+        widget.wallet.calculatePointToDisplay(true),
         widget.wallet.calculatePointToDisplay(false),
       ], colors: [
         AppColors.earningLineColor,
@@ -146,7 +236,8 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildIncomeExpenseButton() {
     return FineanceButton(
-        text: translate(LocaleKeys.add_wallet_page_add_income_expense),
+        //text: translate(LocaleKeys.add_wallet_page_add_income_expense),
+        text: 'Add I/E',
         onPressed: () async {
           final _newRemittance =
               await context.router.push(const IncomeExpenseRoute());
@@ -157,7 +248,6 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildAddGoalButton() {
     return FineanceButton(
-        // TODO change text to locale
         text: 'Add goal',
         onPressed: () async {
           final _newGoal = await context.router.push(const AddGoalRoute());
@@ -171,8 +261,28 @@ class _HomePageState extends State<HomePage> {
       children: List.generate(
           widget.wallet.value.length,
           (index) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: FineanceInfoTab(remittance: widget.wallet.value[index]),
+                padding: const EdgeInsets.symmetric(vertical: 6.0),
+                child: FineanceInfoTab(
+                  isGoal: false,
+                  value: widget.wallet.value[index],
+                  deleteGoal: () {},
+                ),
+              )),
+    );
+  }
+
+  Widget _buildGoalsInfoTabs() {
+    return Column(
+      children: List.generate(
+          widget.wallet.goal.length,
+          (index) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6.0),
+                child: FineanceInfoTab(
+                  isGoal: true,
+                  value: widget.wallet.goal[index],
+                  deleteGoal: () => BlocProvider.of<HomeCubit>(context)
+                      .deleteGoal(widget.wallet, widget.wallet.goal[index]),
+                ),
               )),
     );
   }
