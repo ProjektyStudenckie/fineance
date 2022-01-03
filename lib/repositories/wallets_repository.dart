@@ -133,7 +133,7 @@ class WalletRepository {
       }
     } on DioError catch (error) {
       if (error.response?.data != null) {
-        throw ApiError.fromJson(error.response?.data as Map<String, dynamic>);
+        return false;
       }
     }
     return false;
