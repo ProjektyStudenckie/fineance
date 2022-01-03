@@ -188,5 +188,5 @@ LineChartBarData _line(
       colors: lineColor,
       barWidth: 5,
       isStrokeCapRound: true,
-      dotData: FlDotData(show: false),
+      dotData: FlDotData(show: true),
     );
