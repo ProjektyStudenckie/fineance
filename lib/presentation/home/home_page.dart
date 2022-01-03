@@ -183,10 +183,11 @@ class _HomePageState extends State<HomePage> {
           left: Dimens.kMarginLargeDouble,
         ),
         child: Text(
-          widget.wallet.name,
+          widget.wallet.name + ": " + widget.wallet.wholeValue.toString() ,
           style: context.typo.extraLargeBold(
               color: context.isDarkTheme ? AppColors.white : AppColors.black),
         ),
+
       );
 
   Widget _buildChart() => FineanceChart(
